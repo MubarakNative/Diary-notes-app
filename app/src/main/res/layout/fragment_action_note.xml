@@ -1,14 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presenter.addoredit.ActionNoteFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:context=".presenter.addoreditnote.ActionNoteFragment">
 
-</FrameLayout>
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbarCreateNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:navigationIcon="@drawable/back_arrow24px" />
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_below="@id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/etAddTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:autoLink="web|email"
+                    android:autofillHints="Title"
+                    android:background="@null"
+                    android:hint="@string/title"
+                    android:imeOptions="flagNoExtractUi"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine|textLongMessage|textCapSentences|textAutoCorrect"
+                    android:linksClickable="true"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:scrollbars="vertical"
+                    android:textAppearance="?textAppearanceBody1"
+                    android:textDirection="anyRtl"
+                    android:textSize="20sp" />
+
+
+                <EditText
+                    android:id="@+id/etAddDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/etAddTitle"
+                    android:layout_marginTop="20dp"
+                    android:autoLink="web|email"
+                    android:autofillHints="Description"
+                    android:background="@null"
+                    android:hint="@string/description"
+                    android:imeOptions="flagNoExtractUi"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine|textLongMessage|textCapSentences|textAutoCorrect"
+                    android:linksClickable="true"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:scrollbars="vertical"
+                    android:textAppearance="?textAppearanceBody1"
+                    android:textDirection="anyRtl"
+                    android:textSize="15sp" />
+
+
+            </RelativeLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+        <!--    <com.google.android.material.bottomappbar.BottomAppBar-->
+        <!--        android:id="@+id/btmAppBarUpdate"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_gravity="bottom"-->
+        <!--        style="@style/Widget.Material3.BottomAppBar"-->
+        <!--        />-->
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabSaveNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="Save note"
+            app:srcCompat="@android:drawable/ic_menu_save" />
+
+
+    </RelativeLayout>
+</layout>

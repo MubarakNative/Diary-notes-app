@@ -1,15 +1,20 @@
 package com.mubarak.madexample.presenter.note
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mubarak.madexample.R
+import com.mubarak.madexample.adapter.HomeNoteItemAdapter
 import com.mubarak.madexample.databinding.FragmentHomeNoteBinding
+import com.mubarak.madexample.utils.openNavDrawer
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeNoteFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeNoteBinding
@@ -17,9 +22,14 @@ class HomeNoteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
-        binding = FragmentHomeNoteBinding.inflate(
-            inflater,container,false
+
+        val rootView = inflater.inflate(
+            R.layout.fragment_home_note,
+            container,
+            false
+        )
+        binding = FragmentHomeNoteBinding.bind(
+          rootView
         )
 
         return binding.root
@@ -28,11 +38,35 @@ class HomeNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setUpHomeRecyclerView()
+
+         val homeViewModel: HomeNoteViewModel by viewModels()
+
+        val homeAdapter by lazy {
+            HomeNoteItemAdapter()
+        }
+
+        binding.homeNoteList.adapter = homeAdapter
+        homeAdapter.submitList(homeViewModel.getAllNotes.value)
 
         binding.toolBarHome.setNavigationOnClickListener {
-            val drawerLayout =requireActivity().findViewById<DrawerLayout>(R.id.main_drawer_layout)
-            drawerLayout.openDrawer(GravityCompat.START)
+            requireView().openNavDrawer(requireActivity())
         }
+
+    }
+
+    private fun setUpHomeRecyclerView(){
+        binding.apply {
+            homeNoteList.layoutManager = LinearLayoutManager(
+                requireContext()
+            )
+            homeNoteList.setHasFixedSize(true)
+        }
+
+    }
+
+    private fun setUpFab(){
+
     }
 
 }

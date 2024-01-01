@@ -9,10 +9,14 @@
         android:id="@+id/homeNoteFragment"
         android:name="com.mubarak.madexample.presenter.note.HomeNoteFragment"
         android:label="fragment_home_note"
-        tools:layout="@layout/fragment_home_note" />
+        tools:layout="@layout/fragment_home_note" >
+        <action
+            android:id="@+id/action_homeNoteFragment_to_actionNoteFragment"
+            app:destination="@id/actionNoteFragment" />
+    </fragment>
     <fragment
         android:id="@+id/actionNoteFragment"
-        android:name="com.mubarak.madexample.presenter.addoredit.ActionNoteFragment"
+        android:name="com.mubarak.madexample.presenter.addoreditnote.ActionNoteFragment"
         android:label="fragment_action_note"
         tools:layout="@layout/fragment_action_note" />
     <fragment

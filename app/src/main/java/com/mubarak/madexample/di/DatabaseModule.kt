@@ -2,7 +2,9 @@ package com.mubarak.madexample.di
 
 import android.content.Context
 import androidx.room.Room
+import com.mubarak.madexample.data.repository.NoteRepository
 import com.mubarak.madexample.data.sources.local.NoteDatabase
+import com.mubarak.madexample.data.sources.NoteRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,5 +24,11 @@ object DatabaseModule {
             NoteDatabase::class.java,
             "notes_db"
         ).build()
+    }
+
+    @Singleton
+    @Provides
+    fun getRepositoryImpl(noteDatabase: NoteDatabase):NoteRepository{
+        return NoteRepositoryImpl(noteDatabase)
     }
 }
