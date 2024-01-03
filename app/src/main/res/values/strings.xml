@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">MAD Example</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="note">Note</string>
     <string name="settings">Settings</string>
     <string name="create_note_content_description">Create note</string>
     <string name="description">Description</string>
+    <string name="empty_note_message">Empty note discarded!</string>
     <string name="title">Title</string>
+    <string name="note_deleted">Note deleted</string>
+    <string name="undo">UNDO</string>
+
 </resources>

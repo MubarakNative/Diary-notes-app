@@ -5,6 +5,11 @@
 
     <data>
 
+        <import type="com.mubarak.madexample.presenter.addoreditnote.ActionNoteViewModel"/>
+        <variable
+            name="actionViewModel"
+            type="ActionNoteViewModel" />
+
     </data>
 
     <RelativeLayout
@@ -37,10 +42,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <!-- Two ways dataBinding edittext `title` value goes to view-model-->
                 <EditText
                     android:id="@+id/etAddTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@={actionViewModel.title}"
                     android:layout_marginTop="15dp"
                     android:autoLink="web|email"
                     android:autofillHints="Title"
@@ -57,11 +64,12 @@
                     android:textDirection="anyRtl"
                     android:textSize="20sp" />
 
-
+                <!-- Two ways dataBinding edittext `description` value goes to view-model-->
                 <EditText
                     android:id="@+id/etAddDesc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@={actionViewModel.description}"
                     android:layout_below="@id/etAddTitle"
                     android:layout_marginTop="20dp"
                     android:autoLink="web|email"
@@ -85,14 +93,6 @@
 
         </androidx.core.widget.NestedScrollView>
 
-        <!--    <com.google.android.material.bottomappbar.BottomAppBar-->
-        <!--        android:id="@+id/btmAppBarUpdate"-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:layout_gravity="bottom"-->
-        <!--        style="@style/Widget.Material3.BottomAppBar"-->
-        <!--        />-->
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabSaveNote"
             android:layout_width="wrap_content"
@@ -103,6 +103,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
+            android:onClick="@{() -> actionViewModel.saveNote()}"
             android:contentDescription="Save note"
             app:srcCompat="@android:drawable/ic_menu_save" />
 

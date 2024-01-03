@@ -17,11 +17,15 @@ class NoteRepositoryImpl @Inject constructor(
         notesDatabase.getDao.upsertNote(note)
     }
 
-    override suspend fun getAllNote(): Flow<List<Note>> {
+    override fun getAllNote(): Flow<List<Note>> {
         return notesDatabase.getDao.getAllNotes()
     }
 
     override suspend fun deleteNote(note: Note) {
         notesDatabase.getDao.deleteNote(note)
+    }
+
+    override suspend fun deleteNoteById(noteId: Int) {
+        notesDatabase.getDao.deleteNoteById(noteId)
     }
 }

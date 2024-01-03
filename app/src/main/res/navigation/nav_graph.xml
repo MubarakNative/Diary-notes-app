@@ -13,12 +13,29 @@
         <action
             android:id="@+id/action_homeNoteFragment_to_actionNoteFragment"
             app:destination="@id/actionNoteFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/actionNoteFragment"
         android:name="com.mubarak.madexample.presenter.addoreditnote.ActionNoteFragment"
         android:label="fragment_action_note"
-        tools:layout="@layout/fragment_action_note" />
+        tools:layout="@layout/fragment_action_note" >
+
+
+        <argument
+            android:name="noteId"
+            app:argType="integer"
+            android:defaultValue="0" />
+
+        <argument android:name="noteTitle"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument android:name="noteDescription"
+            app:argType="string"
+            app:nullable="true" />
+
+    </fragment>
     <fragment
         android:id="@+id/settingNoteFragment"
         android:name="com.mubarak.madexample.presenter.settings.SettingNoteFragment"

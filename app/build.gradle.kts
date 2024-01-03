@@ -74,11 +74,11 @@ dependencies {
 
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodelVersion")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$viewmodelVersion")
 
     // kotlin Ktx
     implementation ("androidx.fragment:fragment-ktx:1.6.2")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+
 
     // Coroutines (Asynchronous Task)
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")

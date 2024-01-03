@@ -6,12 +6,11 @@ import androidx.room.PrimaryKey
 
 @Entity("note_table")
 data class Note(
+    @ColumnInfo("note_id")
+    @PrimaryKey(autoGenerate = true)
+    val id:Int = 0,
     @ColumnInfo("Title")
     val title:String,
     @ColumnInfo("Description")
     val description:String
-){
-    @ColumnInfo("note_id")
-    @PrimaryKey(autoGenerate = true)
-    var id:Int = 0
-}
+)
