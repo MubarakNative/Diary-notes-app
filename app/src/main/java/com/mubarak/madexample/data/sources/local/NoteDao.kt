@@ -26,4 +26,10 @@ interface NoteDao {
 
     @Query("DELETE FROM note_table WHERE note_id = :noteId")
    suspend fun deleteNoteById(noteId:Int)
+
+   @Query(" SELECT * FROM note_table WHERE Title LIKE '%' || :searchQuery ||'%' or Description LIKE '%' || :searchQuery ||'%' ")
+   fun searchNote(searchQuery:String):Flow<List<Note>>
+
+   @Query("SELECT * FROM note_table WHERE note_id =:noteId ")
+   fun getNoteById(noteId:String): Flow<Note>
 }

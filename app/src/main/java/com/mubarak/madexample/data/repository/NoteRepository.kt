@@ -9,4 +9,7 @@ interface NoteRepository {
      fun getAllNote(): Flow<List<Note>>
     suspend fun deleteNote(note:Note)
     suspend fun deleteNoteById(noteId:Int)
+    fun searchNote(searchQuery:String):Flow<List<Note>>
+    fun getNoteById(noteId:String):Flow<Note>
+
 }

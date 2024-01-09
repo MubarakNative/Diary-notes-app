@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeNoteFragment_to_actionNoteFragment"
             app:destination="@id/actionNoteFragment" />
+        <action
+            android:id="@+id/action_homeNoteFragment_to_searchNoteFragment"
+            app:destination="@id/searchNoteFragment" />
 
     </fragment>
     <fragment
@@ -24,16 +27,8 @@
 
         <argument
             android:name="noteId"
-            app:argType="integer"
-            android:defaultValue="0" />
-
-        <argument android:name="noteTitle"
             app:argType="string"
-            app:nullable="true" />
-
-        <argument android:name="noteDescription"
-            app:argType="string"
-            app:nullable="true" />
+            app:nullable="true"/>
 
     </fragment>
     <fragment
@@ -41,4 +36,8 @@
         android:name="com.mubarak.madexample.presenter.settings.SettingNoteFragment"
         android:label="fragment_setting_note"
         tools:layout="@layout/fragment_settings_note" />
+    <fragment
+        android:id="@+id/searchNoteFragment"
+        android:name="com.mubarak.madexample.presenter.search.SearchNoteFragment"
+        android:label="SearchNoteFragment" />
 </navigation>

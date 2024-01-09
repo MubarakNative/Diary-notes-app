@@ -26,8 +26,8 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
                 as NavHostFragment
-        navController = navHostFragment.navController
 
+        navController = navHostFragment.navController
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -36,23 +36,9 @@ class MainActivity : AppCompatActivity() {
             ),binding.mainDrawerLayout
         )
 
-        binding.navigationView.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.settingNoteFragment -> {
-                    navController.navigate(R.id.settingNoteFragment)
-                    return@setNavigationItemSelectedListener true
-                }
-                else -> return@setNavigationItemSelectedListener false
-            }
-
-        }
         navigationView.setupWithNavController(navController)
 
-        // Override the onNavigationItemSelected method from the NavigationView.OnNavigationItemSelectedListener interface
-
     }
-
-
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()

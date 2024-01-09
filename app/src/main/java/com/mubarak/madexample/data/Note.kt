@@ -3,14 +3,17 @@ package com.mubarak.madexample.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.UUID
 
 @Entity("note_table")
 data class Note(
+    @PrimaryKey
     @ColumnInfo("note_id")
-    @PrimaryKey(autoGenerate = true)
-    val id:Int = 0,
+    var id:String = UUID.randomUUID().toString(),
+
     @ColumnInfo("Title")
-    val title:String,
+    var title:String,
+
     @ColumnInfo("Description")
-    val description:String
+    var description:String
 )

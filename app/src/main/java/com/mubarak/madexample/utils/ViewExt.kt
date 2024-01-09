@@ -1,9 +1,9 @@
 package com.mubarak.madexample.utils
 
 import android.app.Activity
-import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -16,17 +16,22 @@ fun View.openNavDrawer(activity: Activity) {
     drawerLayout.openDrawer(GravityCompat.START)
 }
 
-fun View.showSoftKeyboard(view: View, context: Context) {
-    if (view.requestFocus()) {
+fun View.showSoftKeyboard(viewToFocus: View) {
+    if (viewToFocus.requestFocus()) { // findFocus for searchView other requestFocus
+        val context = context ?: return
         val imm = ContextCompat.getSystemService(context, InputMethodManager::class.java)
-        imm?.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+        imm?.showSoftInput(viewToFocus, InputMethodManager.SHOW_IMPLICIT)
     }
 }
 
-fun MaterialToolbar.onUpButtonClick(){
-   setNavigationOnClickListener {
-       findNavController().popBackStack()
-   }
+fun View.hideSoftKeyboard() {
+    val context = context ?: return // get the context
+    val imm = ContextCompat.getSystemService(context, InputMethodManager::class.java)
+    imm?.hideSoftInputFromWindow(this.windowToken, 0)
 }
 
-//fun View.show
+fun MaterialToolbar.onUpButtonClick() {
+    setNavigationOnClickListener {
+        findNavController().popBackStack()
+    }
+}

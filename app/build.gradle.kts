@@ -5,6 +5,7 @@ plugins {
     id("com.google.dagger.hilt.android") // dagger-hilt
     id("androidx.navigation.safeargs.kotlin") // safe-args
     id("kotlin-parcelize") // parcelize transferring data between classes
+    id("kotlin-kapt") // for only databinding
 }
 
 android {
@@ -74,6 +75,7 @@ dependencies {
 
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodelVersion")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 
     // kotlin Ktx
     implementation ("androidx.fragment:fragment-ktx:1.6.2")

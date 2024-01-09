@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.mubarak.madexample.data.repository.NoteRepository
 import com.mubarak.madexample.data.sources.local.NoteDatabase
 import com.mubarak.madexample.data.sources.NoteRepositoryImpl
+import com.mubarak.madexample.utils.Constants.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,7 +23,7 @@ object DatabaseModule {
         return Room.databaseBuilder(
             context,
             NoteDatabase::class.java,
-            "notes_db"
+            DATABASE_NAME
         ).build()
     }
 

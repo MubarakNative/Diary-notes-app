@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <data>
 
         <import type="com.mubarak.madexample.presenter.note.HomeNoteViewModel" />
+
+        <import type="com.mubarak.madexample.adapter.HomeNoteItemAdapter" />
+
         <import type="android.view.View" />
+
 
         <variable
             name="viewModel"
             type="HomeNoteViewModel" />
+
 
     </data>
 
@@ -23,14 +28,16 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/mainAppbarLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:liftOnScroll="false">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolBar_home"
-                app:title="Note"
-                app:navigationIcon="@drawable/menu_hamburger_icon_24px"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                app:menu="@menu/opt_home_menu"
+                app:navigationIcon="@drawable/menu_hamburger_icon_24px"
+                app:title="Note" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -38,36 +45,37 @@
             android:id="@+id/homeNoteList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:listitem="@layout/note_list_item" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:visibility="visible"
-            android:visibility="gone"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:visibility="@{viewModel.isEmpty() ? View.VISIBLE :View.GONE}"
+            tools:visibility="visible">
 
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                tools:ignore="contentDescription"
                 android:src="@drawable/notes_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="contentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Currently you don't have any notes"
+                android:text="@string/no_note_text"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/imageView"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -75,9 +83,9 @@
             android:id="@+id/fab_createNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/create_note_content_description"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
+            android:contentDescription="@string/create_note_content_description"
             android:src="@android:drawable/ic_input_add" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
