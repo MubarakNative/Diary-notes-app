@@ -1,8 +1,8 @@
-package com.mubarak.madexample.presenter.search
+package com.mubarak.madexample.ui.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.mubarak.madexample.data.repository.NoteRepository
+import com.mubarak.madexample.data.sources.NoteRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

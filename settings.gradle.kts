@@ -15,4 +15,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "MAD Example"
 include(":app")
- 

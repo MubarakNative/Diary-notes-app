@@ -2,9 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/searchNote"
+    <item android:id="@+id/action_searchNote"
         android:title="@string/search"
         android:icon="@drawable/search_icon24px"
         app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/action_note_view_type"
+        android:icon="@drawable/grid_view_icon24px"
+        android:title="@string/view_as_grid"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/action_sort_note_order"
+        android:title="@string/filter"
+        android:icon="@drawable/sort_icon24px"
+        app:showAsAction="ifRoom" />
+
 
 </menu>

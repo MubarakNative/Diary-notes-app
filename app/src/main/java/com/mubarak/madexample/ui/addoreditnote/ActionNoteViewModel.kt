@@ -1,22 +1,19 @@
-package com.mubarak.madexample.presenter.addoreditnote
+package com.mubarak.madexample.ui.addoreditnote
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.mubarak.madexample.R
 import com.mubarak.madexample.data.Note
-import com.mubarak.madexample.data.repository.NoteRepository
+import com.mubarak.madexample.data.sources.NoteRepository
 import com.mubarak.madexample.utils.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.math.log
 
 @HiltViewModel
 class ActionNoteViewModel @Inject constructor(

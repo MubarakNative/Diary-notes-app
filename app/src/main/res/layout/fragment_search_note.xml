@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="com.mubarak.madexample.presenter.search.SearchNoteViewModel"/>
+        <import type="com.mubarak.madexample.ui.search.SearchNoteViewModel"/>
         <variable
             name="viewmodel"
             type="SearchNoteViewModel" />
@@ -15,7 +15,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presenter.search.SearchNoteFragment">
+        tools:context=".ui.search.SearchNoteFragment">
 
 
         <com.google.android.material.appbar.AppBarLayout

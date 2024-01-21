@@ -1,4 +1,4 @@
-package com.mubarak.madexample.presenter.main
+package com.mubarak.madexample.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

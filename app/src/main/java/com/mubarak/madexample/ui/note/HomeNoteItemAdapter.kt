@@ -1,6 +1,5 @@
-package com.mubarak.madexample.adapter
+package com.mubarak.madexample.ui.note
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,7 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mubarak.madexample.data.Note
 import com.mubarak.madexample.databinding.NoteListItemBinding
-import com.mubarak.madexample.presenter.note.HomeNoteViewModel
 
 class HomeNoteItemAdapter(
     private val homeNoteViewModel: HomeNoteViewModel

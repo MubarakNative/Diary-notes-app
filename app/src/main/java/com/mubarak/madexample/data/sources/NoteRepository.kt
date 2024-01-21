@@ -1,4 +1,4 @@
-package com.mubarak.madexample.data.repository
+package com.mubarak.madexample.data.sources
 
 import com.mubarak.madexample.data.Note
 import kotlinx.coroutines.flow.Flow

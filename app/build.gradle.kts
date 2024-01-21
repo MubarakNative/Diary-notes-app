@@ -47,7 +47,7 @@ dependencies {
 
     val roomVersion = "2.6.1"
     val daggerVersion = "2.48"
-    val viewmodelVersion = "2.6.2"
+    val viewmodelVersion = "2.7.0"
     val coroutineVersion = "1.7.3"
     val navVersion = "2.7.6"
 
@@ -75,12 +75,14 @@ dependencies {
 
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodelVersion")
-    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
 
-    // kotlin Ktx
+    // Kotlin Ktx (for simplicity delegate's etc,..)
     implementation ("androidx.fragment:fragment-ktx:1.6.2")
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
 
+    // Preference (Data Store)
+    implementation ("androidx.datastore:datastore-preferences:1.0.0")
 
     // Coroutines (Asynchronous Task)
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")

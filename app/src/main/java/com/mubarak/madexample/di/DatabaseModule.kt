@@ -2,7 +2,7 @@ package com.mubarak.madexample.di
 
 import android.content.Context
 import androidx.room.Room
-import com.mubarak.madexample.data.repository.NoteRepository
+import com.mubarak.madexample.data.sources.NoteRepository
 import com.mubarak.madexample.data.sources.local.NoteDatabase
 import com.mubarak.madexample.data.sources.NoteRepositoryImpl
 import com.mubarak.madexample.utils.Constants.DATABASE_NAME
@@ -29,7 +29,7 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun getRepositoryImpl(noteDatabase: NoteDatabase):NoteRepository{
+    fun getRepositoryImpl(noteDatabase: NoteDatabase): NoteRepository {
         return NoteRepositoryImpl(noteDatabase)
     }
 }

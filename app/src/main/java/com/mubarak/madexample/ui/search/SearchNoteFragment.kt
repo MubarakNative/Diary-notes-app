@@ -1,19 +1,17 @@
-package com.mubarak.madexample.presenter.search
+package com.mubarak.madexample.ui.search
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mubarak.madexample.R
-import com.mubarak.madexample.adapter.HomeNoteItemAdapter
+import com.mubarak.madexample.ui.note.HomeNoteItemAdapter
 import com.mubarak.madexample.databinding.FragmentSearchNoteBinding
-import com.mubarak.madexample.presenter.note.HomeNoteViewModel
-import com.mubarak.madexample.utils.hideSoftKeyboard
+import com.mubarak.madexample.ui.note.HomeNoteViewModel
 import com.mubarak.madexample.utils.onUpButtonClick
 import com.mubarak.madexample.utils.showSoftKeyboard
 import dagger.hilt.android.AndroidEntryPoint
@@ -76,7 +74,6 @@ class SearchNoteFragment : Fragment() {
          * */
         binding.searchView.setOnQueryTextFocusChangeListener { edittext, hasFocus ->
             if (hasFocus){
-                Toast.makeText(requireContext(), "SearchView has Focus", Toast.LENGTH_SHORT).show()
                 view.showSoftKeyboard(edittext.findFocus())
             }
         }
