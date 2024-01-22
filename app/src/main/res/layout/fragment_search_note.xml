@@ -43,12 +43,12 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/searchNote_list"
-            android:layout_width="match_parent"
-            tools:listitem="@layout/note_list_item"
-            android:layout_height="match_parent"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/searchNote_list"
+                android:layout_width="match_parent"
+                tools:listitem="@layout/note_list_item"
+                android:layout_height="match_parent"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

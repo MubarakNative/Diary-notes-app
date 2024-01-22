@@ -1,6 +1,6 @@
 package com.mubarak.madexample.data.sources
 
-import com.mubarak.madexample.data.Note
+import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.data.sources.local.NoteDatabase
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

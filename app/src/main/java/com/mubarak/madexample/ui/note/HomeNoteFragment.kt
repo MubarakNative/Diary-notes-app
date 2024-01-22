@@ -1,10 +1,12 @@
 package com.mubarak.madexample.ui.note
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -12,16 +14,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.mubarak.madexample.R
-import com.mubarak.madexample.data.Note
-import com.mubarak.madexample.data.sources.preference.ToDoPreferenceDataStore
+import com.mubarak.madexample.data.sources.datastore.TodoPreferenceDataStore
+import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.databinding.FragmentHomeNoteBinding
+import com.mubarak.madexample.ui.search.SearchNoteViewModel
 import com.mubarak.madexample.ui.sortdialog.SortDialogFragment
-import com.mubarak.madexample.utils.Event
 import com.mubarak.madexample.utils.openNavDrawer
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -31,17 +31,20 @@ import javax.inject.Inject
 class HomeNoteFragment : Fragment() {
 
     @Inject
-    lateinit var toDoPreferenceDataStore: ToDoPreferenceDataStore
+    lateinit var toDoPreferenceDataStore: TodoPreferenceDataStore
 
     private lateinit var binding: FragmentHomeNoteBinding
     private val homeViewModel: HomeNoteViewModel by viewModels()
+
+    private val searchNoteViewModel: SearchNoteViewModel by viewModels()
+
     lateinit var draggedNote: Note
     val homeAdapter by lazy { HomeNoteItemAdapter(homeViewModel) }
-    private var isGrid: Boolean = true
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
 
         val rootView = inflater.inflate(
             R.layout.fragment_home_note,
@@ -63,9 +66,10 @@ class HomeNoteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        lifecycleScope.launch {
+        /*lifecycleScope.launch {
             toDoPreferenceDataStore.isGridOrder()
-        }
+        }*/
+
 
         binding.fabCreateNote.setOnClickListener {
             navigateToAddEditFragment()
@@ -76,6 +80,7 @@ class HomeNoteFragment : Fragment() {
             toolBarHome.setNavigationOnClickListener {
                 requireView().openNavDrawer(requireActivity())
             }
+
 
             /**we get the note id from note_list_item layout this note_id will available for [HomeNoteViewModel]
              * we simply observe it*/
@@ -94,8 +99,7 @@ class HomeNoteFragment : Fragment() {
                 }
             }
 
-
-            toolBarHome.setOnMenuItemClickListener { menuItem ->
+           toolBarHome.setOnMenuItemClickListener { menuItem ->
                 return@setOnMenuItemClickListener when (menuItem.itemId) {
                     R.id.action_searchNote -> {
                         findNavController().navigate(R.id.action_homeNoteFragment_to_searchNoteFragment)
@@ -110,11 +114,11 @@ class HomeNoteFragment : Fragment() {
                         true
                     }
 
-                    R.id.action_note_view_type -> {
+                   /* R.id.action_note_view_type -> {
                         /** TODO Need to implement this functionality*/
-                        true
-                    }
 
+                        true
+                    }*/
                     else -> false
                 }
             }
@@ -149,6 +153,7 @@ class HomeNoteFragment : Fragment() {
 
     }
 
+
     /**note_id is only available if the note should exist and click on the note item
      * [TODO that means we need to edit the note to edit it we pass the note it to [ActionNoteFragment]]
      * */
@@ -169,7 +174,7 @@ class HomeNoteFragment : Fragment() {
 
 
     /** Pending noteItemLayout impl we need to impl the grid or list item of note*/
-    private fun noteItemLayout() {
+   /* private fun noteItemLayout() {
         lifecycleScope.launch {
             toDoPreferenceDataStore.isGridOrder().collect { isGrid ->
                 Toast.makeText(requireContext(), "IsGrid: $isGrid", Toast.LENGTH_LONG).show()
@@ -190,6 +195,6 @@ class HomeNoteFragment : Fragment() {
                 }
             }
         }
-    }
+    }*/
 
 }

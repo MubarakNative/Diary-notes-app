@@ -38,5 +38,9 @@
     <fragment
         android:id="@+id/searchNoteFragment"
         android:name="com.mubarak.madexample.ui.search.SearchNoteFragment"
-        android:label="SearchNoteFragment" />
+        android:label="SearchNoteFragment" >
+        <action
+            android:id="@+id/action_searchNoteFragment_to_actionNoteFragment"
+            app:destination="@id/actionNoteFragment" />
+    </fragment>
 </navigation>

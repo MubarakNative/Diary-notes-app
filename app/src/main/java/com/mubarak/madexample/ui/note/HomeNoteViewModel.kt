@@ -1,14 +1,11 @@
 package com.mubarak.madexample.ui.note
 
-import android.content.SharedPreferences
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mubarak.madexample.R
-import com.mubarak.madexample.data.Note
+import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.data.sources.NoteRepository
 import com.mubarak.madexample.utils.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -53,7 +50,7 @@ class HomeNoteViewModel @Inject constructor(
     }
 
     /**delete a specific note*/
-    fun deleteNote(note:Note){
+    fun deleteNote(note: Note){
         viewModelScope.launch {
             noteRepository.deleteNote(note)
             _noteDeletedEvent.value = Event(R.string.note_deleted)
@@ -61,7 +58,7 @@ class HomeNoteViewModel @Inject constructor(
     }
 
     /**insert a note*/
-    fun undoDeletedNote(note:Note){ // insert note for undo deletion
+    fun undoDeletedNote(note: Note){ // insert note for undo deletion
         viewModelScope.launch {
             noteRepository.insertNote(note)
         }

@@ -6,13 +6,13 @@
     <data>
 
         <import type="com.mubarak.madexample.ui.note.HomeNoteViewModel"/>
-        <import type="com.mubarak.madexample.data.Note"/>
+        <import type="com.mubarak.madexample.data.sources.local.model.Note"/>
         <variable
             name="homeViewModel"
             type="HomeNoteViewModel" />
         <variable
             name="note"
-            type="Note" />
+            type="com.mubarak.madexample.data.sources.local.model.Note" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

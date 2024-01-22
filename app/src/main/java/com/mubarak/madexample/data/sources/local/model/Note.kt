@@ -1,4 +1,4 @@
-package com.mubarak.madexample.data
+package com.mubarak.madexample.data.sources.local.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

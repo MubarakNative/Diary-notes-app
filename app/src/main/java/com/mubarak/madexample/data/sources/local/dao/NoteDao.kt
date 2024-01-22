@@ -1,4 +1,4 @@
-package com.mubarak.madexample.data.sources.local
+package com.mubarak.madexample.data.sources.local.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Upsert
-import com.mubarak.madexample.data.Note
+import com.mubarak.madexample.data.sources.local.model.Note
 import kotlinx.coroutines.flow.Flow
 
 @Dao

@@ -7,10 +7,12 @@
         android:icon="@drawable/search_icon24px"
         app:showAsAction="ifRoom"/>
 
+<!--
     <item android:id="@+id/action_note_view_type"
         android:icon="@drawable/grid_view_icon24px"
         android:title="@string/view_as_grid"
         app:showAsAction="ifRoom"/>
+-->
 
     <item android:id="@+id/action_sort_note_order"
         android:title="@string/filter"

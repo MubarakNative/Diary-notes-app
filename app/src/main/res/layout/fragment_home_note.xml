@@ -27,6 +27,12 @@
             android:layout_height="wrap_content"
             app:liftOnScroll="false">
 
+            <!--      <com.google.android.material.search.SearchBar
+                      android:id="@+id/toolBar_home"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:hint="Search your note"
+                      app:navigationIcon="@drawable/menu_hamburger_icon_24px" />-->
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolBar_home"
                 android:layout_width="match_parent"
@@ -37,6 +43,7 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/homeNoteList"
             android:layout_width="match_parent"
@@ -44,6 +51,27 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:listitem="@layout/note_list_item" />
+
+
+
+        <!--<com.google.android.material.search.SearchView
+            android:id="@+id/searview"
+            app:useDrawerArrowDrawable="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_anchor="@id/toolBar_home">
+
+            &lt;!&ndash;Search Suggestion will place here Ex: RecyclerView&ndash;&gt;
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/search_suggestion_recycler_view"
+                android:layout_width="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/note_list_item" />
+
+
+        </com.google.android.material.search.SearchView>-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

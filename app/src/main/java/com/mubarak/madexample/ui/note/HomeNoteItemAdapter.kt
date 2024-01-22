@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.mubarak.madexample.data.Note
+import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.databinding.NoteListItemBinding
 
 class HomeNoteItemAdapter(
