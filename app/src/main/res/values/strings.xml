@@ -12,5 +12,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="filter">Filter</string>
     <string name="view_as_grid">View as grid</string>
+    <string name="send">Send</string>
 
 </resources>

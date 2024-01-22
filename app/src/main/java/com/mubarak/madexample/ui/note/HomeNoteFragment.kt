@@ -36,8 +36,6 @@ class HomeNoteFragment : Fragment() {
     private lateinit var binding: FragmentHomeNoteBinding
     private val homeViewModel: HomeNoteViewModel by viewModels()
 
-    private val searchNoteViewModel: SearchNoteViewModel by viewModels()
-
     lateinit var draggedNote: Note
     val homeAdapter by lazy { HomeNoteItemAdapter(homeViewModel) }
     override fun onCreateView(

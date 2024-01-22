@@ -24,7 +24,7 @@ class NoteRepositoryImpl @Inject constructor(
         notesDatabase.getDao.deleteNote(note)
     }
 
-    override suspend fun deleteNoteById(noteId: Int) {
+    override suspend fun deleteNoteById(noteId: String) {
         notesDatabase.getDao.deleteNoteById(noteId)
     }
 
@@ -35,4 +35,9 @@ class NoteRepositoryImpl @Inject constructor(
     override fun getNoteById(noteId: String): Flow<Note> {
        return notesDatabase.getDao.getNoteById(noteId)
     }
+
+    override suspend fun getNoteByIdd(noteId: String): Note {
+        return notesDatabase.getDao.getNoteByIdd(noteId)
+    }
+
 }

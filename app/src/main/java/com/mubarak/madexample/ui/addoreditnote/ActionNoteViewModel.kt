@@ -6,13 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mubarak.madexample.R
-import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.data.sources.NoteRepository
+import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.utils.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,6 +25,9 @@ class ActionNoteViewModel @Inject constructor(
     // Two-way data-binding
     val title: MutableStateFlow<String> = MutableStateFlow("")
     val description: MutableStateFlow<String> = MutableStateFlow("")
+
+    private val _noteDeletedEvent = MutableLiveData<Event<Int>>()
+    val noteDeletedEvent: LiveData<Event<Int>> = _noteDeletedEvent
 
     private val _noteUpdateEvent = MutableLiveData<Event<Unit>>()
     val noteUpdateEvent: LiveData<Event<Unit>> = _noteUpdateEvent
@@ -40,7 +44,7 @@ class ActionNoteViewModel @Inject constructor(
 
         this.noteId = noteId // for global reference
 
-        if (noteId==null) { // that means create a new Note
+        if (noteId == null) { // that means create a new Note
             isNewNote = true
             return
         }
@@ -63,9 +67,10 @@ class ActionNoteViewModel @Inject constructor(
 
         if (isNewNote) { // that means this is for creating note (INSERT)
 
-            Log.d("note", "Is newNote:${isNewNote.toString()}")
+            Log.d("note", "Is newNote:$isNewNote")
             viewModelScope.launch {
-                _noteUpdateEvent.value = Event(Unit) // this is like a flag for navigation we observe it when click the fab
+                _noteUpdateEvent.value =
+                    Event(Unit) // this is like a flag for navigation we observe it when click the fab
 
                 if (currentTitle.isEmpty() && currentDescription.isEmpty()) {
                     _snackBarEvent.value = Event(R.string.empty_note_message)
@@ -79,7 +84,8 @@ class ActionNoteViewModel @Inject constructor(
         } else { // update them. (UPDATE)
             viewModelScope.launch {
 
-                _noteUpdateEvent.value = Event(Unit)  // listen for updated note (because clear the backstack move to home)
+                _noteUpdateEvent.value =
+                    Event(Unit)  // listen for updated note (because clear the backstack move to home)
                 if (currentTitle.isEmpty() && currentDescription.isEmpty()) {
                     _snackBarEvent.value =
                         Event(R.string.empty_note_message) // need to notify field are empty note can't be created
@@ -91,13 +97,35 @@ class ActionNoteViewModel @Inject constructor(
         }
     }
 
+    fun deleteNote() {
+        viewModelScope.launch {
+            noteId?.let {
+                noteRepository.deleteNoteById(it)
+                _noteDeletedEvent.value = Event(R.string.note_deleted)
+            }
+        }
+    }
+
+    fun createCopyNote(noteId: String?) {
+        viewModelScope.launch {
+            if (noteId!=null){
+                val note = noteRepository.getNoteByIdd(noteId)
+                val n = Note(id = UUID.randomUUID().toString(),note.title,note.description)
+                noteRepository.insertNote(note = n)
+            }
+
+
+        }
+
+    }
+
     private suspend fun createNote(note: Note) { // create a new note
         noteRepository.insertNote(note)
     }
 
     private suspend fun updateNote() { // update a existing note
         noteRepository.upsertNote(
-            Note(noteId!!,title.value,description.value)
+            Note(noteId!!, title.value, description.value)
         )
     }
 

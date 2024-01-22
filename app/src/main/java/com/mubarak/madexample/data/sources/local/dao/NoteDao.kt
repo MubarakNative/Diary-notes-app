@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface NoteDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE) // REPLACE
     suspend fun insertNote(note: Note)
 
     @Upsert
@@ -25,11 +25,16 @@ interface NoteDao {
     fun getAllNotes(): Flow<List<Note>>
 
     @Query("DELETE FROM note_table WHERE note_id = :noteId")
-   suspend fun deleteNoteById(noteId:Int)
+   suspend fun deleteNoteById(noteId:String)
 
    @Query(" SELECT * FROM note_table WHERE Title LIKE '%' || :searchQuery ||'%' or Description LIKE '%' || :searchQuery ||'%' ")
    fun searchNote(searchQuery:String):Flow<List<Note>>
 
    @Query("SELECT * FROM note_table WHERE note_id =:noteId ")
    fun getNoteById(noteId:String): Flow<Note>
+
+   //chc
+    @Query("SELECT * FROM note_table WHERE note_id =:noteId ")
+   suspend fun getNoteByIdd(noteId:String): Note
+
 }
