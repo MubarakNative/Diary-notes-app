@@ -108,6 +108,8 @@ class ActionNoteViewModel @Inject constructor(
 
     fun createCopyNote(noteId: String?) {
         viewModelScope.launch {
+
+            /**todo: We need to take care while generating random UUID on main thread*/
             if (noteId!=null){
                 val note = noteRepository.getNoteByIdd(noteId)
                 val n = Note(id = UUID.randomUUID().toString(),note.title,note.description)

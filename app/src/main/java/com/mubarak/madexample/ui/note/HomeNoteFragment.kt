@@ -1,12 +1,9 @@
 package com.mubarak.madexample.ui.note
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -14,16 +11,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.mubarak.madexample.R
 import com.mubarak.madexample.data.sources.datastore.TodoPreferenceDataStore
 import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.databinding.FragmentHomeNoteBinding
-import com.mubarak.madexample.ui.search.SearchNoteViewModel
 import com.mubarak.madexample.ui.sortdialog.SortDialogFragment
 import com.mubarak.madexample.utils.openNavDrawer
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -38,6 +37,10 @@ class HomeNoteFragment : Fragment() {
 
     lateinit var draggedNote: Note
     val homeAdapter by lazy { HomeNoteItemAdapter(homeViewModel) }
+
+    @Inject
+   lateinit var  todoPreferenceDataStore :TodoPreferenceDataStore
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -63,11 +66,7 @@ class HomeNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        /*lifecycleScope.launch {
-            toDoPreferenceDataStore.isGridOrder()
-        }*/
-
+        noteItemLayout()
 
         binding.fabCreateNote.setOnClickListener {
             navigateToAddEditFragment()
@@ -112,11 +111,17 @@ class HomeNoteFragment : Fragment() {
                         true
                     }
 
-                   /* R.id.action_note_view_type -> {
-                        /** TODO Need to implement this functionality*/
+                    R.id.action_note_view_type -> {
+                        /**TODO proper architecture implementation is needed*/
+                        viewLifecycleOwner.lifecycleScope.launch{
+                            var isGrid = todoPreferenceDataStore.getNoteItemLayout.first()
+                            isGrid = !isGrid
 
+                            todoPreferenceDataStore.setNoteItemLayout(isGrid) // true means grid
+
+                        }
                         true
-                    }*/
+                    }
                     else -> false
                 }
             }
@@ -172,27 +177,23 @@ class HomeNoteFragment : Fragment() {
 
 
     /** Pending noteItemLayout impl we need to impl the grid or list item of note*/
-   /* private fun noteItemLayout() {
-        lifecycleScope.launch {
-            toDoPreferenceDataStore.isGridOrder().collect { isGrid ->
-                Toast.makeText(requireContext(), "IsGrid: $isGrid", Toast.LENGTH_LONG).show()
-                if (isGrid) { // grid
+    private fun noteItemLayout(){
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            todoPreferenceDataStore.getNoteItemLayout.collect{
+                val noteLayout = binding.toolBarHome.menu.findItem(R.id.action_note_view_type)
+                if (it){ // Grid
                     binding.homeNoteList.layoutManager =
                         StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-                    binding.toolBarHome.menu.findItem(R.id.action_note_view_type)
-                        .setIcon(R.drawable.list_view_icon24px)
-                    binding.toolBarHome.menu.findItem(R.id.action_note_view_type)
-                        .setTitle("View as List")
-                } else {
-                    binding.homeNoteList.layoutManager = LinearLayoutManager(requireContext())
-                    binding.toolBarHome.menu.findItem(R.id.action_note_view_type)
-                        .setIcon(R.drawable.grid_view_icon24px)
-                    binding.toolBarHome.menu.findItem(R.id.action_note_view_type)
-                        .setTitle("View as Grid")
+                        noteLayout.setIcon(R.drawable.list_view_icon24px).setTitle("View as List")
+                }else{ // Linear (Default)
+                   binding.homeNoteList.layoutManager = LinearLayoutManager(requireContext())
+                   binding.homeNoteList.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
 
+                    noteLayout.setIcon(R.drawable.grid_view_icon24px).setTitle("View as Grid")
                 }
             }
         }
-    }*/
+    }
 
 }

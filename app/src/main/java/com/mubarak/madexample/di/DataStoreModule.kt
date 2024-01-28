@@ -22,7 +22,10 @@ object DataStoreModule {
 
     @Singleton
     @Provides
-    fun providePreferenceDataStore(@ApplicationContext context: Context):DataStore<Preferences>{
+    fun providePreferenceDataStore(
+        @ApplicationContext context: Context
+    ):DataStore<Preferences>{
+
         return PreferenceDataStoreFactory.create(
             scope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
            produceFile = { context.preferencesDataStoreFile("USER_PREFERENCES") }
