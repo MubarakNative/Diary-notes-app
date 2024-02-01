@@ -30,16 +30,13 @@ import javax.inject.Inject
 class HomeNoteFragment : Fragment() {
 
     @Inject
-    lateinit var toDoPreferenceDataStore: TodoPreferenceDataStore
+    lateinit var todoPreferenceDataStore: TodoPreferenceDataStore
 
     private lateinit var binding: FragmentHomeNoteBinding
     private val homeViewModel: HomeNoteViewModel by viewModels()
 
     lateinit var draggedNote: Note
     val homeAdapter by lazy { HomeNoteItemAdapter(homeViewModel) }
-
-    @Inject
-   lateinit var  todoPreferenceDataStore :TodoPreferenceDataStore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -81,9 +78,9 @@ class HomeNoteFragment : Fragment() {
 
             /**we get the note id from note_list_item layout this note_id will available for [HomeNoteViewModel]
              * we simply observe it*/
-            homeViewModel.getNoteIdEvent.observe(viewLifecycleOwner) { noteId ->
-                noteId.getContentIfNotHandled()?.let {
-                    navigateToEditNoteFragment(it)
+            homeViewModel.getNoteIdEvent.observe(viewLifecycleOwner) { content->
+                content.getContentIfNotHandled()?.let {content->
+                    navigateToEditNoteFragment(content)
                 }
             }
 
@@ -96,7 +93,7 @@ class HomeNoteFragment : Fragment() {
                 }
             }
 
-           toolBarHome.setOnMenuItemClickListener { menuItem ->
+            toolBarHome.setOnMenuItemClickListener { menuItem ->
                 return@setOnMenuItemClickListener when (menuItem.itemId) {
                     R.id.action_searchNote -> {
                         findNavController().navigate(R.id.action_homeNoteFragment_to_searchNoteFragment)
@@ -113,15 +110,16 @@ class HomeNoteFragment : Fragment() {
 
                     R.id.action_note_view_type -> {
                         /**TODO proper architecture implementation is needed*/
-                        viewLifecycleOwner.lifecycleScope.launch{
-                            var isGrid = todoPreferenceDataStore.getNoteItemLayout.first()
+                        viewLifecycleOwner.lifecycleScope.launch {
+                            var isGrid = this@HomeNoteFragment.todoPreferenceDataStore.getNoteItemLayout.first()
                             isGrid = !isGrid
 
-                            todoPreferenceDataStore.setNoteItemLayout(isGrid) // true means grid
+                            this@HomeNoteFragment.todoPreferenceDataStore.setNoteItemLayout(isGrid) // true means grid
 
                         }
                         true
                     }
+
                     else -> false
                 }
             }
@@ -176,21 +174,20 @@ class HomeNoteFragment : Fragment() {
     }
 
 
-    /** Pending noteItemLayout impl we need to impl the grid or list item of note*/
-    private fun noteItemLayout(){
+    /** Pending noteItemLayout impl we need to impl the grid or list item of note using Architecture manner*/
+    private fun noteItemLayout() {
 
         viewLifecycleOwner.lifecycleScope.launch {
-            todoPreferenceDataStore.getNoteItemLayout.collect{
+            this@HomeNoteFragment.todoPreferenceDataStore.getNoteItemLayout.collect {
                 val noteLayout = binding.toolBarHome.menu.findItem(R.id.action_note_view_type)
-                if (it){ // Grid
-                    binding.homeNoteList.layoutManager =
-                        StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-                        noteLayout.setIcon(R.drawable.list_view_icon24px).setTitle("View as List")
-                }else{ // Linear (Default)
-                   binding.homeNoteList.layoutManager = LinearLayoutManager(requireContext())
-                   binding.homeNoteList.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
+                if (it) { // Grid
+                    val staggeredGridLayoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+                    binding.homeNoteList.layoutManager = staggeredGridLayoutManager
 
-                    noteLayout.setIcon(R.drawable.grid_view_icon24px).setTitle("View as Grid")
+                    noteLayout.setIcon(R.drawable.list_view_icon24px).setTitle(R.string.note_layout_list)
+                } else { // Linear (Default)
+                    binding.homeNoteList.layoutManager = LinearLayoutManager(requireContext())
+                    noteLayout.setIcon(R.drawable.grid_view_icon24px).setTitle(R.string.note_layout_grid)
                 }
             }
         }

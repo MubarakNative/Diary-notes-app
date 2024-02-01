@@ -5,8 +5,13 @@
     <item
         android:id="@+id/action_delete_note"
         android:icon="@drawable/trash_icon24px"
-        android:title="Delete"
+        android:title="@string/delete"
         app:showAsAction="never" />
+
+    <item android:id="@+id/action_pin_note"
+        android:title="@string/pin"
+        android:icon="@drawable/push_pin_outlined_24dp_icon"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_send_note"
@@ -14,7 +19,10 @@
         android:title="@string/send"
         app:showAsAction="ifRoom" />
 
+
     <item android:id="@+id/action_copy_note"
-        android:title="Make a copy"
+        android:title="@string/make_a_copy"
         app:showAsAction="never" />
+
+
 </menu>

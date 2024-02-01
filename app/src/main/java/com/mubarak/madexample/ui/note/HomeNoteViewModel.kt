@@ -22,7 +22,6 @@ class HomeNoteViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-
     private val _getNoteIdEvent: MutableLiveData<Event<String>> = MutableLiveData()
     val getNoteIdEvent: LiveData<Event<String>> = _getNoteIdEvent
 
@@ -41,16 +40,16 @@ class HomeNoteViewModel @Inject constructor(
     /**[Event] is a wrapper class it trigger when any event occur like deletion or insertion according to this event
      * we trigger some code in ui such as navigation or show a snack-bar*/
     private val _noteDeletedEvent = MutableLiveData<Event<Int>>()
-    val noteDeletedEvent :LiveData<Event<Int>> = _noteDeletedEvent
+    val noteDeletedEvent: LiveData<Event<Int>> = _noteDeletedEvent
 
     /**We get note_id from [note_list_item] layout when click on the item we wrap the id into Event wrapper class later we observe the event and get id
      * from Ui*/
-    fun getNoteId(noteId:String){
+    fun getNoteId(noteId: String) {
         _getNoteIdEvent.value = Event(noteId)
     }
 
     /**delete a specific note*/
-    fun deleteNote(note: Note){
+    fun deleteNote(note: Note) {
         viewModelScope.launch {
             noteRepository.deleteNote(note)
             _noteDeletedEvent.value = Event(R.string.note_deleted)
@@ -58,7 +57,7 @@ class HomeNoteViewModel @Inject constructor(
     }
 
     /**insert a note*/
-    fun undoDeletedNote(note: Note){ // insert note for undo deletion
+    fun undoDeletedNote(note: Note) { // insert note for undo deletion
         viewModelScope.launch {
             noteRepository.insertNote(note)
         }

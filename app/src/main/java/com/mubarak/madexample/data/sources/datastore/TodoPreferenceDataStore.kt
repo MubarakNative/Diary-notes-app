@@ -25,8 +25,6 @@ class TodoPreferenceDataStore @Inject constructor(
         }
     }
 
-
-
     companion object {
         val NOTE_ORDER_KEY = booleanPreferencesKey("isGrid")
     }

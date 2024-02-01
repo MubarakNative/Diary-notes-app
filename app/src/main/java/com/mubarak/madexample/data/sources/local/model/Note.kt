@@ -12,8 +12,9 @@ data class Note(
     var id:String = UUID.randomUUID().toString(),
 
     @ColumnInfo("Title")
-    var title:String,
+    val title:String,
 
     @ColumnInfo("Description")
-    var description:String
+    val description:String
+
 )

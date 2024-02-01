@@ -36,9 +36,10 @@ class NoteRepositoryImpl @Inject constructor(
        return notesDatabase.getDao.getNoteById(noteId)
     }
 
-    // checking
+    //This function need as proper name and proper asynchronous implementation
     override suspend fun getNoteByIdd(noteId: String): Note {
         return notesDatabase.getDao.getNoteByIdd(noteId)
     }
+
 
 }

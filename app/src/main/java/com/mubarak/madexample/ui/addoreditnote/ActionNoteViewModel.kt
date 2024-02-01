@@ -1,6 +1,5 @@
 package com.mubarak.madexample.ui.addoreditnote
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,6 +20,8 @@ class ActionNoteViewModel @Inject constructor(
     private val noteRepository: NoteRepository
 ) : ViewModel() {
 
+    val pinnedStatus:MutableLiveData<Boolean> = MutableLiveData(false)
+
 
     // Two-way data-binding
     val title: MutableStateFlow<String> = MutableStateFlow("")
@@ -40,6 +41,14 @@ class ActionNoteViewModel @Inject constructor(
     private var noteId: String? = null
 
 
+
+
+
+
+
+
+
+
     fun checkIsNewNoteOrExistingNote(noteId: String?) {
 
         this.noteId = noteId // for global reference
@@ -51,11 +60,14 @@ class ActionNoteViewModel @Inject constructor(
 
         isNewNote = false // this means update a existing note (UPDATE)
 
-        /**Update the note here first you insert the text which is already present in the item*/
+        /**UPDATE the note here first you insert the text which is already present in the item*/
         viewModelScope.launch {
+
+
             val note = noteRepository.getNoteById(noteId).stateIn(viewModelScope)
             title.value = note.value.title
             description.value = note.value.description
+
         }
 
     }
@@ -67,7 +79,6 @@ class ActionNoteViewModel @Inject constructor(
 
         if (isNewNote) { // that means this is for creating note (INSERT)
 
-            Log.d("note", "Is newNote:$isNewNote")
             viewModelScope.launch {
                 _noteUpdateEvent.value =
                     Event(Unit) // this is like a flag for navigation we observe it when click the fab
@@ -77,7 +88,7 @@ class ActionNoteViewModel @Inject constructor(
                     // need to notify field are empty note can't be created
                 } else {
                     val note = Note(title = title.value, description = description.value)
-                    createNote(note)  // TODO not work need to check and impl sql
+                    createNote(note)
                 }
 
             }
@@ -109,13 +120,14 @@ class ActionNoteViewModel @Inject constructor(
     fun createCopyNote(noteId: String?) {
         viewModelScope.launch {
 
-            /**todo: We need to take care while generating random UUID on main thread*/
-            if (noteId!=null){
-                val note = noteRepository.getNoteByIdd(noteId)
-                val n = Note(id = UUID.randomUUID().toString(),note.title,note.description)
-                noteRepository.insertNote(note = n)
+            viewModelScope.launch {
+                /**todo: We need to take care while generating random UUID on main thread*/
+                if (noteId!=null){
+                    val note = noteRepository.getNoteByIdd(noteId)
+                    val n = Note(id = UUID.randomUUID().toString(),note.title,note.description)
+                    noteRepository.insertNote(note = n)
+                }
             }
-
 
         }
 
@@ -126,9 +138,11 @@ class ActionNoteViewModel @Inject constructor(
     }
 
     private suspend fun updateNote() { // update a existing note
+
         noteRepository.upsertNote(
             Note(noteId!!, title.value, description.value)
         )
     }
+
 
 }

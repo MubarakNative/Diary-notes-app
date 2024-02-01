@@ -12,9 +12,7 @@ interface NoteRepository {
     fun searchNote(searchQuery:String):Flow<List<Note>>
     fun getNoteById(noteId:String):Flow<Note>
 
-
-
-    //chc
+    //This function need as proper name and proper asynchronous implementation
     suspend fun getNoteByIdd(noteId:String):Note
 
 

@@ -7,11 +7,15 @@
     <string name="empty_note_message">Empty note discarded!</string>
     <string name="title">Title</string>
     <string name="note_deleted">Note deleted</string>
-    <string name="no_note_text">Currently you don\'t have any notes</string>
+    <string name="no_note_text">Notes you add appear here</string>
     <string name="search">Search</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="filter">Filter</string>
-    <string name="view_as_grid">View as grid</string>
+    <string name="note_layout_grid">View as grid</string>
+    <string name="note_layout_list">View as list</string>
     <string name="send">Send</string>
+    <string name="pin">Pin</string>
+    <string name="make_a_copy">Make a copy</string>
+    <string name="delete">Delete</string>
+    <string name="save">Save</string>
 
 </resources>
