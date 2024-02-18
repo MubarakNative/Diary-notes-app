@@ -46,8 +46,8 @@ android {
 dependencies {
 
     val roomVersion = "2.6.1"
-    val daggerVersion = "2.48"
-    val viewmodelVersion = "2.7.0"
+    val daggerVersion = "2.50"
+    val viewModelVersion = "2.7.0"
     val coroutineVersion = "1.7.3"
     val navVersion = "2.7.7"
 
@@ -75,7 +75,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
 
     // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodelVersion")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelVersion")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
 
     // Kotlin Ktx (for simplicity delegate's etc,..)

@@ -24,10 +24,6 @@ class SearchNoteFragment : Fragment() {
     private val searchNoteViewModel: SearchNoteViewModel by viewModels()
     private val homeNoteViewModel: HomeNoteViewModel by viewModels()
 
-    /**todo NOTE: We can also improve the search functionality provided in this app
-     * ex: we can use fts (Full text search in sqlite)
-     * todo This is a very basic search functionality in future we wil Improve them!! */
-
     private val adapter by lazy {
         HomeNoteItemAdapter(homeNoteViewModel)
     }
