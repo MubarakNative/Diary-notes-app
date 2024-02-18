@@ -25,30 +25,22 @@ class HomeNoteViewModel @Inject constructor(
     private val _getNoteIdEvent: MutableLiveData<Event<String>> = MutableLiveData()
     val getNoteIdEvent: LiveData<Event<String>> = _getNoteIdEvent
 
-    /**[getAllNote] returns all the note if it present*/
     val getAllNote = noteRepository.getAllNote()
 
-
-    /** [isEmpty] is boolean tells whether our note is empty if it empty we show empty note image else show the note*/
     val isEmpty: StateFlow<Boolean> = getAllNote.map { it.isEmpty() }.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
         true
     )
 
-
-    /**[Event] is a wrapper class it trigger when any event occur like deletion or insertion according to this event
-     * we trigger some code in ui such as navigation or show a snack-bar*/
     private val _noteDeletedEvent = MutableLiveData<Event<Int>>()
     val noteDeletedEvent: LiveData<Event<Int>> = _noteDeletedEvent
 
-    /**We get note_id from [note_list_item] layout when click on the item we wrap the id into Event wrapper class later we observe the event and get id
-     * from Ui*/
+
     fun getNoteId(noteId: String) {
         _getNoteIdEvent.value = Event(noteId)
     }
 
-    /**delete a specific note*/
     fun deleteNote(note: Note) {
         viewModelScope.launch {
             noteRepository.deleteNote(note)
@@ -56,8 +48,7 @@ class HomeNoteViewModel @Inject constructor(
         }
     }
 
-    /**insert a note*/
-    fun undoDeletedNote(note: Note) { // insert note for undo deletion
+    fun undoDeletedNote(note: Note) {
         viewModelScope.launch {
             noteRepository.insertNote(note)
         }

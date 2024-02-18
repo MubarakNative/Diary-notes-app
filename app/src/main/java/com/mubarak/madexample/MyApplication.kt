@@ -21,12 +21,11 @@ class MyApplication : Application() {
         val preference = PreferenceManager.getDefaultSharedPreferences(this)
             .getString("theme", "system")
 
-        updateTheme(TodoTheme.fromValue(preference!!)) /** this would update for whole app when it re-start again*/
+        updateTheme(TodoTheme.fromValue(preference!!))
 
     }
 
     fun updateTheme(theme: TodoTheme){
-        /** We update the TodoTheme for runtime on using setOnPreferenceChangeListener*/
         AppCompatDelegate.setDefaultNightMode(when(theme){
 
             TodoTheme.LIGHT -> MODE_NIGHT_NO

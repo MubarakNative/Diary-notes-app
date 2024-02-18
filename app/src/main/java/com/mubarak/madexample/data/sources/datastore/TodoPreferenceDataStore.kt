@@ -4,6 +4,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import com.mubarak.madexample.utils.Constants.NOTE_ITEM_LAYOUT_KEY
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -24,6 +25,6 @@ class TodoPreferenceDataStore @Inject constructor(
     }
 
     companion object {
-        val NOTE_ORDER_KEY = booleanPreferencesKey("isGrid")
+        val NOTE_ORDER_KEY = booleanPreferencesKey(NOTE_ITEM_LAYOUT_KEY)
     }
 }

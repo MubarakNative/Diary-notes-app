@@ -16,15 +16,14 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat() {
 
-
      private val application: MyApplication = MyApplication()
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.prefsetting, rootKey)
 
         val themePreference: DropDownPreference? = findPreference("theme")
 
-        themePreference?.setOnPreferenceChangeListener { _, theme -> /**we get the [String] of which theme we select ex: light*/
-            application.updateTheme(TodoTheme.fromValue(theme as  String)) /** This is for changing theme in runtime this is also update the default value of shared Pref*/
+        themePreference?.setOnPreferenceChangeListener { _, theme ->
+            application.updateTheme(TodoTheme.fromValue(theme as  String))
             true
         }
 

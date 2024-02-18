@@ -23,7 +23,6 @@ private lateinit var binding: FragmentSettingsHostBinding
             container,
             false
         )
-        // Inflate the layout for this fragment
         return binding.root
     }
 

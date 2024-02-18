@@ -76,8 +76,6 @@ class HomeNoteFragment : Fragment() {
             }
 
 
-            /**we get the note id from note_list_item layout this note_id will available for [HomeNoteViewModel]
-             * we simply observe it*/
             homeViewModel.getNoteIdEvent.observe(viewLifecycleOwner) { event ->
                 event.getContentIfNotHandled()?.let { content ->
                     navigateToEditNoteFragment(content)
@@ -103,13 +101,12 @@ class HomeNoteFragment : Fragment() {
                     }
 
                     R.id.action_note_view_type -> {
-           /**TODO proper architecture implementation is needed*/
                         viewLifecycleOwner.lifecycleScope.launch {
                             var isGrid =
                                 this@HomeNoteFragment.todoPreferenceDataStore.getNoteItemLayout.first()
                             isGrid = !isGrid
 
-                            this@HomeNoteFragment.todoPreferenceDataStore.setNoteItemLayout(isGrid) // true means grid
+                            this@HomeNoteFragment.todoPreferenceDataStore.setNoteItemLayout(isGrid)
 
                         }
                         true
@@ -120,7 +117,8 @@ class HomeNoteFragment : Fragment() {
             }
         }
 
-        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or
+                ItemTouchHelper.RIGHT) {
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
@@ -141,8 +139,7 @@ class HomeNoteFragment : Fragment() {
                 Snackbar.make(requireView(), it, Snackbar.LENGTH_SHORT).setAction(
                     "Undo"
                 ) {
-                    homeViewModel.undoDeletedNote(draggedNote) // undo deletion means insert the
-                    // same note which was deleted
+                    homeViewModel.undoDeletedNote(draggedNote)
                 }.show()
             }
         }
@@ -150,13 +147,8 @@ class HomeNoteFragment : Fragment() {
     }
 
 
-    /**note_id is only available if the note should exist and click on the note item
-     * [TODO that means we need to edit the note to edit it we pass the note it to [ActionNoteFragment]]
-     * */
-    private fun navigateToEditNoteFragment(noteId: String) { // when click on the note item
-        val action = HomeNoteFragmentDirections.actionHomeNoteFragmentToActionNoteFragment(
-            noteId
-        )
+    private fun navigateToEditNoteFragment(noteId: String) {
+        val action = HomeNoteFragmentDirections.actionHomeNoteFragmentToActionNoteFragment(noteId)
         findNavController().navigate(action)
     }
 
@@ -168,20 +160,19 @@ class HomeNoteFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    /** Pending noteItemLayout impl we need to impl the grid or list item of note using Architecture manner*/
     private fun noteItemLayout() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             this@HomeNoteFragment.todoPreferenceDataStore.getNoteItemLayout.collect {
                 val noteLayout = binding.toolBarHome.menu.findItem(R.id.action_note_view_type)
-                if (it) { // Grid
+                if (it) {
                     val staggeredGridLayoutManager =
                         StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
                     binding.homeNoteList.layoutManager = staggeredGridLayoutManager
 
                     noteLayout.setIcon(R.drawable.list_view_icon24px)
                         .setTitle(R.string.note_layout_list)
-                } else { // Linear (Default)
+                } else {
                     binding.homeNoteList.layoutManager = LinearLayoutManager(requireContext())
                     noteLayout.setIcon(R.drawable.grid_view_icon24px)
                         .setTitle(R.string.note_layout_grid)

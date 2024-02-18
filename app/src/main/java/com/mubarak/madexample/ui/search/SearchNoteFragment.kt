@@ -73,9 +73,6 @@ class SearchNoteFragment : Fragment() {
 
         })
 
-        /** for showing soft-keyboard in search-view
-         * see https://stackoverflow.com/questions/12022715/unable-to-show-keyboard-automatically-in-the-searchview
-         * */
         binding.searchView.setOnQueryTextFocusChangeListener { edittext, hasFocus ->
             if (hasFocus) {
                 view.showSoftKeyboard(edittext.findFocus())

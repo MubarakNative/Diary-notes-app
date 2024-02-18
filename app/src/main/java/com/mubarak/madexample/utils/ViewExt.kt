@@ -17,7 +17,7 @@ fun View.openNavDrawer(activity: Activity) {
 }
 
 fun View.showSoftKeyboard(viewToFocus: View) {
-    if (viewToFocus.requestFocus()) { // findFocus for searchView other requestFocus
+    if (viewToFocus.requestFocus()) {
         val context = context ?: return
         val imm = ContextCompat.getSystemService(context, InputMethodManager::class.java)
         imm?.showSoftInput(viewToFocus, InputMethodManager.SHOW_IMPLICIT)
@@ -25,7 +25,7 @@ fun View.showSoftKeyboard(viewToFocus: View) {
 }
 
 fun View.hideSoftKeyboard() {
-    val context = context ?: return // get the context
+    val context = context ?: return
     val imm = ContextCompat.getSystemService(context, InputMethodManager::class.java)
     imm?.hideSoftInputFromWindow(this.windowToken, 0)
 }

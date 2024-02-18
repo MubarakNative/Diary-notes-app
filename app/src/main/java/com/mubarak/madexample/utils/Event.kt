@@ -2,7 +2,8 @@ package com.mubarak.madexample.utils
 
 
 /**
- * A wrapper class livedata events*/
+ * A wrapper class for livedata events
+ * */
  class Event<T>(private val content: T) {
 
     var hasBeenHandled = false

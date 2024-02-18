@@ -21,7 +21,7 @@ interface NoteDao {
     @Delete
     suspend fun deleteNote(note: Note)
 
-    @Query("SELECT * FROM note_table ORDER BY Title DESC") // desc 'title' means show last alphabet as first
+    @Query("SELECT * FROM note_table ORDER BY Title DESC")
     fun getAllNotes(): Flow<List<Note>>
 
     @Query("DELETE FROM note_table WHERE note_id = :noteId")
@@ -33,7 +33,6 @@ interface NoteDao {
     @Query("SELECT * FROM note_table WHERE note_id =:noteId ")
     fun getNoteById(noteId:String): Flow<Note>
 
-    //This function need as proper name and proper asynchronous implementation
     @Query("SELECT * FROM note_table WHERE note_id =:noteId ")
     suspend fun getNoteByIdd(noteId:String): Note
 

@@ -17,5 +17,4 @@ class SearchNoteViewModel @Inject constructor(
             emit(emptyList())
         }.asLiveData()
 
-
 }

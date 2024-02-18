@@ -30,7 +30,7 @@ class ActionNoteFragment : Fragment() {
     @Inject
     lateinit var todoPreferenceDataStore: TodoPreferenceDataStore
 
-    private val args: ActionNoteFragmentArgs by navArgs() // args: has NOTE_ID navArgs are come from HomeNoteFragment (note id is coming)
+    private val args: ActionNoteFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, viewGroup: ViewGroup?,
@@ -60,8 +60,6 @@ class ActionNoteFragment : Fragment() {
         val deleteNoteMenuItem = toolBarMenu.findItem(R.id.action_delete_note)
         val makeCopyMenuItem = toolBarMenu.findItem(R.id.action_copy_note)
 
-
-        /**Only shown this menu item if we update the note else hide it*/
         if (args.noteId == null) {
             sendNoteMenuItem.isVisible = false
             deleteNoteMenuItem.isVisible = false
@@ -75,7 +73,6 @@ class ActionNoteFragment : Fragment() {
 
         setUpNavigation()
 
-        /**todo: Pending proper implementation now only delete a note re-insertion is pending*/
         actionNoteViewModel.noteDeletedEvent.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled().let {
                 Snackbar.make(binding.root, "Note deleted", Snackbar.LENGTH_SHORT).show()
@@ -112,7 +109,6 @@ class ActionNoteFragment : Fragment() {
 
 
         actionNoteViewModel.snackBarEvent.observe(viewLifecycleOwner) {
-            /**This event when trigger when user enter invalid credentials*/
             it.getContentIfNotHandled()?.let { content ->
                 Snackbar.make(binding.root, content, Snackbar.LENGTH_SHORT).show()
             }
@@ -123,8 +119,6 @@ class ActionNoteFragment : Fragment() {
 
     private fun setUpNavigation() {
         actionNoteViewModel.noteUpdateEvent.observe(viewLifecycleOwner) {
-            /**
-             * Do your work when update the note successfully*/
             findNavController().popBackStack()
         }
 

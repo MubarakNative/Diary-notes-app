@@ -39,16 +39,15 @@ class ActionNoteViewModel @Inject constructor(
 
     fun checkIsNewNoteOrExistingNote(noteId: String?) {
 
-        this.noteId = noteId // for global reference
+        this.noteId = noteId
 
-        if (noteId == null) { // that means create a new Note
+        if (noteId == null) {
             isNewNote = true
             return
         }
 
-        isNewNote = false // this means update a existing note (UPDATE)
+        isNewNote = false
 
-        /**UPDATE the note here first you insert the text which is already present in the item*/
         viewModelScope.launch {
 
             val note = noteRepository.getNoteById(noteId).stateIn(viewModelScope)
@@ -59,34 +58,33 @@ class ActionNoteViewModel @Inject constructor(
 
     }
 
-    /**this function only call when click on fab in ui*/
+
     fun saveNote() {
         val currentTitle = title.value  // from ui
         val currentDescription = description.value
 
-        if (isNewNote) { // that means this is for creating note (INSERT)
+        if (isNewNote) {
 
             viewModelScope.launch {
                 _noteUpdateEvent.value =
-                    Event(Unit) // this is like a flag for navigation we observe it when click the fab
+                    Event(Unit)
 
                 if (currentTitle.isBlank() && currentDescription.isBlank()) {
                     _snackBarEvent.value = Event(R.string.empty_note_message)
-                    // need to notify field are empty note can't be created
                 } else {
                     val note = Note(title = title.value, description = description.value)
                     createNote(note)
                 }
 
             }
-        } else { // update them. (UPDATE)
+        } else {
             viewModelScope.launch {
 
                 _noteUpdateEvent.value =
-                    Event(Unit)  // listen for updated note (because clear the backstack move to home)
+                    Event(Unit)
                 if (currentTitle.isBlank() && currentDescription.isBlank()) {
                     _snackBarEvent.value =
-                        Event(R.string.empty_note_message) // need to notify field are empty note can't be created
+                        Event(R.string.empty_note_message)
                 } else {
                     updateNote()
                 }
@@ -108,7 +106,6 @@ class ActionNoteViewModel @Inject constructor(
         viewModelScope.launch {
 
             viewModelScope.launch {
-                /**todo: We need to take care while generating random UUID on main thread*/
                 if (noteId != null) {
                     val note = noteRepository.getNoteByIdd(noteId)
                     val n = Note(id = UUID.randomUUID().toString(), note.title, note.description)
@@ -120,11 +117,11 @@ class ActionNoteViewModel @Inject constructor(
 
     }
 
-    private suspend fun createNote(note: Note) { // create a new note
+    private suspend fun createNote(note: Note) {
         noteRepository.insertNote(note)
     }
 
-    private suspend fun updateNote() { // update a existing note
+    private suspend fun updateNote() {
         noteRepository.upsertNote(
             Note(noteId!!, title.value, description.value)
         )
