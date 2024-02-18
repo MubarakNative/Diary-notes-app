@@ -70,7 +70,7 @@ class ActionNoteViewModel @Inject constructor(
                 _noteUpdateEvent.value =
                     Event(Unit) // this is like a flag for navigation we observe it when click the fab
 
-                if (currentTitle.isEmpty() && currentDescription.isEmpty()) {
+                if (currentTitle.isBlank() && currentDescription.isBlank()) {
                     _snackBarEvent.value = Event(R.string.empty_note_message)
                     // need to notify field are empty note can't be created
                 } else {
@@ -84,7 +84,7 @@ class ActionNoteViewModel @Inject constructor(
 
                 _noteUpdateEvent.value =
                     Event(Unit)  // listen for updated note (because clear the backstack move to home)
-                if (currentTitle.isEmpty() && currentDescription.isEmpty()) {
+                if (currentTitle.isBlank() && currentDescription.isBlank()) {
                     _snackBarEvent.value =
                         Event(R.string.empty_note_message) // need to notify field are empty note can't be created
                 } else {
@@ -125,7 +125,6 @@ class ActionNoteViewModel @Inject constructor(
     }
 
     private suspend fun updateNote() { // update a existing note
-
         noteRepository.upsertNote(
             Note(noteId!!, title.value, description.value)
         )

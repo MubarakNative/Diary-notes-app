@@ -18,7 +18,6 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        Log.d("themeApp", "OnCreate called")
         val preference = PreferenceManager.getDefaultSharedPreferences(this)
             .getString("theme", "system")
 

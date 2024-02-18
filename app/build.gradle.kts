@@ -1,11 +1,11 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp") // ksp
-    id("com.google.dagger.hilt.android") // dagger-hilt
-    id("androidx.navigation.safeargs.kotlin") // safe-args
-    id("kotlin-parcelize") // parcelize transferring data between classes
-    id("kotlin-kapt") // for only databinding
+    id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
+    id("androidx.navigation.safeargs.kotlin")
+    id("kotlin-parcelize")
+    id("kotlin-kapt")
 }
 
 android {
@@ -45,12 +45,11 @@ android {
 
 dependencies {
 
-    implementation("androidx.preference:preference:1.2.1")
     val roomVersion = "2.6.1"
     val daggerVersion = "2.48"
     val viewmodelVersion = "2.7.0"
     val coroutineVersion = "1.7.3"
-    val navVersion = "2.7.6"
+    val navVersion = "2.7.7"
 
     // Android Core (Kotlin)
     implementation("androidx.core:core-ktx:1.12.0")
