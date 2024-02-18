@@ -33,9 +33,9 @@
     </fragment>
     <fragment
         android:id="@+id/settingNoteFragment"
-        android:name="com.mubarak.madexample.ui.settings.SettingNoteFragment"
+        android:name="com.mubarak.madexample.ui.settings.SettingHostFragment"
         android:label="fragment_setting_note"
-        tools:layout="@layout/fragment_settings_note" />
+        tools:layout="@layout/fragment_settings_host" />
     <fragment
         android:id="@+id/searchNoteFragment"
         android:name="com.mubarak.madexample.ui.search.SearchNoteFragment"

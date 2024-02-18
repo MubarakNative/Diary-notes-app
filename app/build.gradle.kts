@@ -45,6 +45,7 @@ android {
 
 dependencies {
 
+    implementation("androidx.preference:preference:1.2.1")
     val roomVersion = "2.6.1"
     val daggerVersion = "2.48"
     val viewmodelVersion = "2.7.0"
@@ -87,6 +88,9 @@ dependencies {
     // Coroutines (Asynchronous Task)
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion")
+
+    // Preference Setting Compat (Setting screen)
+    implementation ("androidx.preference:preference-ktx:1.2.1")
 
     // Test
     testImplementation("junit:junit:4.13.2")

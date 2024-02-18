@@ -1,17 +1,7 @@
 package com.mubarak.madexample.ui.main
 
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Window
-import android.view.WindowManager
-import android.window.OnBackInvokedCallback
-import android.window.OnBackInvokedDispatcher
-import androidx.activity.enableEdgeToEdge
-import androidx.annotation.RequiresApi
-import androidx.core.view.GravityCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -24,6 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -31,8 +22,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
-
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         val navigationView = binding.navigationView
 
@@ -45,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.homeNoteFragment,
                 R.id.settingNoteFragment
-            ),binding.mainDrawerLayout
+            ), binding.mainDrawerLayout
         )
 
         navigationView.setupWithNavController(navController)

@@ -67,7 +67,7 @@
                     android:text="@={actionViewModel.title}"
                     android:textAppearance="?textAppearanceBody1"
                     android:textDirection="anyRtl"
-                    android:textSize="20sp" />
+                    android:textSize="23sp" />
 
                 <!-- Two ways dataBinding edittext `description`
                  value goes to view-model value's also
@@ -93,7 +93,7 @@
                     android:text="@={actionViewModel.description}"
                     android:textAppearance="?textAppearanceBody1"
                     android:textDirection="anyRtl"
-                    android:textSize="15sp" />
+                    android:textSize="16sp" />
 
 
             </RelativeLayout>

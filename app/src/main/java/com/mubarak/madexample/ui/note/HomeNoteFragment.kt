@@ -1,12 +1,15 @@
 package com.mubarak.madexample.ui.note
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
@@ -19,7 +22,6 @@ import com.mubarak.madexample.R
 import com.mubarak.madexample.data.sources.datastore.TodoPreferenceDataStore
 import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.databinding.FragmentHomeNoteBinding
-import com.mubarak.madexample.ui.sortdialog.SortDialogFragment
 import com.mubarak.madexample.utils.openNavDrawer
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
@@ -28,7 +30,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeNoteFragment : Fragment() {
-
     @Inject
     lateinit var todoPreferenceDataStore: TodoPreferenceDataStore
 
@@ -42,7 +43,6 @@ class HomeNoteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
 
         val rootView = inflater.inflate(
             R.layout.fragment_home_note,
@@ -78,18 +78,20 @@ class HomeNoteFragment : Fragment() {
 
             /**we get the note id from note_list_item layout this note_id will available for [HomeNoteViewModel]
              * we simply observe it*/
-            homeViewModel.getNoteIdEvent.observe(viewLifecycleOwner) { content->
-                content.getContentIfNotHandled()?.let {content->
+            homeViewModel.getNoteIdEvent.observe(viewLifecycleOwner) { event ->
+                event.getContentIfNotHandled()?.let { content ->
                     navigateToEditNoteFragment(content)
                 }
             }
 
             lifecycleScope.launch {
-                repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    homeViewModel.getAllNote.collect { note ->
-                        homeAdapter.submitList(note)
-                        binding.homeNoteList.adapter = homeAdapter
-                    }
+                homeViewModel.getAllNote.flowWithLifecycle(
+                    lifecycle,
+                    Lifecycle.State.STARTED,
+                ).collect { note ->
+                    homeAdapter.submitList(note)
+                    binding.homeNoteList.adapter = homeAdapter
+
                 }
             }
 
@@ -100,18 +102,11 @@ class HomeNoteFragment : Fragment() {
                         true
                     }
 
-                    R.id.action_sort_note_order -> {
-                        /**TODO Need to implement the sort order now just show the sort_order dialog*/
-                        SortDialogFragment().show(
-                            childFragmentManager, ""
-                        )
-                        true
-                    }
-
                     R.id.action_note_view_type -> {
-                        /**TODO proper architecture implementation is needed*/
+           /**TODO proper architecture implementation is needed*/
                         viewLifecycleOwner.lifecycleScope.launch {
-                            var isGrid = this@HomeNoteFragment.todoPreferenceDataStore.getNoteItemLayout.first()
+                            var isGrid =
+                                this@HomeNoteFragment.todoPreferenceDataStore.getNoteItemLayout.first()
                             isGrid = !isGrid
 
                             this@HomeNoteFragment.todoPreferenceDataStore.setNoteItemLayout(isGrid) // true means grid
@@ -173,7 +168,6 @@ class HomeNoteFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-
     /** Pending noteItemLayout impl we need to impl the grid or list item of note using Architecture manner*/
     private fun noteItemLayout() {
 
@@ -181,13 +175,16 @@ class HomeNoteFragment : Fragment() {
             this@HomeNoteFragment.todoPreferenceDataStore.getNoteItemLayout.collect {
                 val noteLayout = binding.toolBarHome.menu.findItem(R.id.action_note_view_type)
                 if (it) { // Grid
-                    val staggeredGridLayoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+                    val staggeredGridLayoutManager =
+                        StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
                     binding.homeNoteList.layoutManager = staggeredGridLayoutManager
 
-                    noteLayout.setIcon(R.drawable.list_view_icon24px).setTitle(R.string.note_layout_list)
+                    noteLayout.setIcon(R.drawable.list_view_icon24px)
+                        .setTitle(R.string.note_layout_list)
                 } else { // Linear (Default)
                     binding.homeNoteList.layoutManager = LinearLayoutManager(requireContext())
-                    noteLayout.setIcon(R.drawable.grid_view_icon24px).setTitle(R.string.note_layout_grid)
+                    noteLayout.setIcon(R.drawable.grid_view_icon24px)
+                        .setTitle(R.string.note_layout_grid)
                 }
             }
         }

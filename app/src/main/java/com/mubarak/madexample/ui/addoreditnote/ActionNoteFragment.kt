@@ -26,6 +26,7 @@ class ActionNoteFragment : Fragment() {
 
     private lateinit var binding: FragmentActionNoteBinding
     private val actionNoteViewModel: ActionNoteViewModel by viewModels()
+
     @Inject
     lateinit var todoPreferenceDataStore: TodoPreferenceDataStore
 
@@ -97,11 +98,6 @@ class ActionNoteFragment : Fragment() {
 
                 R.id.action_copy_note -> {
                     actionNoteViewModel.createCopyNote(args.noteId)
-                    true
-                }
-
-                R.id.action_pin_note -> {
-                   actionNoteViewModel.pinnedStatus.value = true
                     true
                 }
 

@@ -8,11 +8,6 @@
         android:title="@string/delete"
         app:showAsAction="never" />
 
-    <item android:id="@+id/action_pin_note"
-        android:title="@string/pin"
-        android:icon="@drawable/push_pin_outlined_24dp_icon"
-        app:showAsAction="ifRoom" />
-
     <item
         android:id="@+id/action_send_note"
         android:icon="@drawable/send_icon_24px"

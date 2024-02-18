@@ -22,7 +22,6 @@ class HomeNoteItemAdapter(
                 homeViewModel = homeNoteViewModel
                 this.note = note
                 executePendingBindings()
-
             }
         }
     }
@@ -38,7 +37,6 @@ class HomeNoteItemAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
-
         return HomeViewHolder(
             NoteListItemBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false

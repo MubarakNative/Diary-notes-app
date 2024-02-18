@@ -5,24 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.mubarak.madexample.databinding.FragmentSettingsNoteBinding
+import com.mubarak.madexample.R
+import com.mubarak.madexample.databinding.FragmentSettingsHostBinding
 import com.mubarak.madexample.utils.onUpButtonClick
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SettingNoteFragment : Fragment() {
+class SettingHostFragment : Fragment() {
 
-private lateinit var binding: FragmentSettingsNoteBinding
+private lateinit var binding: FragmentSettingsHostBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSettingsNoteBinding.inflate(
+        binding = FragmentSettingsHostBinding.inflate(
             inflater,
             container,
             false
         )
-
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -31,6 +31,11 @@ private lateinit var binding: FragmentSettingsNoteBinding
         super.onViewCreated(view, savedInstanceState)
 
         binding.toolBarSettings.onUpButtonClick()
+
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.setting_container, SettingsFragment())
+            .commit()
     }
 
 }

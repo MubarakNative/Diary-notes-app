@@ -12,10 +12,4 @@
         android:title="@string/note_layout_grid"
         app:showAsAction="ifRoom"/>
 
-    <item android:id="@+id/action_sort_note_order"
-        android:title="@string/filter"
-        android:icon="@drawable/sort_icon24px"
-        app:showAsAction="ifRoom" />
-
-
 </menu>

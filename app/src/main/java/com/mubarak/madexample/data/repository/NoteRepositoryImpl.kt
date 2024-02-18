@@ -1,9 +1,11 @@
-package com.mubarak.madexample.data.sources
+package com.mubarak.madexample.data.repository
 
 import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.data.sources.local.NoteDatabase
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+
+/** [NoteRepository] implementation*/
 
 class NoteRepositoryImpl @Inject constructor(
     private val notesDatabase: NoteDatabase

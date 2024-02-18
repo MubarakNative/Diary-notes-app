@@ -17,5 +17,28 @@
     <string name="make_a_copy">Make a copy</string>
     <string name="delete">Delete</string>
     <string name="save">Save</string>
+    <string name="note_dir_desc">Descending</string>
+    <string name="note_dir_asc">Ascending</string>
+    <string name="sort_direction">Sort direction</string>
+    <string name="sortBy_date_modified">Date modified</string>
+    <string name="sortBy_date_created">Date created</string>
+    <string name="sort_by">Sort by</string>
+    <string name="sort_options">Sort Options</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 
 </resources>

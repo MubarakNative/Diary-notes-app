@@ -1,81 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
     </data>
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="8dp">
-
-<!--  Scroll view is root layout because when this fragment on landscape mode
-  item will scrollable-->
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <!--  Scroll view is root layout because when this fragment on landscape mode
+          item will scrollable-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sort by" />
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
 
-        <RadioGroup
-            android:id="@+id/radioGroup_sort"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:id="@+id/radio_date_created"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="Date created" />
+                android:text="@string/sort_by" />
 
-            <RadioButton
-                android:id="@+id/radio_date_modified"
+            <RadioGroup
+                android:id="@+id/rg_sort"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--<RadioButton
+                    android:id="@+id/radio_date_created"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/sortBy_date_created" />
+
+                <RadioButton
+                    android:id="@+id/radio_date_modified"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sortBy_date_modified" />-->
+
+                <RadioButton
+                    android:id="@+id/radio_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/title" />
+
+            </RadioGroup>
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date modified" />
+                android:text="@string/sort_direction" />
 
-            <RadioButton
-                android:id="@+id/radio_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Title" />
+            <RadioGroup
+                android:id="@+id/rg_sort_direction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        </RadioGroup>
+                <RadioButton
+                    android:id="@+id/radio_asc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/note_dir_asc" />
 
-        <TextView
-            android:text="Sort direction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <RadioGroup
-            android:id="@+id/radioGroup_sort_direction"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <RadioButton
+                    android:id="@+id/radio_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/note_dir_desc" />
 
-            <RadioButton
-                android:id="@+id/radio_asc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ascending" />
+            </RadioGroup>
 
-            <RadioButton
-                android:id="@+id/radio_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Descending" />
+        </LinearLayout>
 
-        </RadioGroup>
-
-    </LinearLayout>
-
-</ScrollView>
+    </ScrollView>
 </layout>

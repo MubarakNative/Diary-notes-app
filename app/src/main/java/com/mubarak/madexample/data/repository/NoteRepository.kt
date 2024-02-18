@@ -1,4 +1,4 @@
-package com.mubarak.madexample.data.sources
+package com.mubarak.madexample.data.repository
 
 import com.mubarak.madexample.data.sources.local.model.Note
 import kotlinx.coroutines.flow.Flow
@@ -14,6 +14,5 @@ interface NoteRepository {
 
     //This function need as proper name and proper asynchronous implementation
     suspend fun getNoteByIdd(noteId:String):Note
-
 
 }

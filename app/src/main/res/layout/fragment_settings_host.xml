@@ -10,10 +10,11 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.settings.SettingNoteFragment">
+        tools:context=".ui.settings.SettingHostFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/mainAppbarLayout"
+            app:liftOnScroll="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -25,6 +26,14 @@
                 android:layout_height="wrap_content" />
 
         </com.google.android.material.appbar.AppBarLayout>
+
+        <FrameLayout
+            android:id="@+id/setting_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            />
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

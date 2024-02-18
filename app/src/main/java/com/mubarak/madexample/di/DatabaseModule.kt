@@ -1,10 +1,11 @@
 package com.mubarak.madexample.di
 
+
 import android.content.Context
 import androidx.room.Room
-import com.mubarak.madexample.data.sources.NoteRepository
+import com.mubarak.madexample.data.repository.NoteRepository
 import com.mubarak.madexample.data.sources.local.NoteDatabase
-import com.mubarak.madexample.data.sources.NoteRepositoryImpl
+import com.mubarak.madexample.data.repository.NoteRepositoryImpl
 import com.mubarak.madexample.utils.Constants.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
@@ -33,3 +34,4 @@ object DatabaseModule {
         return NoteRepositoryImpl(noteDatabase)
     }
 }
+

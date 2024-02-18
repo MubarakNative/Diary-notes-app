@@ -7,8 +7,10 @@ import com.mubarak.madexample.data.sources.local.model.Note
 
 @Database(
     entities = [Note::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 abstract class NoteDatabase:RoomDatabase() {
     abstract val getDao: NoteDao
+
 }

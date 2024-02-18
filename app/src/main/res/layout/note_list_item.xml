@@ -31,9 +31,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{()-> homeViewModel.getNoteId(note.id)}"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="@+id/guideline3"
-            app:shapeAppearance="?attr/shapeAppearanceCornerLarge">
+            app:layout_constraintStart_toStartOf="@+id/card_width_gline"
+            app:layout_constraintTop_toTopOf="@+id/card_width_gline"
+            app:shapeAppearance="?attr/shapeAppearanceCornerMedium">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/listParent"
@@ -73,9 +73,9 @@
                     android:id="@+id/ivPin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:padding="8dp"
                     android:src="@drawable/push_pin_filled_24dp_icon"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/listParent"
                     tools:ignore="ContentDescription" />
@@ -85,18 +85,18 @@
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.0001" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline3"
+            android:id="@+id/card_width_gline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="8dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

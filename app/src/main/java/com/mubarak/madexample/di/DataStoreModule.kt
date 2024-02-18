@@ -15,7 +15,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(SingletonComponent::class)
 object DataStoreModule {
@@ -25,7 +24,6 @@ object DataStoreModule {
     fun providePreferenceDataStore(
         @ApplicationContext context: Context
     ):DataStore<Preferences>{
-
         return PreferenceDataStoreFactory.create(
             scope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
            produceFile = { context.preferencesDataStoreFile("USER_PREFERENCES") }

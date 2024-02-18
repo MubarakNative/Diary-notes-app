@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mubarak.madexample.R
-import com.mubarak.madexample.data.sources.NoteRepository
+import com.mubarak.madexample.data.repository.NoteRepository
 import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.utils.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,9 +19,6 @@ import javax.inject.Inject
 class ActionNoteViewModel @Inject constructor(
     private val noteRepository: NoteRepository
 ) : ViewModel() {
-
-    val pinnedStatus:MutableLiveData<Boolean> = MutableLiveData(false)
-
 
     // Two-way data-binding
     val title: MutableStateFlow<String> = MutableStateFlow("")
@@ -40,15 +37,6 @@ class ActionNoteViewModel @Inject constructor(
 
     private var noteId: String? = null
 
-
-
-
-
-
-
-
-
-
     fun checkIsNewNoteOrExistingNote(noteId: String?) {
 
         this.noteId = noteId // for global reference
@@ -62,7 +50,6 @@ class ActionNoteViewModel @Inject constructor(
 
         /**UPDATE the note here first you insert the text which is already present in the item*/
         viewModelScope.launch {
-
 
             val note = noteRepository.getNoteById(noteId).stateIn(viewModelScope)
             title.value = note.value.title
@@ -122,9 +109,9 @@ class ActionNoteViewModel @Inject constructor(
 
             viewModelScope.launch {
                 /**todo: We need to take care while generating random UUID on main thread*/
-                if (noteId!=null){
+                if (noteId != null) {
                     val note = noteRepository.getNoteByIdd(noteId)
-                    val n = Note(id = UUID.randomUUID().toString(),note.title,note.description)
+                    val n = Note(id = UUID.randomUUID().toString(), note.title, note.description)
                     noteRepository.insertNote(note = n)
                 }
             }
