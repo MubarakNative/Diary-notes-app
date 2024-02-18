@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -40,6 +41,7 @@ class HomeNoteFragment : Fragment() {
     val homeAdapter by lazy { HomeNoteItemAdapter(homeViewModel) }
 
     override fun onCreateView(
+
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
@@ -62,6 +64,8 @@ class HomeNoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        Toast.makeText(requireContext(), "onViewCreated Called", Toast.LENGTH_SHORT).show()
 
         noteItemLayout()
 
@@ -147,6 +151,7 @@ class HomeNoteFragment : Fragment() {
     }
 
 
+
     private fun navigateToEditNoteFragment(noteId: String) {
         val action = HomeNoteFragmentDirections.actionHomeNoteFragmentToActionNoteFragment(noteId)
         findNavController().navigate(action)
@@ -161,6 +166,7 @@ class HomeNoteFragment : Fragment() {
     }
 
     private fun noteItemLayout() {
+      binding.homeNoteList.setHasFixedSize(true)
 
         viewLifecycleOwner.lifecycleScope.launch {
             this@HomeNoteFragment.todoPreferenceDataStore.getNoteItemLayout.collect {
