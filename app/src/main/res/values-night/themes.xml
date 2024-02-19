@@ -1,6 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MADExample" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.MADExample" parent="Theme.Material3.Dark.NoActionBar">
+        // Theme.Material3.DayNight.NoActionBar
+        // ThemeOverlay.Material3.DynamicColors.DayNight new
         <!-- Customize your dark theme here. -->
         <item name="fontFamily">@font/dmsans_18pt_medium</item>
 
@@ -35,6 +37,7 @@
         <item name="colorOnCustomColor1Container">#ffdad9</item>
         <item name="harmonizeCustomColor1">false</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
+
 
     </style>
 </resources>

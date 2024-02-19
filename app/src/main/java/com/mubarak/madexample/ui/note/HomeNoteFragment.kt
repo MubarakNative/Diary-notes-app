@@ -65,8 +65,6 @@ class HomeNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Toast.makeText(requireContext(), "onViewCreated Called", Toast.LENGTH_SHORT).show()
-
         noteItemLayout()
 
         binding.fabCreateNote.setOnClickListener {
