@@ -3,14 +3,18 @@ package com.mubarak.madexample.ui.note
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.mubarak.madexample.R
 import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.data.repository.NoteRepository
 import com.mubarak.madexample.utils.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.WhileSubscribed
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -49,6 +53,7 @@ class HomeNoteViewModel @Inject constructor(
     }
 
     fun undoDeletedNote(note: Note) {
+
         viewModelScope.launch {
             noteRepository.insertNote(note)
         }

@@ -84,7 +84,7 @@ class HomeNoteFragment : Fragment() {
                 }
             }
 
-            lifecycleScope.launch {
+            viewLifecycleOwner.lifecycleScope.launch {
                 homeViewModel.getAllNote.flowWithLifecycle(
                     lifecycle,
                     Lifecycle.State.STARTED,

@@ -1,10 +1,12 @@
 package com.mubarak.madexample.ui.addoreditnote
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -57,26 +59,21 @@ class ActionNoteFragment : Fragment() {
 
         val toolBarMenu = binding.toolbarCreateNote.menu
         val sendNoteMenuItem = toolBarMenu.findItem(R.id.action_send_note)
-        val deleteNoteMenuItem = toolBarMenu.findItem(R.id.action_delete_note)
-        val makeCopyMenuItem = toolBarMenu.findItem(R.id.action_copy_note)
 
-        if (args.noteId == null) {
-            sendNoteMenuItem.isVisible = false
-            deleteNoteMenuItem.isVisible = false
-            makeCopyMenuItem.isVisible = false
-        } else {
-            sendNoteMenuItem.isVisible = true
-            deleteNoteMenuItem.isVisible = true
-            makeCopyMenuItem.isVisible = true
+        if (args.noteId == null)
+            toolBarMenu.setGroupEnabled(sendNoteMenuItem.groupId,false)
 
-        }
+         else
+            toolBarMenu.setGroupEnabled(sendNoteMenuItem.groupId,true)
+
 
         setUpNavigation()
 
         actionNoteViewModel.noteDeletedEvent.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled().let {
-                Snackbar.make(binding.root, "Note deleted", Snackbar.LENGTH_SHORT).show()
                 findNavController().popBackStack()
+                Snackbar.make(binding.root, "Note deleted", Snackbar.LENGTH_SHORT).show()
+
 
             }
         }

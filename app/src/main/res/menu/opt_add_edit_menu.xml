@@ -10,8 +10,8 @@
 
     <item
         android:id="@+id/action_send_note"
-        android:icon="@drawable/send_icon_24px"
-        android:title="@string/send"
+        android:icon="@drawable/share_icon24px"
+        android:title="@string/share"
         app:showAsAction="ifRoom" />
 
 
