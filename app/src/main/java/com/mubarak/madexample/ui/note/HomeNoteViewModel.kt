@@ -8,6 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.mubarak.madexample.R
 import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.data.repository.NoteRepository
+import com.mubarak.madexample.data.sources.datastore.TodoPreferenceDataStore
+import com.mubarak.madexample.data.sources.local.model.NoteLayout
+import com.mubarak.madexample.data.sources.local.model.TodoTheme
 import com.mubarak.madexample.utils.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -15,6 +18,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.WhileSubscribed
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -22,7 +26,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeNoteViewModel @Inject constructor(
-    private val noteRepository: NoteRepository
+    private val noteRepository: NoteRepository,
+    private val todoPreferenceDataStore: TodoPreferenceDataStore
 ) : ViewModel() {
 
 
@@ -30,6 +35,9 @@ class HomeNoteViewModel @Inject constructor(
     val getNoteIdEvent: LiveData<Event<String>> = _getNoteIdEvent
 
     val getAllNote = noteRepository.getAllNote()
+
+    private val _noteItemLayout: MutableLiveData<Int> = MutableLiveData()
+    val  noteItemLayout: LiveData<Int> = _noteItemLayout
 
     val isEmpty: StateFlow<Boolean> = getAllNote.map { it.isEmpty() }.stateIn(
         viewModelScope,
@@ -40,6 +48,26 @@ class HomeNoteViewModel @Inject constructor(
     private val _noteDeletedEvent = MutableLiveData<Event<Int>>()
     val noteDeletedEvent: LiveData<Event<Int>> = _noteDeletedEvent
 
+    init {
+        viewModelScope.launch{
+            _noteItemLayout.value =todoPreferenceDataStore.getNoteLayout.first()}
+    }
+
+    fun toggleNoteLayout(){
+
+        viewModelScope.launch {
+            val layout = when(_noteItemLayout.value){
+                NoteLayout.LIST.ordinal -> NoteLayout.GRID.ordinal
+                NoteLayout.GRID.ordinal -> NoteLayout.LIST.ordinal
+                else -> {return@launch}
+            }
+
+            _noteItemLayout.value = layout
+            todoPreferenceDataStore.setNoteLayout(layout)
+        }
+
+
+    }
 
     fun getNoteId(noteId: String) {
         _getNoteIdEvent.value = Event(noteId)

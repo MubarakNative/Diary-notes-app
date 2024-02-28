@@ -1,18 +1,16 @@
 package com.mubarak.madexample.ui.note
 
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Toast
+import androidx.core.content.ContentProviderCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.mubarak.madexample.R
 import com.mubarak.madexample.data.sources.datastore.TodoPreferenceDataStore
 import com.mubarak.madexample.data.sources.local.model.Note
+import com.mubarak.madexample.data.sources.local.model.NoteLayout
 import com.mubarak.madexample.databinding.FragmentHomeNoteBinding
 import com.mubarak.madexample.utils.openNavDrawer
 import dagger.hilt.android.AndroidEntryPoint
@@ -65,8 +64,6 @@ class HomeNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        noteItemLayout()
-
         binding.fabCreateNote.setOnClickListener {
             navigateToAddEditFragment()
 
@@ -103,14 +100,7 @@ class HomeNoteFragment : Fragment() {
                     }
 
                     R.id.action_note_view_type -> {
-                        viewLifecycleOwner.lifecycleScope.launch {
-                            var isGrid =
-                                this@HomeNoteFragment.todoPreferenceDataStore.getNoteItemLayout.first()
-                            isGrid = !isGrid
-
-                            this@HomeNoteFragment.todoPreferenceDataStore.setNoteItemLayout(isGrid)
-
-                        }
+                        homeViewModel.toggleNoteLayout()
                         true
                     }
 
@@ -146,9 +136,26 @@ class HomeNoteFragment : Fragment() {
             }
         }
 
-    }
 
+        homeViewModel.noteItemLayout.observe(viewLifecycleOwner){
+            val noteItemMenu = binding.toolBarHome.menu.findItem(R.id.action_note_view_type)
 
+            when(it){ // 0 means List 1 means GRID
+                NoteLayout.LIST.ordinal ->{ // default
+                    binding.homeNoteList.layoutManager = LinearLayoutManager(requireContext())
+                    noteItemMenu.setIcon(R.drawable.grid_view_icon24px)
+                        .setTitle(R.string.note_layout_grid)
+                }
+                NoteLayout.GRID.ordinal -> {
+                    binding.homeNoteList.layoutManager =
+                        StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+
+                    noteItemMenu.setIcon(R.drawable.list_view_icon24px)
+                        .setTitle(R.string.note_layout_list)
+                }
+                }
+            }
+        }
 
     private fun navigateToEditNoteFragment(noteId: String) {
         val action = HomeNoteFragmentDirections.actionHomeNoteFragmentToActionNoteFragment(noteId)
@@ -163,26 +170,10 @@ class HomeNoteFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    private fun noteItemLayout() {
-      binding.homeNoteList.setHasFixedSize(true)
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            this@HomeNoteFragment.todoPreferenceDataStore.getNoteItemLayout.collect {
-                val noteLayout = binding.toolBarHome.menu.findItem(R.id.action_note_view_type)
-                if (it) {
-                    val staggeredGridLayoutManager =
-                        StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-                    binding.homeNoteList.layoutManager = staggeredGridLayoutManager
-
-                    noteLayout.setIcon(R.drawable.list_view_icon24px)
-                        .setTitle(R.string.note_layout_list)
-                } else {
-                    binding.homeNoteList.layoutManager = LinearLayoutManager(requireContext())
-                    noteLayout.setIcon(R.drawable.grid_view_icon24px)
-                        .setTitle(R.string.note_layout_grid)
-                }
-            }
-        }
-    }
-
 }
+
+
+
+
+
+

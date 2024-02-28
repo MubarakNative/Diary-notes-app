@@ -4,6 +4,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import com.mubarak.madexample.utils.Constants.NOTE_ITEM_LAYOUT_KEY
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -13,18 +14,18 @@ class TodoPreferenceDataStore @Inject constructor(
     private val dataStore: DataStore<Preferences>
 ) {
 
-    val getNoteItemLayout: Flow<Boolean> =
+    val getNoteLayout: Flow<Int> =
         dataStore.data.map {
-            it[NOTE_ORDER_KEY] ?: false // default note layout is linear
+            it[NOTE_LAYOUT_KEY] ?: 0 // 0 means list
         }
-
-    suspend fun setNoteItemLayout(noteLayout: Boolean) {
+    suspend fun setNoteLayout(noteLayout: Int) {
         dataStore.edit {
-            it[NOTE_ORDER_KEY] = noteLayout
+            it[NOTE_LAYOUT_KEY] = noteLayout
         }
     }
 
     companion object {
-        val NOTE_ORDER_KEY = booleanPreferencesKey(NOTE_ITEM_LAYOUT_KEY)
+        val NOTE_LAYOUT_KEY = intPreferencesKey(NOTE_ITEM_LAYOUT_KEY)
     }
+
 }

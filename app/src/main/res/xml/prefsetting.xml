@@ -11,7 +11,7 @@
             app:title="App Theme"
             android:icon="@drawable/theme_icon24px"
             android:key="theme"
-            android:defaultValue="system"
+            android:defaultValue="FOLLOW_SYSTEM"
             android:entries="@array/theme_entries"
             android:entryValues="@array/theme_values"
             app:useSimpleSummaryProvider="true"

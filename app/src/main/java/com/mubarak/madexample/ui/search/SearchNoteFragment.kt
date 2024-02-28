@@ -63,7 +63,7 @@ class SearchNoteFragment : Fragment() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 searchNoteViewModel.searchNote(newText.toString()).observe(viewLifecycleOwner) {
                     adapter.submitList(it)
-                } // checking purpose don't write in this ;
+                }
                 return true
             }
 

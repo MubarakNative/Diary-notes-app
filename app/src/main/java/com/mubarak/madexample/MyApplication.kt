@@ -1,6 +1,7 @@
 package com.mubarak.madexample
 
 import android.app.Application
+import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
@@ -18,20 +19,21 @@ class MyApplication : Application() {
 
         DynamicColors.applyToActivitiesIfAvailable(this)
         val preference = PreferenceManager.getDefaultSharedPreferences(this)
-            .getString("theme", "system")
+            .getString("theme", "FOLLOW_SYSTEM")
 
-        updateTheme(TodoTheme.fromValue(preference!!))
-
+        updateTheme(enumValueOf<TodoTheme>(preference!!))
     }
 
-    fun updateTheme(theme: TodoTheme){
-        AppCompatDelegate.setDefaultNightMode(when(theme){
+    fun updateTheme(theme: TodoTheme) {
+        AppCompatDelegate.setDefaultNightMode(
+            when (theme) {
 
-            TodoTheme.LIGHT -> MODE_NIGHT_NO
-            TodoTheme.DARK -> MODE_NIGHT_YES
-            TodoTheme.FOLLOW_SYSTEM -> MODE_NIGHT_FOLLOW_SYSTEM
+                TodoTheme.LIGHT -> MODE_NIGHT_NO
+                TodoTheme.DARK -> MODE_NIGHT_YES
+                TodoTheme.FOLLOW_SYSTEM -> MODE_NIGHT_FOLLOW_SYSTEM
 
-        })
+            }
+        )
 
 
     }
