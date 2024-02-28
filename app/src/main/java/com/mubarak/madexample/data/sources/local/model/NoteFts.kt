@@ -2,20 +2,20 @@ package com.mubarak.madexample.data.sources.local.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Fts4
 import androidx.room.PrimaryKey
-import java.util.UUID
 
-@Entity("note_table")
-data class Note(
+@Entity(tableName = "note_fts")
+@Fts4(contentEntity = Note::class)
+data class NoteFts(
 
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo("note_id")
-    var id:Long,
+    @ColumnInfo("rowid")
+    @PrimaryKey
+    val id:Long,
 
     @ColumnInfo("Title")
     val title:String,
 
     @ColumnInfo("Description")
     val description:String
-
 )

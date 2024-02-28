@@ -96,7 +96,7 @@ class SearchNoteFragment : Fragment() {
 
     }
 
-    private fun navigateToNoteDetailFragment(noteId: String) {
+    private fun navigateToNoteDetailFragment(noteId: Long) {
         val action =
             SearchNoteFragmentDirections.actionSearchNoteFragmentToActionNoteFragment(noteId)
         findNavController().navigate(action)

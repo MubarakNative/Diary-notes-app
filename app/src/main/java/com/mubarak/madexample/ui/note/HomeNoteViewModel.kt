@@ -31,8 +31,8 @@ class HomeNoteViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    private val _getNoteIdEvent: MutableLiveData<Event<String>> = MutableLiveData()
-    val getNoteIdEvent: LiveData<Event<String>> = _getNoteIdEvent
+    private val _getNoteIdEvent: MutableLiveData<Event<Long>> = MutableLiveData()
+    val getNoteIdEvent: LiveData<Event<Long>> = _getNoteIdEvent
 
     val getAllNote = noteRepository.getAllNote()
 
@@ -69,7 +69,7 @@ class HomeNoteViewModel @Inject constructor(
 
     }
 
-    fun getNoteId(noteId: String) {
+    fun getNoteId(noteId: Long) {
         _getNoteIdEvent.value = Event(noteId)
     }
 

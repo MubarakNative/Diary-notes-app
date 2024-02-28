@@ -157,7 +157,7 @@ class HomeNoteFragment : Fragment() {
             }
         }
 
-    private fun navigateToEditNoteFragment(noteId: String) {
+    private fun navigateToEditNoteFragment(noteId: Long) {
         val action = HomeNoteFragmentDirections.actionHomeNoteFragmentToActionNoteFragment(noteId)
         findNavController().navigate(action)
     }
@@ -165,7 +165,7 @@ class HomeNoteFragment : Fragment() {
 
     private fun navigateToAddEditFragment() {
         val action = HomeNoteFragmentDirections.actionHomeNoteFragmentToActionNoteFragment(
-            null
+            -1L
         )
         findNavController().navigate(action)
     }

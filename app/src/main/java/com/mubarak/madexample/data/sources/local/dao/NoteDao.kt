@@ -25,16 +25,24 @@ interface NoteDao {
     fun getAllNotes(): Flow<List<Note>>
 
     @Query("DELETE FROM note_table WHERE note_id = :noteId")
-    suspend fun deleteNoteById(noteId:String)
+    suspend fun deleteNoteById(noteId:Long)
 
     @Query(" SELECT * FROM note_table WHERE Title LIKE '%' || :searchQuery ||'%' or Description LIKE '%' || :searchQuery ||'%' ")
     fun searchNote(searchQuery:String):Flow<List<Note>>
 
-    @Query("SELECT * FROM note_table WHERE note_id =:noteId ")
-    fun getNoteById(noteId:String): Flow<Note>
+    @Query("""
+          SELECT * FROM note_table
+    JOIN note_fts on note_fts.rowid = note_id
+    WHERE note_fts match :searchQuery
+    """
+    )
+    fun getSearchedNote(searchQuery: String): Flow<List<Note>>
 
     @Query("SELECT * FROM note_table WHERE note_id =:noteId ")
-    suspend fun getNoteByIdd(noteId:String): Note
+    fun getNoteById(noteId:Long): Flow<Note>
+
+    @Query("SELECT * FROM note_table WHERE note_id =:noteId ")
+    suspend fun getNoteByIdd(noteId:Long): Note
 
 
 }

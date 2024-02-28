@@ -35,13 +35,13 @@ class ActionNoteViewModel @Inject constructor(
 
     private var isNewNote: Boolean = false
 
-    private var noteId: String? = null
+    private var noteId: Long = -1L
 
-    fun checkIsNewNoteOrExistingNote(noteId: String?) {
+    fun checkIsNewNoteOrExistingNote(noteId: Long) {
 
         this.noteId = noteId
 
-        if (noteId == null) {
+        if (noteId == -1L) {
             isNewNote = true
             return
         }
@@ -50,7 +50,7 @@ class ActionNoteViewModel @Inject constructor(
 
         viewModelScope.launch {
 
-            val note = noteRepository.getNoteById(noteId).stateIn(viewModelScope)
+            val note = noteRepository.getNoteStreamById(noteId).stateIn(viewModelScope)
             title.value = note.value.title
             description.value = note.value.description
 
@@ -72,7 +72,7 @@ class ActionNoteViewModel @Inject constructor(
                 if (currentTitle.isBlank() && currentDescription.isBlank()) {
                     _snackBarEvent.value = Event(R.string.empty_note_message)
                 } else {
-                    val note = Note(title = title.value, description = description.value)
+                    val note = Note(id =0L,title = title.value, description = description.value)
                     createNote(note)
                 }
 
@@ -102,13 +102,13 @@ class ActionNoteViewModel @Inject constructor(
         }
     }
 
-    fun createCopyNote(noteId: String?) {
+    fun createCopyNote(noteId: Long) {
         viewModelScope.launch {
 
             viewModelScope.launch {
-                if (noteId != null) {
-                    val note = noteRepository.getNoteByIdd(noteId)
-                    val n = Note(id = UUID.randomUUID().toString(), note.title, note.description)
+                if (noteId != -1L) {
+                    val note = noteRepository.getNoteById(noteId)
+                    val n = Note(id = 0, note.title, note.description)
                     noteRepository.insertNote(note = n)
                 }
             }

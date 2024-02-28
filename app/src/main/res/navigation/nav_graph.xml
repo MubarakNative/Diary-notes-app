@@ -26,8 +26,7 @@
 
         <argument
             android:name="noteId"
-            app:argType="string"
-            app:nullable="true"/>
+            app:argType="long" />
 
 
     </fragment>
