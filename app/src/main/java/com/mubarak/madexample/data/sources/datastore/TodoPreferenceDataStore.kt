@@ -16,7 +16,7 @@ class TodoPreferenceDataStore @Inject constructor(
 
     val getNoteLayout: Flow<Int> =
         dataStore.data.map {
-            it[NOTE_LAYOUT_KEY] ?: 0 // 0 means list
+            it[NOTE_LAYOUT_KEY] ?: 0 // 0 means list default Note Layout is LIST
         }
     suspend fun setNoteLayout(noteLayout: Int) {
         dataStore.edit {

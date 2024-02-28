@@ -10,8 +10,8 @@
     <string name="no_note_text">Notes you add appear here</string>
     <string name="search">Search</string>
     <string name="filter">Filter</string>
-    <string name="note_layout_grid">View as grid</string>
-    <string name="note_layout_list">View as list</string>
+    <string name="note_layout_grid">Show in Grid</string>
+    <string name="note_layout_list">Show in list</string>
     <string name="share">Share</string>
     <string name="pin">Pin</string>
     <string name="make_a_copy">Make a copy</string>

@@ -66,7 +66,6 @@ class HomeNoteFragment : Fragment() {
 
         binding.fabCreateNote.setOnClickListener {
             navigateToAddEditFragment()
-
         }
 
         binding.apply {
@@ -137,11 +136,11 @@ class HomeNoteFragment : Fragment() {
         }
 
 
-        homeViewModel.noteItemLayout.observe(viewLifecycleOwner){
+        homeViewModel.noteItemLayout.observe(viewLifecycleOwner){// get the value's from datastore 0 means LIST , 1 means GRID
             val noteItemMenu = binding.toolBarHome.menu.findItem(R.id.action_note_view_type)
 
-            when(it){ // 0 means List 1 means GRID
-                NoteLayout.LIST.ordinal ->{ // default
+            when(it){
+                NoteLayout.LIST.ordinal ->{ // default is List
                     binding.homeNoteList.layoutManager = LinearLayoutManager(requireContext())
                     noteItemMenu.setIcon(R.drawable.grid_view_icon24px)
                         .setTitle(R.string.note_layout_grid)
@@ -165,7 +164,7 @@ class HomeNoteFragment : Fragment() {
 
     private fun navigateToAddEditFragment() {
         val action = HomeNoteFragmentDirections.actionHomeNoteFragmentToActionNoteFragment(
-            -1L
+            -1
         )
         findNavController().navigate(action)
     }

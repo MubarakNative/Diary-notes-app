@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.mubarak.madexample.R
+import com.mubarak.madexample.data.sources.local.model.NoteLayout
 import com.mubarak.madexample.databinding.FragmentSearchNoteBinding
 import com.mubarak.madexample.ui.note.HomeNoteItemAdapter
 import com.mubarak.madexample.ui.note.HomeNoteViewModel
@@ -23,6 +26,7 @@ class SearchNoteFragment : Fragment() {
     private lateinit var binding: FragmentSearchNoteBinding
     private val searchNoteViewModel: SearchNoteViewModel by viewModels()
     private val homeNoteViewModel: HomeNoteViewModel by viewModels()
+
 
     private val adapter by lazy {
         HomeNoteItemAdapter(homeNoteViewModel)
@@ -60,15 +64,19 @@ class SearchNoteFragment : Fragment() {
                 return false
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                searchNoteViewModel.searchNote(newText.toString()).observe(viewLifecycleOwner) {
-                    adapter.submitList(it)
+            override fun onQueryTextChange(searchQuery: String?): Boolean {
+
+                searchQuery?.let { search ->
+                    searchNoteViewModel.searchNote(search).observe(viewLifecycleOwner) { noteList ->
+                        adapter.submitList(noteList)
+                    }
                 }
                 return true
             }
 
         })
 
+        // to focus the SearchView automatically when we enter searchNoteFragment
         binding.searchView.setOnQueryTextFocusChangeListener { edittext, hasFocus ->
             if (hasFocus) {
                 view.showSoftKeyboard(edittext.findFocus())
@@ -78,29 +86,35 @@ class SearchNoteFragment : Fragment() {
 
     }
 
+    // to show the search noteitem layout according to the value set in HomeFragment
     private fun setUpRecyclerView() {
+        homeNoteViewModel.noteItemLayout.observe(viewLifecycleOwner) {
+            when (it) {
+                NoteLayout.LIST.ordinal -> {
+                    binding.searchNoteList.layoutManager = LinearLayoutManager(requireContext())
+                }
+
+                NoteLayout.GRID.ordinal -> {
+                    binding.searchNoteList.layoutManager =
+                        StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                }
+            }
+
+        }
         binding.apply {
-            binding.searchNoteList.layoutManager = LinearLayoutManager(requireContext())
-            binding.searchNoteList.setHasFixedSize(true)
-            binding.searchNoteList.adapter = adapter
+            searchNoteList.setHasFixedSize(true)
+            searchNoteList.adapter = adapter
         }
     }
 
-    private fun onNoteItemClick() {
+    private fun onNoteItemClick() { // to open note-detail screen in search
 
         homeNoteViewModel.getNoteIdEvent.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { noteId ->
-                navigateToNoteDetailFragment(noteId)
+                val action = SearchNoteFragmentDirections.actionSearchNoteFragmentToActionNoteFragment(noteId)
+                findNavController().navigate(action)
             }
         }
-
     }
-
-    private fun navigateToNoteDetailFragment(noteId: Long) {
-        val action =
-            SearchNoteFragmentDirections.actionSearchNoteFragmentToActionNoteFragment(noteId)
-        findNavController().navigate(action)
-    }
-
 
 }

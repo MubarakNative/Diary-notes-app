@@ -10,6 +10,7 @@ import com.mubarak.madexample.databinding.FragmentSettingsHostBinding
 import com.mubarak.madexample.utils.onUpButtonClick
 import dagger.hilt.android.AndroidEntryPoint
 
+/**A Host Fragment for SettingPreference Screen*/
 @AndroidEntryPoint
 class SettingHostFragment : Fragment() {
 

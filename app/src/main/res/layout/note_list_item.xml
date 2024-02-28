@@ -49,7 +49,6 @@
                     android:maxLines="6"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@+id/ivPin"
                     app:layout_constraintStart_toStartOf="@+id/listParent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="Title" />
@@ -69,16 +68,6 @@
                     app:layout_constraintVertical_bias="0.0"
                     tools:text="Description" />
 
-                <ImageView
-                    android:id="@+id/ivPin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:src="@drawable/push_pin_filled_24dp_icon"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/listParent"
-                    tools:ignore="ContentDescription" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

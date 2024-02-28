@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         navController = navHostFragment.navController
 
+        // our top-level destinations
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.homeNoteFragment,

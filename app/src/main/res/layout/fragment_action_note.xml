@@ -45,9 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <!-- Two ways dataBinding edittext `title`
-                 value goes to view-model value's also
-                 come from view-model -->
+                <!-- Two ways dataBinding -->
                 <EditText
                     android:id="@+id/etAddTitle"
                     android:layout_width="match_parent"
@@ -69,9 +67,6 @@
                     android:textDirection="anyRtl"
                     android:textSize="23sp" />
 
-                <!-- Two ways dataBinding edittext `description`
-                 value goes to view-model value's also
-                 come from view-model -->
 
                 <EditText
                     android:id="@+id/etAddDesc"
@@ -100,22 +95,6 @@
 
 
         </androidx.core.widget.NestedScrollView>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabSaveNote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom|end"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:contentDescription="@string/save"
-            android:onClick="@{() -> actionViewModel.saveNote()}"
-            app:srcCompat="@android:drawable/ic_menu_save" />
-
 
     </RelativeLayout>
 </layout>

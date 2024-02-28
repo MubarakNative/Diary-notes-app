@@ -39,6 +39,7 @@ class HomeNoteViewModel @Inject constructor(
     private val _noteItemLayout: MutableLiveData<Int> = MutableLiveData()
     val  noteItemLayout: LiveData<Int> = _noteItemLayout
 
+    // This is for displaying no note placeholder in home fragment
     val isEmpty: StateFlow<Boolean> = getAllNote.map { it.isEmpty() }.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
@@ -53,6 +54,7 @@ class HomeNoteViewModel @Inject constructor(
             _noteItemLayout.value =todoPreferenceDataStore.getNoteLayout.first()}
     }
 
+    // toggle between list to grid and vice versa in Home Fragment
     fun toggleNoteLayout(){
 
         viewModelScope.launch {
@@ -62,13 +64,14 @@ class HomeNoteViewModel @Inject constructor(
                 else -> {return@launch}
             }
 
-            _noteItemLayout.value = layout
-            todoPreferenceDataStore.setNoteLayout(layout)
+            _noteItemLayout.value = layout // update the changed value
+            todoPreferenceDataStore.setNoteLayout(layout) // store the updated value in datastore
         }
 
 
     }
 
+    /**we get noteId is from  [note_list_layout]*/
     fun getNoteId(noteId: Long) {
         _getNoteIdEvent.value = Event(noteId)
     }
@@ -80,6 +83,7 @@ class HomeNoteViewModel @Inject constructor(
         }
     }
 
+    // Re-insert the deleted note
     fun undoDeletedNote(note: Note) {
 
         viewModelScope.launch {

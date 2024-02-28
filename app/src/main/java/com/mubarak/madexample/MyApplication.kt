@@ -18,16 +18,17 @@ class MyApplication : Application() {
         super.onCreate()
 
         DynamicColors.applyToActivitiesIfAvailable(this)
+
+        // default theme is follow system
         val preference = PreferenceManager.getDefaultSharedPreferences(this)
             .getString("theme", "FOLLOW_SYSTEM")
 
         updateTheme(enumValueOf<TodoTheme>(preference!!))
     }
 
-    fun updateTheme(theme: TodoTheme) {
+    fun updateTheme(theme: TodoTheme) { //  change the theme from Whole Application level because to avoid theming problem
         AppCompatDelegate.setDefaultNightMode(
             when (theme) {
-
                 TodoTheme.LIGHT -> MODE_NIGHT_NO
                 TodoTheme.DARK -> MODE_NIGHT_YES
                 TodoTheme.FOLLOW_SYSTEM -> MODE_NIGHT_FOLLOW_SYSTEM

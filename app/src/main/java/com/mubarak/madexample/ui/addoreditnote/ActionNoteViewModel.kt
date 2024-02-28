@@ -12,7 +12,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,6 +32,9 @@ class ActionNoteViewModel @Inject constructor(
     private val _snackBarEvent = MutableLiveData<Event<Int>>()
     val snackBarEvent: LiveData<Event<Int>> = _snackBarEvent
 
+    private val _backPressEvent = MutableLiveData<Event<Unit>>()
+    val backPressEvent: LiveData<Event<Unit>> = _backPressEvent
+
     private var isNewNote: Boolean = false
 
     private var noteId: Long = -1L
@@ -41,16 +43,17 @@ class ActionNoteViewModel @Inject constructor(
 
         this.noteId = noteId
 
-        if (noteId == -1L) {
+        if (noteId == -1L) { // -1 means this is new note
             isNewNote = true
             return
         }
 
-        isNewNote = false
+        isNewNote = false // else update the existing note
 
         viewModelScope.launch {
 
             val note = noteRepository.getNoteStreamById(noteId).stateIn(viewModelScope)
+            // Filled the both Title & Description edittext with that value does it previously have
             title.value = note.value.title
             description.value = note.value.description
 
@@ -59,29 +62,24 @@ class ActionNoteViewModel @Inject constructor(
     }
 
 
-    fun saveNote() {
-        val currentTitle = title.value  // from ui
+    fun saveAndExit() {
+
+        val currentTitle = title.value
         val currentDescription = description.value
 
         if (isNewNote) {
 
             viewModelScope.launch {
-                _noteUpdateEvent.value =
-                    Event(Unit)
-
                 if (currentTitle.isBlank() && currentDescription.isBlank()) {
                     _snackBarEvent.value = Event(R.string.empty_note_message)
                 } else {
-                    val note = Note(id =0L,title = title.value, description = description.value)
+                    val note = Note(id =0L, title = title.value, description = description.value)
                     createNote(note)
                 }
 
             }
         } else {
             viewModelScope.launch {
-
-                _noteUpdateEvent.value =
-                    Event(Unit)
                 if (currentTitle.isBlank() && currentDescription.isBlank()) {
                     _snackBarEvent.value =
                         Event(R.string.empty_note_message)
@@ -91,13 +89,16 @@ class ActionNoteViewModel @Inject constructor(
             }
 
         }
+        _backPressEvent.value = Event(Unit)
+
     }
 
     fun deleteNote() {
         viewModelScope.launch {
-            noteId?.let {
+            noteId.let {
                 noteRepository.deleteNoteById(it)
                 _noteDeletedEvent.value = Event(R.string.note_deleted)
+                _backPressEvent.value = Event(Unit)
             }
         }
     }
@@ -121,9 +122,9 @@ class ActionNoteViewModel @Inject constructor(
         noteRepository.insertNote(note)
     }
 
-    private suspend fun updateNote() {
+    private suspend fun updateNote() { // update the existing note
         noteRepository.upsertNote(
-            Note(noteId!!, title.value, description.value)
+            Note(noteId, title.value, description.value)
         )
     }
 

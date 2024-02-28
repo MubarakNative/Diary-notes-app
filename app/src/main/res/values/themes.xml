@@ -1,14 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.MADExample" parent="Theme.Material3.Light.NoActionBar">
-        //ThemeOverlay.Material3.DynamicColors.DayNight new
-        //Theme.Material3.Light.NoActionBar old
-
-        <item name="fontFamily">@font/dmsans_18pt_medium</item>
-        <!-- Customize your light theme here. -->
-
-
-
 
         <item name="colorSecondary">@color/md_theme_light_secondary</item>
         <item name="colorOnSecondary">@color/md_theme_light_onSecondary</item>
@@ -29,9 +21,6 @@
         <item name="colorOnCustomColor1Container">#40000a</item>
         <item name="harmonizeCustomColor1">false</item>
         <item name="colorPrimaryInverse">@color/md_theme_light_inversePrimary</item>
-
-
-
         <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>

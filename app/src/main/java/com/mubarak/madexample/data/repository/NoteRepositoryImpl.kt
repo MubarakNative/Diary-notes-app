@@ -31,7 +31,7 @@ class NoteRepositoryImpl @Inject constructor(
     }
 
     override fun searchNote(searchQuery: String): Flow<List<Note>> {
-        return notesDatabase.getDao.searchNote(searchQuery)
+        return notesDatabase.getDao.getSearchedNote(searchQuery)
     }
 
     override fun getNoteStreamById(noteId: Long): Flow<Note> {

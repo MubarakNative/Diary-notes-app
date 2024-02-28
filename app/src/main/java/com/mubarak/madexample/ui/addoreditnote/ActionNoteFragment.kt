@@ -1,12 +1,11 @@
 package com.mubarak.madexample.ui.addoreditnote
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -16,7 +15,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.mubarak.madexample.R
 import com.mubarak.madexample.data.sources.datastore.TodoPreferenceDataStore
 import com.mubarak.madexample.databinding.FragmentActionNoteBinding
-import com.mubarak.madexample.utils.onUpButtonClick
 import com.mubarak.madexample.utils.showSoftKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
@@ -55,27 +53,33 @@ class ActionNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.toolbarCreateNote.onUpButtonClick()
+        binding.toolbarCreateNote.setNavigationOnClickListener {
+            actionNoteViewModel.saveAndExit()
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback{
+            actionNoteViewModel.saveAndExit()
+        }
 
         val toolBarMenu = binding.toolbarCreateNote.menu
         val sendNoteMenuItem = toolBarMenu.findItem(R.id.action_send_note)
 
-        if (args.noteId == null)
+        // disable the toolbar menu when create a new note because title or description might be empty
+        if (args.noteId == -1L)
             toolBarMenu.setGroupEnabled(sendNoteMenuItem.groupId,false)
 
          else
             toolBarMenu.setGroupEnabled(sendNoteMenuItem.groupId,true)
 
 
-        setUpNavigation()
-
         actionNoteViewModel.noteDeletedEvent.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled().let {
-                findNavController().popBackStack()
                 Snackbar.make(binding.root, "Note deleted", Snackbar.LENGTH_SHORT).show()
-
-
             }
+        }
+
+        actionNoteViewModel.backPressEvent.observe(viewLifecycleOwner) {
+            findNavController().popBackStack()
         }
 
         binding.toolbarCreateNote.setOnMenuItemClickListener {
@@ -99,7 +103,6 @@ class ActionNoteFragment : Fragment() {
             }
         }
 
-        // pass this args from HomeNoteFragment if null means create once else update
         actionNoteViewModel.checkIsNewNoteOrExistingNote(args.noteId)
 
         binding.etAddTitle.showSoftKeyboard(binding.etAddTitle)
@@ -111,15 +114,8 @@ class ActionNoteFragment : Fragment() {
             }
         }
 
-
     }
 
-    private fun setUpNavigation() {
-        actionNoteViewModel.noteUpdateEvent.observe(viewLifecycleOwner) {
-            findNavController().popBackStack()
-        }
-
-    }
 
     private fun sendNote(noteTitle: String) {
         val intent = Intent(Intent.ACTION_SEND).apply {
@@ -137,6 +133,5 @@ class ActionNoteFragment : Fragment() {
             )
         }
     }
-
 
 }
