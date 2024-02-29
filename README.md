@@ -16,7 +16,7 @@
 
 ### Note 👀
 
-** In this `improvement` branch you can improve some existing feature without breaking `main` branch
+**In this `improvement` branch you can improve some existing feature without breaking `main` branch**
 
 ### Contribution 🤝
 
