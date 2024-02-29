@@ -7,7 +7,7 @@
     <string name="empty_note_message">Empty note discarded!</string>
     <string name="title">Title</string>
     <string name="note_deleted">Note deleted</string>
-    <string name="no_note_text">Notes you add appear here</string>
+    <string name="no_note_text">No Notes Added</string>
     <string name="search">Search</string>
     <string name="filter">Filter</string>
     <string name="note_layout_grid">Show in Grid</string>

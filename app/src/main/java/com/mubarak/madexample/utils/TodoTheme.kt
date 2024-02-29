@@ -1,4 +1,4 @@
-package com.mubarak.madexample.data.sources.local.model
+package com.mubarak.madexample.utils
 
 enum class TodoTheme {
     LIGHT,

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.mubarak.madexample.R
-import com.mubarak.madexample.data.sources.local.model.NoteLayout
+import com.mubarak.madexample.utils.NoteLayout
 import com.mubarak.madexample.databinding.FragmentSearchNoteBinding
 import com.mubarak.madexample.ui.note.HomeNoteItemAdapter
 import com.mubarak.madexample.ui.note.HomeNoteViewModel

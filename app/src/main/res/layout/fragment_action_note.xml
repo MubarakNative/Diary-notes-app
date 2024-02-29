@@ -91,10 +91,23 @@
                     android:textSize="16sp" />
 
 
+
             </RelativeLayout>
 
 
         </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabActionNote"
+            android:onClick="@{()-> actionViewModel.saveAndExit()}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:src="@drawable/tick_24px"
+            app:fabSize="mini"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            tools:ignore="ContentDescription" />
 
     </RelativeLayout>
 </layout>

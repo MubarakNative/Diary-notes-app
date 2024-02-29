@@ -1,14 +1,13 @@
 package com.mubarak.madexample
 
 import android.app.Application
-import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.preference.PreferenceManager
 import com.google.android.material.color.DynamicColors
-import com.mubarak.madexample.data.sources.local.model.TodoTheme
+import com.mubarak.madexample.utils.TodoTheme
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp

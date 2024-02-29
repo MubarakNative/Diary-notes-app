@@ -15,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.mubarak.madexample.R
 import com.mubarak.madexample.data.sources.datastore.TodoPreferenceDataStore
 import com.mubarak.madexample.databinding.FragmentActionNoteBinding
+import com.mubarak.madexample.utils.onUpButtonClick
 import com.mubarak.madexample.utils.showSoftKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
@@ -53,15 +54,10 @@ class ActionNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.toolbarCreateNote.setNavigationOnClickListener {
-            actionNoteViewModel.saveAndExit()
-        }
 
-        requireActivity().onBackPressedDispatcher.addCallback{
-            actionNoteViewModel.saveAndExit()
-        }
-
+        binding.toolbarCreateNote.onUpButtonClick()
         val toolBarMenu = binding.toolbarCreateNote.menu
+
         val sendNoteMenuItem = toolBarMenu.findItem(R.id.action_send_note)
 
         // disable the toolbar menu when create a new note because title or description might be empty
