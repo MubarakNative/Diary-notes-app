@@ -66,7 +66,8 @@ class SearchNoteFragment : Fragment() {
             override fun onQueryTextChange(searchQuery: String?): Boolean {
 
                 searchQuery?.let { search ->
-                    searchNoteViewModel.searchNote(search).observe(viewLifecycleOwner) { noteList ->
+                    val filteredQuery = SearchQueryFilter.filterQuery(search)
+                    searchNoteViewModel.searchNote(filteredQuery).observe(viewLifecycleOwner) { noteList ->
                         adapter.submitList(noteList)
                     }
                 }
@@ -85,7 +86,7 @@ class SearchNoteFragment : Fragment() {
 
     }
 
-    // to show the search noteitem layout according to the value set in HomeFragment
+    // to show the search note-item layout according to the value set in HomeFragment
     private fun setUpRecyclerView() {
         homeNoteViewModel.noteItemLayout.observe(viewLifecycleOwner) {
             when (it) {

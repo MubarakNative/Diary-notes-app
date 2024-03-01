@@ -37,7 +37,7 @@ class HomeNoteViewModel @Inject constructor(
     // This is for displaying no note placeholder in home fragment
     val isEmpty: StateFlow<Boolean> = getAllNote.map { it.isEmpty() }.stateIn(
         viewModelScope,
-        SharingStarted.WhileSubscribed(5000),
+        SharingStarted.WhileSubscribed(5_000),
         true
     )
 

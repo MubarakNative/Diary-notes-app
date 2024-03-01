@@ -169,7 +169,3 @@ class HomeNoteFragment : Fragment() {
 }
 
 
-
-
-
-
