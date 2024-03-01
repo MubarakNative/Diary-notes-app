@@ -1,6 +1,5 @@
 package com.mubarak.madexample.utils
 
-
 /**
  * A wrapper class for livedata events
  * Taken from [https://github.com/android/architecture-samples/]
