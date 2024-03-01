@@ -26,9 +26,6 @@ class ActionNoteViewModel @Inject constructor(
     private val _noteDeletedEvent = MutableLiveData<Event<Int>>()
     val noteDeletedEvent: LiveData<Event<Int>> = _noteDeletedEvent
 
-    private val _noteUpdateEvent = MutableLiveData<Event<Unit>>()
-    val noteUpdateEvent: LiveData<Event<Unit>> = _noteUpdateEvent
-
     private val _snackBarEvent = MutableLiveData<Event<Int>>()
     val snackBarEvent: LiveData<Event<Int>> = _snackBarEvent
 
