@@ -15,7 +15,7 @@
 * Implemented Settings using PreferenceSettingCompat library.
 
 ### Note 👀
-**This `improvement` branch is used to improve the existing features in this project**
+**This `features` branch is used to add new features this project**
 
 ### Contribution 🤝
 
