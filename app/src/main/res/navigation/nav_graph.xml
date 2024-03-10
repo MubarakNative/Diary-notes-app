@@ -11,10 +11,18 @@
         tools:layout="@layout/fragment_home_note" >
         <action
             android:id="@+id/action_homeNoteFragment_to_actionNoteFragment"
-            app:destination="@id/actionNoteFragment" />
+            app:destination="@id/actionNoteFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_homeNoteFragment_to_searchNoteFragment"
-            app:destination="@id/searchNoteFragment" />
+            app:destination="@id/searchNoteFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
     </fragment>
     <fragment
@@ -41,6 +49,10 @@
         android:label="SearchNoteFragment" >
         <action
             android:id="@+id/action_searchNoteFragment_to_actionNoteFragment"
-            app:destination="@id/actionNoteFragment" />
+            app:destination="@id/actionNoteFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 </navigation>

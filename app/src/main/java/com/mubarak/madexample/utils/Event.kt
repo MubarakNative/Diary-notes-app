@@ -2,7 +2,7 @@ package com.mubarak.madexample.utils
 
 /**
  * A wrapper class for livedata events
- * Taken from [https://github.com/android/architecture-samples/]
+ * used in [https://github.com/android/architecture-samples/]
  * */
  class Event<out T>(private val content: T) {
 

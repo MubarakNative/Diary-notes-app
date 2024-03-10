@@ -16,7 +16,12 @@
 
     </data>
 
+    <!--by default coordinator layout or appbar layout automatically
+    handle insets for us but in our case we don't want
+    we handle it manually
+    -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/homeCoordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.note.HomeNoteFragment">
@@ -25,6 +30,7 @@
             android:id="@+id/mainAppbarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
             app:liftOnScroll="false">
 
             <com.google.android.material.appbar.MaterialToolbar

@@ -95,7 +95,6 @@ class ActionNoteViewModel @Inject constructor(
             noteId.let {
                 noteRepository.deleteNoteById(it)
                 _noteDeletedEvent.value = Event(R.string.note_deleted)
-                _backPressEvent.value = Event(Unit)
             }
         }
     }
@@ -124,6 +123,5 @@ class ActionNoteViewModel @Inject constructor(
             Note(noteId, title.value, description.value)
         )
     }
-
 
 }
