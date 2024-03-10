@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -57,6 +60,17 @@ class SearchNoteFragment : Fragment() {
 
         onNoteItemClick()
 
+        /**for handling overlapping in landscape mode*/
+        ViewCompat.setOnApplyWindowInsetsListener(binding.searchCoordinator){ v, insets ->
+            val windowInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime())
+            v.updatePadding(
+                right =  windowInsets.right,
+                top = windowInsets.top,
+                bottom = windowInsets.bottom,
+                left = windowInsets.left
+            )
+            WindowInsetsCompat.CONSUMED
+        }
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {

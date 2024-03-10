@@ -27,9 +27,9 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cvParent"
-            style="?attr/materialCardViewFilledStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="?attr/materialCardViewOutlinedStyle"
             android:onClick="@{()-> homeViewModel.getNoteId(note.id)}"
             app:layout_constraintStart_toStartOf="@+id/card_width_gline"
             app:layout_constraintTop_toTopOf="@+id/card_width_gline"
