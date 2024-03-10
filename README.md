@@ -15,11 +15,10 @@
 * Implemented Settings using PreferenceSettingCompat library.
 
 ### Note 👀
-
 **This `improvement` branch is used to improve the existing features in this project**
 
 ### Contribution 🤝
 
-If you like to contribute this project you can do it
+If you like to contribute this project you can do it 
 As i already mention this project primarly focus on Architecture use `MVVM` and `SOLID `Principle's.
 All features and improvement should be commited on `features` or `improvement` branch not directly on `main`.
