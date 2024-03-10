@@ -16,7 +16,7 @@
 
 ### Note 👀
 
-**This `features` branch is used to add the new features in existing project**
+**This `improvement` branch is used to improve the existing features in this project**
 
 ### Contribution 🤝
 
