@@ -8,7 +8,7 @@
 
 * `Android Views (XML)`.
 * Room database for local db.
-* Preference Datastore for stroring user Preference.
+* Preference Datastore for storing user Preference.
 * Dagger Hilt for Dependency Injection.
 * Navigation Component to navigate between fragment.
 * Reactive Ui using Kotlin Flows and Coroutines.
@@ -32,13 +32,15 @@ In this Project you will Find two more branches named `improvement` and `feature
 
 ### Features ✅
 
-CRUD opeations For Notes
+CRUD operations For Notes
 
 - [x] Search note through [Room FTS](https://developer.android.com/training/data-storage/room/defining-data#fts)
 
 - [x] [Dynamic theme](https://developer.android.com/develop/ui/views/theming/dynamic-colors) Android 12+.
 
 - [x] Dark Theme and Light theme control through settings.
+
+- [X] Room Fts
 
 - [x]  and other Miscellaneous features...
 
@@ -49,8 +51,6 @@ CRUD opeations For Notes
 
 - [ ] Reminder's with Notification.
 
-- [ ] Advance FTS search (now i only implemented basic search feature).
-
 - [ ] Sorting and filtering the note and some others.
 
 - [ ] Probably i can switch Views to `compose`.
@@ -58,5 +58,5 @@ CRUD opeations For Notes
 ### Contribution 🤝
 
 If you like to contribute this project you can do it 
-As i already mention this project primarly focus on Architecture use `MVVM` and `SOLID `Principle's.
-All features and improvement should be commited on `features` or `improvement` branch not directly on `main`.
+As i already mention this project primarily focus on Architecture use `MVVM` and `SOLID `Principle's.
+All features and improvement should be committed on `features` or `improvement` branch not directly on `main`.
