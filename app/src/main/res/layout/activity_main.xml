@@ -3,16 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-    </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/main_drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        tools:openDrawer="start"
         tools:context=".ui.main.MainActivity">
 
         <include

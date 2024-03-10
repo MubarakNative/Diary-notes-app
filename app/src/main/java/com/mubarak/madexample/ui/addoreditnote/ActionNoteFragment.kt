@@ -5,16 +5,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.addCallback
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.snackbar.Snackbar
 import com.mubarak.madexample.R
 import com.mubarak.madexample.data.sources.datastore.TodoPreferenceDataStore
 import com.mubarak.madexample.databinding.FragmentActionNoteBinding
+import com.mubarak.madexample.ui.SharedViewModel
 import com.mubarak.madexample.utils.onUpButtonClick
 import com.mubarak.madexample.utils.showSoftKeyboard
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +30,7 @@ class ActionNoteFragment : Fragment() {
 
     private lateinit var binding: FragmentActionNoteBinding
     private val actionNoteViewModel: ActionNoteViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     @Inject
     lateinit var todoPreferenceDataStore: TodoPreferenceDataStore
@@ -70,8 +74,22 @@ class ActionNoteFragment : Fragment() {
 
         actionNoteViewModel.noteDeletedEvent.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled().let {
-                Snackbar.make(binding.root, "Note deleted", Snackbar.LENGTH_SHORT).show()
+                findNavController().popBackStack()
+                sharedViewModel.onNoteDeleted()
             }
+        }
+
+
+        /**for handling overlapping in landscape mode*/
+        ViewCompat.setOnApplyWindowInsetsListener(binding.actionCoordinator) { v, insets ->
+            val windowInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime())
+            v.updatePadding(
+                right = windowInsets.right,
+                top = windowInsets.top,
+                bottom = windowInsets.bottom,
+                left = windowInsets.left
+            )
+            WindowInsetsCompat.CONSUMED
         }
 
         actionNoteViewModel.backPressEvent.observe(viewLifecycleOwner) {
@@ -105,8 +123,8 @@ class ActionNoteFragment : Fragment() {
 
 
         actionNoteViewModel.snackBarEvent.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let { content ->
-                Snackbar.make(binding.root, content, Snackbar.LENGTH_SHORT).show()
+            it.getContentIfNotHandled()?.let {
+                sharedViewModel.onBlankNote()
             }
         }
 

@@ -42,5 +42,4 @@ class NoteRepositoryImpl @Inject constructor(
         return notesDatabase.getDao.getNoteByIdd(noteId)
     }
 
-
 }
