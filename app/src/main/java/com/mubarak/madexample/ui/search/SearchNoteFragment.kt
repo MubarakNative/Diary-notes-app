@@ -81,14 +81,16 @@ class SearchNoteFragment : Fragment() {
 
                 searchQuery?.let { search ->
                     val filteredQuery = SearchQueryFilter.filterQuery(search)
-                    searchNoteViewModel.searchNote(filteredQuery).observe(viewLifecycleOwner) { noteList ->
-                        adapter.submitList(noteList)
-                    }
+                    searchNoteViewModel.searchNote(filteredQuery)
                 }
                 return true
             }
 
         })
+
+        searchNoteViewModel.searchResults.observe(viewLifecycleOwner){
+            adapter.submitList(it)
+        }
 
         // to focus the SearchView automatically when we enter searchNoteFragment
         binding.searchView.setOnQueryTextFocusChangeListener { edittext, hasFocus ->
