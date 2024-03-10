@@ -40,6 +40,8 @@ CRUD operations For Notes
 
 - [x] Dark Theme and Light theme control through settings.
 
+- [x] FTS search .
+
 - [x]  and other Miscellaneous features...
 
 
@@ -48,8 +50,6 @@ CRUD operations For Notes
 **This app currently is in development new features might be added some important feature you can expect that include 🚧**
 
 - [ ] Reminder's with Notification.
-
-- [ ] Advance FTS search (now i only implemented basic search feature).
 
 - [ ] Sorting and filtering the note and some others.
 
