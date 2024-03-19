@@ -51,17 +51,12 @@ class HomeNoteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val rootView = inflater.inflate(
-            R.layout.fragment_home_note,
-            container,
-            false
-        )
-        binding = FragmentHomeNoteBinding.bind(
-            rootView
+        binding = FragmentHomeNoteBinding.inflate(
+            layoutInflater,
+            container, false
         ).apply {
             viewModel = homeViewModel
             lifecycleOwner = viewLifecycleOwner
-
         }
 
         return binding.root

@@ -1,7 +1,9 @@
 package com.mubarak.madexample.ui.main
 
 import android.os.Bundle
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.core.view.WindowCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
@@ -42,6 +44,16 @@ class MainActivity : AppCompatActivity() {
                 R.id.settingNoteFragment
             ), binding.mainDrawerLayout
         )
+
+        onBackPressedDispatcher.addCallback(this) {
+            if (binding.mainDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+            } else {
+                isEnabled = false
+                onBackPressedDispatcher.onBackPressed()
+                isEnabled = true
+            }
+        }
 
         navigationView.setupWithNavController(navController)
 

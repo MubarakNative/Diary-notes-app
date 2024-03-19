@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -18,6 +19,7 @@ import com.mubarak.madexample.R
 import com.mubarak.madexample.data.sources.datastore.TodoPreferenceDataStore
 import com.mubarak.madexample.databinding.FragmentActionNoteBinding
 import com.mubarak.madexample.ui.SharedViewModel
+import com.mubarak.madexample.utils.hideSoftKeyboard
 import com.mubarak.madexample.utils.onUpButtonClick
 import com.mubarak.madexample.utils.showSoftKeyboard
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,16 +43,12 @@ class ActionNoteFragment : Fragment() {
         inflater: LayoutInflater, viewGroup: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val root = inflater.inflate(
-            R.layout.fragment_action_note,
-            viewGroup,
-            false
+        binding = FragmentActionNoteBinding.inflate(
+            layoutInflater,
+            viewGroup, false
         )
-
-        binding = FragmentActionNoteBinding.bind(root).apply {
-            actionViewModel = actionNoteViewModel
-            lifecycleOwner = viewLifecycleOwner
-        }
+        binding.actionViewModel = actionNoteViewModel
+        binding.lifecycleOwner = this.viewLifecycleOwner
 
         return binding.root
     }
@@ -58,8 +56,6 @@ class ActionNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        binding.toolbarCreateNote.onUpButtonClick()
         val toolBarMenu = binding.toolbarCreateNote.menu
 
         val sendNoteMenuItem = toolBarMenu.findItem(R.id.action_send_note)
@@ -71,14 +67,22 @@ class ActionNoteFragment : Fragment() {
          else
             toolBarMenu.setGroupEnabled(sendNoteMenuItem.groupId,true)
 
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            actionNoteViewModel.saveAndExit()
+        }
 
         actionNoteViewModel.noteDeletedEvent.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled().let {
+                view.hideSoftKeyboard()
                 findNavController().popBackStack()
                 sharedViewModel.onNoteDeleted()
             }
         }
 
+        binding.toolbarCreateNote.setNavigationOnClickListener {
+            view.hideSoftKeyboard()
+            actionNoteViewModel.saveAndExit()
+        }
 
         /**for handling overlapping in landscape mode*/
         ViewCompat.setOnApplyWindowInsetsListener(binding.actionCoordinator) { v, insets ->
