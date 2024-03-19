@@ -40,7 +40,7 @@ CRUD operations For Notes
 
 - [x] Dark Theme and Light theme control through settings.
 
-- [X] Room Fts
+- [X] Edge to Edge
 
 - [x]  and other Miscellaneous features...
 
