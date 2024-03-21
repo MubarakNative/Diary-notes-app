@@ -2,7 +2,10 @@ package com.mubarak.madexample.data.repository
 
 import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.data.sources.local.NoteDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /** [NoteRepository] implementation*/
@@ -10,11 +13,11 @@ import javax.inject.Inject
 class NoteRepositoryImpl @Inject constructor(
     private val notesDatabase: NoteDatabase
 ): NoteRepository {
-    override suspend fun insertNote(note: Note) {
+    override suspend fun insertNote(note: Note) = withContext(Dispatchers.IO){
         notesDatabase.getDao.insertNote(note)
     }
 
-    override suspend fun upsertNote(note: Note) {
+    override suspend fun upsertNote(note: Note) = withContext(Dispatchers.IO){
         notesDatabase.getDao.upsertNote(note)
     }
 
@@ -22,11 +25,11 @@ class NoteRepositoryImpl @Inject constructor(
         return notesDatabase.getDao.getAllNotes()
     }
 
-    override suspend fun deleteNote(note: Note) {
+    override suspend fun deleteNote(note: Note) = withContext(Dispatchers.IO){
         notesDatabase.getDao.deleteNote(note)
     }
 
-    override suspend fun deleteNoteById(noteId: Long) {
+    override suspend fun deleteNoteById(noteId: Long)  = withContext(Dispatchers.IO) {
         notesDatabase.getDao.deleteNoteById(noteId)
     }
 
@@ -35,11 +38,14 @@ class NoteRepositoryImpl @Inject constructor(
     }
 
     override fun getNoteStreamById(noteId: Long): Flow<Note> {
-       return notesDatabase.getDao.getNoteById(noteId)
+        return notesDatabase.getDao.getNoteById(noteId)
     }
 
-    override suspend fun getNoteById(noteId: Long): Note {
-        return notesDatabase.getDao.getNoteByIdd(noteId)
+    override suspend fun getNoteById(noteId: Long):Note{
+        return withContext(Dispatchers.IO){
+            notesDatabase.getDao.getNoteByIdd(noteId)
+        }
+
     }
 
 }

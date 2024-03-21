@@ -42,8 +42,7 @@ CRUD operations For Notes
 
 - [X] Edge to Edge
 
-- [x]  and other Miscellaneous features...
-
+- [x] and other Miscellaneous features...
 
 ### Improvements 🚀
 

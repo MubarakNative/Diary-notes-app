@@ -19,7 +19,7 @@ object SearchQueryFilter {
         }
 
         return if (isBareWord) {
-            "*$query*"
+            "$query*"
         } else {
             //  wrap the special character into double-quote to avoid runtime exception
             // Refer this docs for more details [https://sqlite.org/fts5.html#fts5_strings]

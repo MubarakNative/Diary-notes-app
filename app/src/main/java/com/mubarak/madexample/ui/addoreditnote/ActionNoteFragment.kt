@@ -56,32 +56,20 @@ class ActionNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val toolBarMenu = binding.toolbarCreateNote.menu
-
-        val sendNoteMenuItem = toolBarMenu.findItem(R.id.action_send_note)
-
-        // disable the toolbar menu when create a new note because title or description might be empty
-        if (args.noteId == -1L)
-            toolBarMenu.setGroupEnabled(sendNoteMenuItem.groupId,false)
-
-         else
-            toolBarMenu.setGroupEnabled(sendNoteMenuItem.groupId,true)
-
-        requireActivity().onBackPressedDispatcher.addCallback(this) {
+         requireActivity().onBackPressedDispatcher.addCallback(this) {
             actionNoteViewModel.saveAndExit()
-        }
-
-        actionNoteViewModel.noteDeletedEvent.observe(viewLifecycleOwner) {
-            it?.getContentIfNotHandled().let {
-                view.hideSoftKeyboard()
-                findNavController().popBackStack()
-                sharedViewModel.onNoteDeleted()
-            }
         }
 
         binding.toolbarCreateNote.setNavigationOnClickListener {
             view.hideSoftKeyboard()
             actionNoteViewModel.saveAndExit()
+        }
+
+        actionNoteViewModel.noteDeletedEvent.observe(viewLifecycleOwner) {
+            it?.getContentIfNotHandled().let {
+                findNavController().popBackStack()
+                sharedViewModel.onNoteDeleted()
+            }
         }
 
         /**for handling overlapping in landscape mode*/
