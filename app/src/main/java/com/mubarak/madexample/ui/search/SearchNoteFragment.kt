@@ -39,14 +39,10 @@ class SearchNoteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val view = inflater.inflate(
-            R.layout.fragment_search_note,
-            container,
-            false
-        )
-        binding = FragmentSearchNoteBinding.bind(view).apply {
-            lifecycleOwner = viewLifecycleOwner
+        binding = FragmentSearchNoteBinding.inflate(layoutInflater,
+            container,false).apply {
             viewmodel = searchNoteViewModel
+            lifecycleOwner = viewLifecycleOwner
         }
 
         return binding.root

@@ -43,16 +43,12 @@ class ActionNoteFragment : Fragment() {
         inflater: LayoutInflater, viewGroup: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val root = inflater.inflate(
-            R.layout.fragment_action_note,
-            viewGroup,
-            false
+        binding = FragmentActionNoteBinding.inflate(
+            layoutInflater,
+            viewGroup, false
         )
-
-        binding = FragmentActionNoteBinding.bind(root).apply {
-            actionViewModel = actionNoteViewModel
-            lifecycleOwner = viewLifecycleOwner
-        }
+        binding.actionViewModel = actionNoteViewModel
+        binding.lifecycleOwner = this.viewLifecycleOwner
 
         return binding.root
     }
@@ -60,7 +56,7 @@ class ActionNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        requireActivity().onBackPressedDispatcher.addCallback(this) {
+         requireActivity().onBackPressedDispatcher.addCallback(this) {
             actionNoteViewModel.saveAndExit()
         }
 
@@ -75,7 +71,6 @@ class ActionNoteFragment : Fragment() {
                 sharedViewModel.onNoteDeleted()
             }
         }
-
 
         /**for handling overlapping in landscape mode*/
         ViewCompat.setOnApplyWindowInsetsListener(binding.actionCoordinator) { v, insets ->
