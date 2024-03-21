@@ -5,7 +5,6 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("androidx.navigation.safeargs.kotlin")
     id("kotlin-parcelize")
-    id("kotlin-kapt")
 }
 
 android {
@@ -14,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.mubarak.madexample"
-        minSdk = 24
+        minSdk = 21
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
