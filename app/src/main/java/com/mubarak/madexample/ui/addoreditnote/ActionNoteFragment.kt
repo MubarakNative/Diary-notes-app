@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -18,6 +19,7 @@ import com.mubarak.madexample.R
 import com.mubarak.madexample.data.sources.datastore.TodoPreferenceDataStore
 import com.mubarak.madexample.databinding.FragmentActionNoteBinding
 import com.mubarak.madexample.ui.SharedViewModel
+import com.mubarak.madexample.utils.hideSoftKeyboard
 import com.mubarak.madexample.utils.onUpButtonClick
 import com.mubarak.madexample.utils.showSoftKeyboard
 import dagger.hilt.android.AndroidEntryPoint
@@ -58,19 +60,14 @@ class ActionNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            actionNoteViewModel.saveAndExit()
+        }
 
-        binding.toolbarCreateNote.onUpButtonClick()
-        val toolBarMenu = binding.toolbarCreateNote.menu
-
-        val sendNoteMenuItem = toolBarMenu.findItem(R.id.action_send_note)
-
-        // disable the toolbar menu when create a new note because title or description might be empty
-        if (args.noteId == -1L)
-            toolBarMenu.setGroupEnabled(sendNoteMenuItem.groupId,false)
-
-         else
-            toolBarMenu.setGroupEnabled(sendNoteMenuItem.groupId,true)
-
+        binding.toolbarCreateNote.setNavigationOnClickListener {
+            view.hideSoftKeyboard()
+            actionNoteViewModel.saveAndExit()
+        }
 
         actionNoteViewModel.noteDeletedEvent.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled().let {

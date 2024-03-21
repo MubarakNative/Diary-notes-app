@@ -3,6 +3,7 @@ package com.mubarak.madexample.ui.note
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,8 @@ class HomeNoteItemAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(note: Note) {
             binding.apply {
+                tvTitle.isVisible = note.title.isNotBlank()
+                tvDesc.isVisible = note.description.isNotBlank()
                 tvTitle.text = note.title
                 tvDesc.text = note.description
                 homeViewModel = homeNoteViewModel

@@ -23,6 +23,7 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
+            app:liftOnScroll="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -52,6 +53,7 @@
                     android:id="@+id/etAddTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLength="1000"
                     android:layout_marginTop="15dp"
                     android:autoLink="web|email"
                     android:autofillHints="Title"
@@ -74,6 +76,7 @@
                     android:id="@+id/etAddDesc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLength="22000"
                     android:layout_below="@id/etAddTitle"
                     android:layout_marginTop="20dp"
                     android:autoLink="web|email"
@@ -98,17 +101,6 @@
 
 
         </androidx.core.widget.NestedScrollView>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabActionNote"
-            android:onClick="@{()-> actionViewModel.saveAndExit()}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:layout_gravity="bottom|end"
-            android:src="@drawable/tick_24px"
-            app:fabSize="mini"
-            tools:ignore="ContentDescription" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
