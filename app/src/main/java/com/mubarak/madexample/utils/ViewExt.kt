@@ -35,9 +35,3 @@ fun MaterialToolbar.onUpButtonClick() {
         findNavController().popBackStack()
     }
 }
-
-fun View.hideSoftKeyboard(){
-    val context = this.context ?: return
-    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.hideSoftInputFromWindow(this.windowToken,0)
-}

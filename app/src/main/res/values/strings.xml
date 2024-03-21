@@ -17,13 +17,6 @@
     <string name="make_a_copy">Make a copy</string>
     <string name="delete">Delete</string>
     <string name="save">Save</string>
-    <string name="note_dir_desc">Descending</string>
-    <string name="note_dir_asc">Ascending</string>
-    <string name="sort_direction">Sort direction</string>
-    <string name="sortBy_date_modified">Date modified</string>
-    <string name="sortBy_date_created">Date created</string>
-    <string name="sort_by">Sort by</string>
-    <string name="sort_options">Sort Options</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
 
