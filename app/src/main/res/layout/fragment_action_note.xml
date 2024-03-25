@@ -15,7 +15,6 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/actionCoordinator"
-        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.addoreditnote.ActionNoteFragment">
@@ -48,7 +47,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <!-- Two ways dataBinding -->
                 <EditText
                     android:id="@+id/etAddTitle"
                     android:layout_width="match_parent"
@@ -94,8 +92,6 @@
                     android:textAppearance="?textAppearanceBody1"
                     android:textDirection="anyRtl"
                     android:textSize="16sp" />
-
-
 
             </RelativeLayout>
 

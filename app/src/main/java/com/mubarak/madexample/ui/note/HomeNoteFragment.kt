@@ -65,19 +65,6 @@ class HomeNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        /**Handling insets in landscape mode*/
-        ViewCompat.setOnApplyWindowInsetsListener(binding.homeCoordinator) { v, insets ->
-            val windowInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.updatePadding(
-                right = windowInsets.right,
-                top = windowInsets.top,
-                bottom = windowInsets.bottom,
-                left = windowInsets.left
-            )
-            WindowInsetsCompat.CONSUMED
-        }
-
         sharedViewModel.snackBarEvent.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
                 Snackbar.make(binding.homeCoordinator, it, Snackbar.LENGTH_SHORT)
@@ -160,24 +147,11 @@ class HomeNoteFragment : Fragment() {
         homeViewModel.noteDeletedEvent.observe(viewLifecycleOwner) { event ->
             event?.getContentIfNotHandled()?.let {
                 Snackbar.make(requireView(), it, Snackbar.LENGTH_SHORT).setAction(
-                    "Undo"
+                    R.string.undo
                 ) {
                     homeViewModel.undoDeletedNote(draggedNote)
                 }.setAnchorView(binding.fabCreateNote).show()
             }
-        }
-
-        /**Handling overlaps by using window insets for fab*/
-        ViewCompat.setOnApplyWindowInsetsListener(binding.fabCreateNote) { v, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-
-            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                leftMargin = insets.left
-                bottomMargin =
-                    insets.bottom + resources.getDimensionPixelSize(R.dimen.fab_bottom_padding)
-            }
-            WindowInsetsCompat.CONSUMED
-
         }
 
         homeViewModel.noteItemLayout.observe(viewLifecycleOwner) {// get the value's from datastore 0 means LIST , 1 means GRID

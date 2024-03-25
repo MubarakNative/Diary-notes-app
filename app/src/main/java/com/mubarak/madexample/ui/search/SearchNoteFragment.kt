@@ -56,18 +56,6 @@ class SearchNoteFragment : Fragment() {
 
         onNoteItemClick()
 
-        /**for handling overlapping in landscape mode*/
-        ViewCompat.setOnApplyWindowInsetsListener(binding.searchCoordinator){ v, insets ->
-            val windowInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime())
-            v.updatePadding(
-                right =  windowInsets.right,
-                top = windowInsets.top,
-                bottom = windowInsets.bottom,
-                left = windowInsets.left
-            )
-            WindowInsetsCompat.CONSUMED
-        }
-
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
