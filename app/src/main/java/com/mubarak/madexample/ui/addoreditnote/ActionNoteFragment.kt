@@ -72,18 +72,6 @@ class ActionNoteFragment : Fragment() {
             }
         }
 
-        /**for handling overlapping in landscape mode*/
-        ViewCompat.setOnApplyWindowInsetsListener(binding.actionCoordinator) { v, insets ->
-            val windowInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime())
-            v.updatePadding(
-                right = windowInsets.right,
-                top = windowInsets.top,
-                bottom = windowInsets.bottom,
-                left = windowInsets.left
-            )
-            WindowInsetsCompat.CONSUMED
-        }
-
         actionNoteViewModel.backPressEvent.observe(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
