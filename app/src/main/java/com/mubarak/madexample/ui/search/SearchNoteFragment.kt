@@ -4,19 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.mubarak.madexample.R
 import com.mubarak.madexample.utils.NoteLayout
 import com.mubarak.madexample.databinding.FragmentSearchNoteBinding
-import com.mubarak.madexample.ui.note.HomeNoteItemAdapter
+import com.mubarak.madexample.ui.note.NoteItemAdapter
 import com.mubarak.madexample.ui.note.HomeNoteViewModel
 import com.mubarak.madexample.utils.onUpButtonClick
 import com.mubarak.madexample.utils.showSoftKeyboard
@@ -25,13 +22,14 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SearchNoteFragment : Fragment() {
 
-    private lateinit var binding: FragmentSearchNoteBinding
+    private var _binding: FragmentSearchNoteBinding? = null
+    private val binding: FragmentSearchNoteBinding get() = _binding!!
     private val searchNoteViewModel: SearchNoteViewModel by viewModels()
     private val homeNoteViewModel: HomeNoteViewModel by viewModels()
 
 
     private val adapter by lazy {
-        HomeNoteItemAdapter(homeNoteViewModel)
+        NoteItemAdapter(noteItemClickListener =searchNoteViewModel)
     }
 
     override fun onCreateView(
@@ -39,7 +37,7 @@ class SearchNoteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        binding = FragmentSearchNoteBinding.inflate(layoutInflater,
+        _binding = FragmentSearchNoteBinding.inflate(layoutInflater,
             container,false).apply {
             viewmodel = searchNoteViewModel
             lifecycleOwner = viewLifecycleOwner
@@ -54,12 +52,16 @@ class SearchNoteFragment : Fragment() {
         binding.toolbarSearch.onUpButtonClick()
         setUpRecyclerView()
 
-        onNoteItemClick()
+        searchNoteViewModel.onNoteItemClick.observe(viewLifecycleOwner) { note ->
+            note.getContentIfNotHandled()?.let {
+                val directions =
+                    SearchNoteFragmentDirections.actionSearchNoteFragmentToActionNoteFragment(it.id)
+                findNavController().navigate(directions)
+            }
+        }
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
+            override fun onQueryTextSubmit(query: String?)= false
 
             override fun onQueryTextChange(searchQuery: String?): Boolean {
 
@@ -85,16 +87,14 @@ class SearchNoteFragment : Fragment() {
         binding.searchView.requestFocus()
 
     }
-
-    // to show the search note-item layout according to the value set in HomeFragment
     private fun setUpRecyclerView() {
         homeNoteViewModel.noteItemLayout.observe(viewLifecycleOwner) {
             when (it) {
-                NoteLayout.LIST.ordinal -> {
+                NoteLayout.LIST.name -> {
                     binding.searchNoteList.layoutManager = LinearLayoutManager(requireContext())
                 }
 
-                NoteLayout.GRID.ordinal -> {
+                NoteLayout.GRID.name -> {
                     binding.searchNoteList.layoutManager =
                         StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
                 }
@@ -107,14 +107,9 @@ class SearchNoteFragment : Fragment() {
         }
     }
 
-    private fun onNoteItemClick() { // to open note-detail screen in search
-
-        homeNoteViewModel.getNoteIdEvent.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let { noteId ->
-                val action = SearchNoteFragmentDirections.actionSearchNoteFragmentToActionNoteFragment(noteId)
-                findNavController().navigate(action)
-            }
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

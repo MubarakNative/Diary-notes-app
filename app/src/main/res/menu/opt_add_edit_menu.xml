@@ -8,6 +8,11 @@
         android:title="@string/delete"
         app:showAsAction="never" />
 
+    <item android:id="@+id/action_note_status"
+        android:icon="@drawable/archive_icon24px"
+        android:title="@string/archive"
+        app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/action_send_note"
         android:icon="@drawable/share_icon24px"

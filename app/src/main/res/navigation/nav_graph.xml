@@ -31,7 +31,6 @@
         android:label="fragment_action_note"
         tools:layout="@layout/fragment_action_note" >
 
-
         <argument
             android:name="noteId"
             app:argType="long" />
@@ -54,5 +53,21 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/archiveNoteFragment"
+        android:name="com.mubarak.madexample.ui.archive.ArchiveNoteFragment"
+        android:label="ArchiveNoteFragment" >
+        <action
+            android:id="@+id/action_archiveNoteFragment_to_actionNoteFragment"
+            app:destination="@id/actionNoteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deletedNoteFragment"
+        android:name="com.mubarak.madexample.ui.deleted.DeletedNoteFragment"
+        android:label="DeletedNoteFragment" >
+        <action
+            android:id="@+id/action_deletedNoteFragment_to_actionNoteFragment"
+            app:destination="@id/actionNoteFragment" />
     </fragment>
 </navigation>

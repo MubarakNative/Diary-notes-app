@@ -1,6 +1,7 @@
 package com.mubarak.madexample.data.repository
 
 import com.mubarak.madexample.data.sources.local.model.Note
+import com.mubarak.madexample.utils.NoteStatus
 import kotlinx.coroutines.flow.Flow
 
 interface NoteRepository {
@@ -11,6 +12,7 @@ interface NoteRepository {
     suspend fun deleteNoteById(noteId:Long)
     fun searchNote(searchQuery:String):Flow<List<Note>>
     fun getNoteStreamById(noteId:Long):Flow<Note>
+    fun getNoteByStatus(noteStatus: NoteStatus):Flow<List<Note>>
     suspend fun getNoteById(noteId:Long):Note
 
 }

@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Upsert
 import com.mubarak.madexample.data.sources.local.model.Note
+import com.mubarak.madexample.utils.NoteStatus
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -36,10 +37,12 @@ interface NoteDao {
     fun getSearchedNote(searchQuery: String): Flow<List<Note>>
 
     @Query("SELECT * FROM note_table WHERE note_id =:noteId ")
-    fun getNoteById(noteId:Long): Flow<Note>
+    fun getNoteStream(noteId:Long): Flow<Note>
 
+    @Query("SELECT * FROM note_table WHERE note_status =:noteStatus")
+    fun getNoteByStatus(noteStatus: NoteStatus): Flow<List<Note>>
     @Query("SELECT * FROM note_table WHERE note_id =:noteId ")
-    suspend fun getNoteByIdd(noteId:Long): Note
+    suspend fun getNoteById(noteId:Long): Note
 
 
 }

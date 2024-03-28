@@ -2,8 +2,8 @@ package com.mubarak.madexample.data.repository
 
 import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.data.sources.local.NoteDatabase
+import com.mubarak.madexample.utils.NoteStatus
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -38,12 +38,16 @@ class NoteRepositoryImpl @Inject constructor(
     }
 
     override fun getNoteStreamById(noteId: Long): Flow<Note> {
-        return notesDatabase.getDao.getNoteById(noteId)
+        return notesDatabase.getDao.getNoteStream(noteId)
+    }
+
+    override fun getNoteByStatus(noteStatus: NoteStatus): Flow<List<Note>> {
+        return notesDatabase.getDao.getNoteByStatus(noteStatus)
     }
 
     override suspend fun getNoteById(noteId: Long):Note{
         return withContext(Dispatchers.IO){
-            notesDatabase.getDao.getNoteByIdd(noteId)
+            notesDatabase.getDao.getNoteById(noteId)
         }
 
     }

@@ -7,6 +7,8 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.mubarak.madexample.data.repository.NoteRepository
 import com.mubarak.madexample.data.sources.local.model.Note
+import com.mubarak.madexample.ui.note.NoteItemAdapter
+import com.mubarak.madexample.utils.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -18,7 +20,10 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchNoteViewModel @Inject constructor(
     private val noteRepository: NoteRepository
-) : ViewModel() {
+) : ViewModel(), NoteItemAdapter.NoteItemClickListener  {
+
+    private val _onNoteItemClick = MutableLiveData<Event<Note>>()
+    val onNoteItemClick: LiveData<Event<Note>> = _onNoteItemClick
 
     private var searchJob: Job? = null
 
@@ -39,6 +44,9 @@ class SearchNoteViewModel @Inject constructor(
     }
     companion object {
         private const val DEBOUNCE_DELAY = 120L
+    }
+    override fun onNoteItemClick(note: Note) {
+        _onNoteItemClick.value = Event(note)
     }
 
 }

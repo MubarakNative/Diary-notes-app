@@ -4,10 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updateLayoutParams
-import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -34,16 +30,15 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class HomeNoteFragment : Fragment() {
 
-    private lateinit var binding: FragmentHomeNoteBinding
-
+    private var _binding: FragmentHomeNoteBinding? = null
+    private val binding: FragmentHomeNoteBinding get() = _binding!!
     @Inject
     lateinit var todoPreferenceDataStore: TodoPreferenceDataStore
     private val homeViewModel: HomeNoteViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
-
-
-    lateinit var draggedNote: Note
-    val homeAdapter by lazy { HomeNoteItemAdapter(homeViewModel) }
+    private var noteId: Long = -1
+    private lateinit var draggedNote: Note
+    private val homeAdapter by lazy { NoteItemAdapter(homeViewModel) }
 
     override fun onCreateView(
 
@@ -51,7 +46,7 @@ class HomeNoteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        binding = FragmentHomeNoteBinding.inflate(
+        _binding = FragmentHomeNoteBinding.inflate(
             layoutInflater,
             container, false
         ).apply {
@@ -65,6 +60,45 @@ class HomeNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.fabCreateNote.setOnClickListener {
+            navigateToAddEditFragment()
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            homeViewModel.getAllNote.flowWithLifecycle(
+                lifecycle,
+                Lifecycle.State.STARTED,
+            ).collect { note ->
+                homeAdapter.submitList(note)
+
+            }
+        }
+
+        binding.homeNoteList.adapter = homeAdapter
+        binding.homeNoteList.setHasFixedSize(true)
+
+        homeAdapter.touchHelper.attachToRecyclerView(binding.homeNoteList)
+
+        homeViewModel.onNoteItemClick.observe(viewLifecycleOwner) { note ->
+
+            note.getContentIfNotHandled()?.let {
+                val directions =
+                    HomeNoteFragmentDirections.actionHomeNoteFragmentToActionNoteFragment(it.id)
+                findNavController().navigate(directions)
+            }
+        }
+
+        homeViewModel.onNoteSwipe.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { note ->
+                draggedNote = note
+                homeViewModel.updateNoteStatus(note.id)
+            }
+        }
+
+        binding.toolBarHome.setNavigationOnClickListener {
+            requireView().openNavDrawer(requireActivity())
+        }
+
         sharedViewModel.snackBarEvent.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
                 Snackbar.make(binding.homeCoordinator, it, Snackbar.LENGTH_SHORT)
@@ -73,98 +107,70 @@ class HomeNoteFragment : Fragment() {
             }
         }
 
+        sharedViewModel.noteIdEvent.observe(viewLifecycleOwner) {
+            it?.getContentIfNotHandled()?.let { noteId ->
+                this.noteId = noteId
+            }
+        }
+
+        sharedViewModel.noteArchivedEvent.observe(viewLifecycleOwner) {
+            it?.getContentIfNotHandled()?.let {
+                Snackbar.make(binding.homeCoordinator, it, Snackbar.LENGTH_SHORT)
+                    .setAnchorView(binding.fabCreateNote).setAction(R.string.undo) {
+                        homeViewModel.redoNoteToActive(noteId)
+                    }.show()
+            }
+        }
+
         sharedViewModel.noteDeletedEvent.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { content ->
-                Snackbar.make(requireView(), content, Snackbar.LENGTH_SHORT)
-                    .setGestureInsetBottomIgnored(true).setAnchorView(binding.fabCreateNote)
-                    .show()
+                Snackbar.make(requireView(), content, Snackbar.LENGTH_SHORT).setAction(
+                    R.string.undo
+                ) {
+                    homeViewModel.redoNoteToActive(noteId)
+                }.setGestureInsetBottomIgnored(true).setAnchorView(binding.fabCreateNote).show()
             }
         }
 
-        binding.fabCreateNote.setOnClickListener {
-            navigateToAddEditFragment()
-        }
-
-        binding.apply {
-            toolBarHome.setNavigationOnClickListener {
-                requireView().openNavDrawer(requireActivity())
-            }
-
-
-            homeViewModel.getNoteIdEvent.observe(viewLifecycleOwner) { event ->
-                event.getContentIfNotHandled()?.let { content ->
-                    navigateToEditNoteFragment(content)
+        binding.toolBarHome.setOnMenuItemClickListener { menuItem ->
+            return@setOnMenuItemClickListener when (menuItem.itemId) {
+                R.id.action_searchNote -> {
+                    findNavController().navigate(R.id.action_homeNoteFragment_to_searchNoteFragment)
+                    true
                 }
-            }
 
-            viewLifecycleOwner.lifecycleScope.launch {
-                homeViewModel.getAllNote.flowWithLifecycle(
-                    lifecycle,
-                    Lifecycle.State.STARTED,
-                ).collect { note ->
-                    homeAdapter.submitList(note)
-                    binding.homeNoteList.adapter = homeAdapter
-
+                R.id.action_note_view_type -> {
+                    homeViewModel.toggleNoteLayout()
+                    true
                 }
-            }
 
-            toolBarHome.setOnMenuItemClickListener { menuItem ->
-                return@setOnMenuItemClickListener when (menuItem.itemId) {
-                    R.id.action_searchNote -> {
-                        findNavController().navigate(R.id.action_homeNoteFragment_to_searchNoteFragment)
-                        true
-                    }
-
-                    R.id.action_note_view_type -> {
-                        homeViewModel.toggleNoteLayout()
-                        true
-                    }
-
-                    else -> false
-                }
+                else -> false
             }
         }
 
-        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
-            0, ItemTouchHelper.LEFT or
-                    ItemTouchHelper.RIGHT
-        ) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                return false
-            }
 
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                draggedNote = homeAdapter.currentList[viewHolder.bindingAdapterPosition]
-                homeViewModel.deleteNote(draggedNote)
-            }
-
-        }).attachToRecyclerView(binding.homeNoteList)
-
-        homeViewModel.noteDeletedEvent.observe(viewLifecycleOwner) { event ->
+        homeViewModel.noteStatusChangeEvent.observe(viewLifecycleOwner) { event ->
             event?.getContentIfNotHandled()?.let {
                 Snackbar.make(requireView(), it, Snackbar.LENGTH_SHORT).setAction(
                     R.string.undo
                 ) {
-                    homeViewModel.undoDeletedNote(draggedNote)
+                    homeViewModel.redoNoteToActive(draggedNote.id)
                 }.setAnchorView(binding.fabCreateNote).show()
             }
         }
 
-        homeViewModel.noteItemLayout.observe(viewLifecycleOwner) {// get the value's from datastore 0 means LIST , 1 means GRID
+
+        homeViewModel.noteItemLayout.observe(viewLifecycleOwner) {
             val noteItemMenu = binding.toolBarHome.menu.findItem(R.id.action_note_view_type)
 
             when (it) {
-                NoteLayout.LIST.ordinal -> { // default is List
+                NoteLayout.LIST.name -> { // default is List
                     binding.homeNoteList.layoutManager = LinearLayoutManager(requireContext())
                     noteItemMenu.setIcon(R.drawable.grid_view_icon24px)
                         .setTitle(R.string.note_layout_grid)
                 }
 
-                NoteLayout.GRID.ordinal -> {
+                NoteLayout.GRID.name -> {
                     binding.homeNoteList.layoutManager =
                         StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
@@ -175,12 +181,6 @@ class HomeNoteFragment : Fragment() {
         }
     }
 
-    private fun navigateToEditNoteFragment(noteId: Long) {
-        val action = HomeNoteFragmentDirections.actionHomeNoteFragmentToActionNoteFragment(noteId)
-        findNavController().navigate(action)
-    }
-
-
     private fun navigateToAddEditFragment() {
         val action = HomeNoteFragmentDirections.actionHomeNoteFragmentToActionNoteFragment(
             -1
@@ -188,6 +188,10 @@ class HomeNoteFragment : Fragment() {
         findNavController().navigate(action)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
 
 
