@@ -2,7 +2,7 @@
 
 ### The goal of creating this project is to stay up to date with modern android development.
 
-**Screenshots**
+![Screenshots](Screenshots/Screenshots.png)
 
 This App will build on
 
