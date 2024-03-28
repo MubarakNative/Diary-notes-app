@@ -3,10 +3,19 @@
 
     <group android:checkableBehavior="single" >
 
-
         <item android:id="@+id/homeNoteFragment"
             android:title="@string/note"
             android:icon="@drawable/notes_icon" />
+
+        <item android:id="@+id/archiveNoteFragment"
+            android:title="@string/archive"
+            android:icon="@drawable/archive_icon24px"
+            android:checkable="true"/>
+
+        <item android:id="@+id/deletedNoteFragment"
+            android:title="@string/trash"
+            android:icon="@drawable/trash_icon24px"
+            android:checkable="true"/>
 
         <item android:id="@+id/settingNoteFragment"
             android:title="@string/settings"

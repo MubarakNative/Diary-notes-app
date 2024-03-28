@@ -10,6 +10,7 @@ import com.mubarak.madexample.data.repository.NoteRepository
 import com.mubarak.madexample.data.sources.datastore.TodoPreferenceDataStore
 import com.mubarak.madexample.utils.NoteLayout
 import com.mubarak.madexample.utils.Event
+import com.mubarak.madexample.utils.NoteStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -23,26 +24,29 @@ import javax.inject.Inject
 class HomeNoteViewModel @Inject constructor(
     private val noteRepository: NoteRepository,
     private val todoPreferenceDataStore: TodoPreferenceDataStore
-) : ViewModel() {
+) : ViewModel(),NoteItemAdapter.NoteAdapterListener  {
 
+    private val _onNoteSwipe = MutableLiveData<Event<Note>>()
+    val onNoteSwipe: LiveData<Event<Note>> = _onNoteSwipe
 
-    private val _getNoteIdEvent: MutableLiveData<Event<Long>> = MutableLiveData()
-    val getNoteIdEvent: LiveData<Event<Long>> = _getNoteIdEvent
+    private val _onNoteItemClick = MutableLiveData<Event<Note>>()
+    val onNoteItemClick: LiveData<Event<Note>> = _onNoteItemClick
 
-    val getAllNote = noteRepository.getAllNote()
+    val getAllNote = noteRepository.getNoteByStatus(NoteStatus.ACTIVE)
 
-    private val _noteItemLayout: MutableLiveData<Int> = MutableLiveData()
-    val  noteItemLayout: LiveData<Int> = _noteItemLayout
+    private val _noteItemLayout: MutableLiveData<String> = MutableLiveData()
+    val  noteItemLayout: LiveData<String> = _noteItemLayout
 
-    // This is for displaying no note placeholder in home fragment
+    // This is for displaying placeholder in home fragment
     val isEmpty: StateFlow<Boolean> = getAllNote.map { it.isEmpty() }.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000),
         true
     )
 
-    private val _noteDeletedEvent = MutableLiveData<Event<Int>>()
-    val noteDeletedEvent: LiveData<Event<Int>> = _noteDeletedEvent
+    private val _noteStatusChangeEvent = MutableLiveData<Event<Int>>()
+    val noteStatusChangeEvent: LiveData<Event<Int>> = _noteStatusChangeEvent
+
 
     init {
         viewModelScope.launch{
@@ -54,35 +58,36 @@ class HomeNoteViewModel @Inject constructor(
 
         viewModelScope.launch {
             val layout = when(_noteItemLayout.value){
-                NoteLayout.LIST.ordinal -> NoteLayout.GRID.ordinal
-                NoteLayout.GRID.ordinal -> NoteLayout.LIST.ordinal
+                NoteLayout.LIST.name -> NoteLayout.GRID.name
+                NoteLayout.GRID.name -> NoteLayout.LIST.name
                 else -> {return@launch}
             }
 
             _noteItemLayout.value = layout // update the changed value
             todoPreferenceDataStore.setNoteLayout(layout) // store the updated value in datastore
         }
-
-
     }
 
-    /**we get noteId is from  [note_list_layout]*/
-    fun getNoteId(noteId: Long) {
-        _getNoteIdEvent.value = Event(noteId)
-    }
-
-    fun deleteNote(note: Note) {
-        viewModelScope.launch {
-            noteRepository.deleteNote(note)
-            _noteDeletedEvent.value = Event(R.string.note_deleted)
+    fun redoNoteToActive(noteId: Long){
+        viewModelScope.launch{
+            val note = noteRepository.getNoteById(noteId)
+            val updateNote = Note(note.id,note.title,note.description,NoteStatus.ACTIVE)
+            noteRepository.upsertNote(updateNote)
         }
     }
-
-    // Re-insert the deleted note
-    fun undoDeletedNote(note: Note) {
-
-        viewModelScope.launch {
-            noteRepository.insertNote(note)
+    fun updateNoteStatus(noteId: Long) {
+        viewModelScope.launch{
+            val note = noteRepository.getNoteById(noteId)
+            val updateNote = Note(note.id,note.title,note.description,NoteStatus.ARCHIVE)
+            noteRepository.upsertNote(updateNote)
+            _noteStatusChangeEvent.value = Event(R.string.note_archived)
         }
+    }
+    override fun onNoteItemClicked(note: Note) {
+        _onNoteItemClick.value = Event(note)
+    }
+
+    override fun onNoteSwipe(note: Note) {
+        _onNoteSwipe.value = Event(note)
     }
 }

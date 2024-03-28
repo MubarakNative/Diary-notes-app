@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.core.view.WindowCompat
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -52,6 +53,14 @@ class MainActivity : AppCompatActivity() {
                 isEnabled = false
                 onBackPressedDispatcher.onBackPressed()
                 isEnabled = true
+            }
+        }
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.settingNoteFragment || destination.id == R.id.actionNoteFragment) {
+                binding.mainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            } else {
+                binding.mainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
             }
         }
 

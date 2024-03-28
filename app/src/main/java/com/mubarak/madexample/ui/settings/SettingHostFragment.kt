@@ -13,12 +13,13 @@ import dagger.hilt.android.AndroidEntryPoint
 /**A Host Fragment for SettingPreference Screen*/
 class SettingHostFragment : Fragment() {
 
-private lateinit var binding: FragmentSettingsHostBinding
+    private var _binding: FragmentSettingsHostBinding? = null
+    private val binding: FragmentSettingsHostBinding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSettingsHostBinding.inflate(
+        _binding = FragmentSettingsHostBinding.inflate(
             inflater,
             container,
             false
@@ -35,6 +36,11 @@ private lateinit var binding: FragmentSettingsHostBinding
             .beginTransaction()
             .replace(R.id.setting_container, SettingsFragment())
             .commit()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

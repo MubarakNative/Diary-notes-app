@@ -3,20 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <import type="com.mubarak.madexample.ui.note.HomeNoteViewModel" />
-
-        <import type="com.mubarak.madexample.data.sources.local.model.Note" />
-
-        <variable
-            name="homeViewModel"
-            type="HomeNoteViewModel" />
-
-        <variable
-            name="note"
-            type="com.mubarak.madexample.data.sources.local.model.Note" />
-    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/parentMain"
@@ -30,7 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="?attr/materialCardViewOutlinedStyle"
-            android:onClick="@{()-> homeViewModel.getNoteId(note.id)}"
             app:layout_constraintStart_toStartOf="@+id/card_width_gline"
             app:layout_constraintTop_toTopOf="@+id/card_width_gline"
             app:shapeAppearance="?attr/shapeAppearanceCornerMedium">

@@ -7,19 +7,38 @@
     <string name="empty_note_message">Empty note discarded!</string>
     <string name="title">Title</string>
     <string name="note_deleted">Note deleted</string>
+    <string name="note_moved_trash">Note moved to trash</string>
+    <string name="note_archived">Note archived</string>
+    <string name="note_un_archived">Note unarchived</string>
     <string name="no_note_text">No Notes Added</string>
     <string name="search">Search</string>
     <string name="filter">Filter</string>
-    <string name="note_layout_grid">Show in Grid</string>
+    <string name="note_layout_grid">Show in grid</string>
     <string name="note_layout_list">Show in list</string>
     <string name="share">Share</string>
     <string name="pin">Pin</string>
     <string name="make_a_copy">Make a copy</string>
     <string name="delete">Delete</string>
     <string name="save">Save</string>
+    <string name="note_dir_desc">Descending</string>
+    <string name="note_dir_asc">Ascending</string>
+    <string name="sort_direction">Sort direction</string>
+    <string name="sortBy_date_modified">Date modified</string>
+    <string name="sortBy_date_created">Date created</string>
+    <string name="sort_by">Sort by</string>
+    <string name="sort_options">Sort Options</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="card_container_transition">card_container_transition</string>
+    <string name="trash">Trash</string>
+    <string name="archive">Archive</string>
+    <string name="unarchive">Note unarchived</string>
+    <string name="restore_note">Note restored</string>
+    <string name="delete_forever">Delete forever</string>
     <string name="undo">Undo</string>
-
+    <string name="restore">Restore</string>
+    <string name="confirm_note_delete_msg">Delete this note forever?</string>
+    <string name="no_note_in_trash">No notes in Trash</string>
+    <string name="no_notes_archived">No notes Archived</string>
 
 </resources>

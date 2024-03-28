@@ -1,18 +1,19 @@
 package com.mubarak.madexample.ui.note
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.databinding.NoteListItemBinding
 
-class HomeNoteItemAdapter(
-    private val homeNoteViewModel: HomeNoteViewModel
-) : ListAdapter<Note, HomeNoteItemAdapter.HomeViewHolder>(diffCallBack) {
+class NoteItemAdapter(
+    private val noteAdapterListener: NoteAdapterListener? = null,
+    private val noteItemClickListener: NoteItemClickListener? = null
+) : ListAdapter<Note, NoteItemAdapter.HomeViewHolder>(diffCallBack) {
 
     inner class HomeViewHolder(private val binding: NoteListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -22,9 +23,10 @@ class HomeNoteItemAdapter(
                 tvDesc.isVisible = note.description.isNotBlank()
                 tvTitle.text = note.title
                 tvDesc.text = note.description
-                homeViewModel = homeNoteViewModel
-                this.note = note
-                executePendingBindings()
+                cvParent.setOnClickListener {
+                    noteAdapterListener?.onNoteItemClicked(note = note)
+                    noteItemClickListener?.onNoteItemClick(note = note)
+                }
             }
         }
     }
@@ -50,6 +52,18 @@ class HomeNoteItemAdapter(
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         val currentItem = getItem(position)
         holder.bind(currentItem)
+    }
+
+    val touchHelper = ItemTouchHelper(SwipeItemHelper(this.noteAdapterListener, this))
+
+
+    interface NoteAdapterListener {
+        fun onNoteItemClicked(note: Note)
+        fun onNoteSwipe(note: Note)
+    }
+
+    interface NoteItemClickListener {
+        fun onNoteItemClick(note: Note)
     }
 }
 
