@@ -1,61 +1,74 @@
-# TODO Notes
+## Diary - Simple Note-taking Android App
 
-### This Simple Note app showcases the Modern Android Development approach when working with Room Offline database
+### The goal of creating this project is to stay up to date with modern android development.
 
-![Screenshots](Screenshots/Screenshots.png)
+**Screenshots**
 
-**This App will build upon on**
+This App will build on
 
-* `Android Views (XML)`.
-* Room database for local db.
-* Preference Datastore for storing user Preference.
-* Dagger Hilt for Dependency Injection.
-* Navigation Component to navigate between fragment.
-* Reactive Ui using Kotlin Flows and Coroutines.
-* Implemented Settings using PreferenceSettingCompat library.
+Android `Views` (XML).
+
+`Room` database for local db.
+
+`Preference Datastore` for storing user preference.
+
+`Dagger Hilt` for Dependency Injection.
+
+`Navigation Component` to navigate between fragments.
+
+Reactive Ui using Kotlin Flows and Coroutines.
+
+Implemented Settings using the `PreferenceSettingCompat` library.
 
 ### Note 👀
 
-#### About this Project
-**This App doesn't focus on Building Modern Material Ui the UI looks clean and straightforward to use**
-**and also i doesn't add tons of feature's now i implement new feature step by step along with**
-**focus on Architecture that include's**
+_About this Project_
 
-Structuring Package's for `Clean Architecture`
+This project aims to showcase the modern android architecture to build clean, maintainable and scalable android app
 
-Per Screen `ViewModel` for Ui related logic
+1. Layered Architecture
 
-Kotlin `Coroutines` & `Flows` for Reactive UI, and Asynchronous Programming.
+2. Structuring Package's for Clean Architecture
 
-#### Differences
-In this Project you will Find two more branches named `improvement` and `features` features branch is used to add new features to this project improvement branch is used to improve the  existing feature. Both this branches has same code in `main` branch.
+3. Per Screen ViewModel for Ui related logic
+
+Kotlin Coroutines & Flows for Reactive UI, and Asynchronous Programming.
+
+**Differences**
+
+In this project you will find two more branches named `Improvement`, and a `features`
+features branch is used to add new features to this project. The improvement branch is used to improve the existing features.
 
 ### Features ✅
 
-CRUD operations For Notes
+The main features of this app
 
-- [x] Search note through [Room FTS](https://developer.android.com/training/data-storage/room/defining-data#fts)
+- [x] CRUD for notes.
 
-- [x] [Dynamic theme](https://developer.android.com/develop/ui/views/theming/dynamic-colors) Android 12+.
+- [x] Archive and Delete notes.
 
-- [x] Dark Theme and Light theme control through settings.
+- [x] Search note through Room FTS.
 
-- [X] Edge to Edge
+- [x] Dynamic theme Android 12+.
 
-- [x] and other Miscellaneous features...
+- [x] The dark theme and light theme control through settings.
+
+- [x] Edge to Edge.
+
+_And other Miscellaneous features..._
 
 ### Improvements 🚀
 
-**This app currently is in development new features might be added some important feature you can expect that include 🚧**
+This app is currently in development. New features and improvements might be added. Some important features you can expect include 🚧
 
-- [ ] Reminder's with Notification.
+Reminder's with Notification.
 
-- [ ] Sorting and filtering the note and some others.
+Sorting and filtering the notes and some others.
 
-- [ ] Probably i can switch Views to `compose`.
+Probably i can switch views to compose.
 
 ### Contribution 🤝
 
-If you like to contribute this project you can do it 
-As i already mention this project primarily focus on Architecture use `MVVM` and `SOLID `Principle's.
-All features and improvement should be committed on `features` or `improvement` branch not directly on `main`.
+If you would like to contribute to this project, you can do it. As I already mentioned, 
+this project primarily focuses on architecture use Layered Architecture and SOLID principles. 
+All features and improvements should be committed to respective branches, not directly to the main.
