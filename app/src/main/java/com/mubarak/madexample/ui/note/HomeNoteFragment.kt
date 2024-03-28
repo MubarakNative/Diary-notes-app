@@ -102,8 +102,7 @@ class HomeNoteFragment : Fragment() {
         sharedViewModel.snackBarEvent.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
                 Snackbar.make(binding.homeCoordinator, it, Snackbar.LENGTH_SHORT)
-                    .setAnchorView(binding.fabCreateNote)
-                    .setGestureInsetBottomIgnored(true).show()
+                    .setAnchorView(binding.fabCreateNote).show()
             }
         }
 
@@ -128,7 +127,7 @@ class HomeNoteFragment : Fragment() {
                     R.string.undo
                 ) {
                     homeViewModel.redoNoteToActive(noteId)
-                }.setGestureInsetBottomIgnored(true).setAnchorView(binding.fabCreateNote).show()
+                }.setAnchorView(binding.fabCreateNote).show()
             }
         }
 

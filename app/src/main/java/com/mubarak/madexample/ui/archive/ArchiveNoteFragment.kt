@@ -75,7 +75,7 @@ class ArchiveNoteFragment : Fragment() {
         sharedViewModel.noteUnArchivedEvent.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let {
                 Snackbar.make(binding.archiveCoordinator, it, Snackbar.LENGTH_SHORT)
-                    .setGestureInsetBottomIgnored(true).setAction(R.string.undo) {
+                    .setAction(R.string.undo) {
                         archiveNoteViewModel.undoUnArchive(noteId)
                     }.show()
             }
