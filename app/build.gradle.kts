@@ -93,6 +93,9 @@ dependencies {
     // Preference Setting Compat (Setting screen)
     implementation ("androidx.preference:preference-ktx:1.2.1")
 
+    // LeakCanary
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.13")
+
     // Test
     testImplementation("junit:junit:4.13.2")
 
