@@ -39,4 +39,10 @@ class DeletedNoteViewModel @Inject constructor(
         _onNoteItemClick.value = Event(note)
 
     }
+
+    fun deleteAllNotes(){
+        viewModelScope.launch {
+            noteRepository.deleteAllNotes()
+        }
+    }
 }
