@@ -21,14 +21,12 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding:ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        // lay our ui behind system bar and we also need to
-        // manage views overlapping each other by using window inserts
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         val navigationView = binding.navigationView

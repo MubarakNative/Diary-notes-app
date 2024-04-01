@@ -2,7 +2,6 @@ package com.mubarak.madexample.ui.note
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.mubarak.madexample.ui.note.NoteItemAdapter
 
 class SwipeItemHelper(
     private val listener: NoteItemAdapter.NoteAdapterListener? = null,
