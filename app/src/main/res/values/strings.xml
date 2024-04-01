@@ -40,5 +40,9 @@
     <string name="confirm_note_delete_msg">Delete this note forever?</string>
     <string name="no_note_in_trash">No notes in Trash</string>
     <string name="no_notes_archived">No notes Archived</string>
+    <string name="empty_trash">Empty Trash can</string>
+    <string name="empty_trash_title">Empty trash can?</string>
+    <string name="empty_trash_msg">All notes in Trash will be permanently deleted.</string>
+    <string name="empty_trash_postive">Empty Trash</string>
 
 </resources>

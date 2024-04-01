@@ -64,6 +64,7 @@ class NoteItemAdapter(
 
     interface NoteItemClickListener {
         fun onNoteItemClick(note: Note)
+
     }
 }
 

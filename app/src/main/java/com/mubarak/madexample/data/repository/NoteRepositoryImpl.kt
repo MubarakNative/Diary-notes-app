@@ -33,6 +33,10 @@ class NoteRepositoryImpl @Inject constructor(
         notesDatabase.getDao.deleteNoteById(noteId)
     }
 
+    override suspend fun deleteAllNotes() {
+        notesDatabase.getDao.deleteAllNotes()
+    }
+
     override fun searchNote(searchQuery: String): Flow<List<Note>> {
         return notesDatabase.getDao.getSearchedNote(searchQuery)
     }
