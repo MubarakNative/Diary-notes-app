@@ -5,10 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.mubarak.madexample.R
 import com.mubarak.madexample.databinding.FragmentSettingsHostBinding
-import com.mubarak.madexample.utils.onUpButtonClick
-import dagger.hilt.android.AndroidEntryPoint
 
 /**A Host Fragment for SettingPreference Screen*/
 class SettingHostFragment : Fragment() {
@@ -30,9 +29,11 @@ class SettingHostFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.toolBarSettings.onUpButtonClick()
+        binding.toolBarSettings.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
 
-        requireActivity().supportFragmentManager
+        childFragmentManager
             .beginTransaction()
             .replace(R.id.setting_container, SettingsFragment())
             .commit()

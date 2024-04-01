@@ -29,7 +29,7 @@ class ArchiveNoteFragment : Fragment() {
     private val archiveNoteViewModel: ArchiveNoteViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val homeNoteViewModel: HomeNoteViewModel by viewModels()
-    private lateinit var adapter: NoteItemAdapter
+    private  var adapter: NoteItemAdapter?= null
 
     private var noteId: Long = -1
     override fun onCreateView(
@@ -69,12 +69,12 @@ class ArchiveNoteFragment : Fragment() {
         archiveNoteViewModel.getNoteByStatus.observe(
             viewLifecycleOwner
         ) {
-            adapter.submitList(it)
+            adapter?.submitList(it)
         }
 
         sharedViewModel.noteUnArchivedEvent.observe(viewLifecycleOwner) {
-            it?.getContentIfNotHandled()?.let {
-                Snackbar.make(binding.archiveCoordinator, it, Snackbar.LENGTH_SHORT)
+            it?.getContentIfNotHandled()?.let {msg ->
+                Snackbar.make(binding.archiveCoordinator, msg, Snackbar.LENGTH_SHORT)
                     .setAction(R.string.undo) {
                         archiveNoteViewModel.undoUnArchive(noteId)
                     }.show()
@@ -96,8 +96,8 @@ class ArchiveNoteFragment : Fragment() {
         }
 
         sharedViewModel.noteArchivedEvent.observe(viewLifecycleOwner) {
-            it?.getContentIfNotHandled()?.let {
-                Snackbar.make(binding.archiveCoordinator, it, Snackbar.LENGTH_SHORT)
+            it?.getContentIfNotHandled()?.let {msg ->
+                Snackbar.make(binding.archiveCoordinator, msg, Snackbar.LENGTH_SHORT)
                     .setAction(R.string.undo) {
                         archiveNoteViewModel.undoUnArchive(noteId)
                     }.show()
@@ -105,8 +105,8 @@ class ArchiveNoteFragment : Fragment() {
         }
 
         sharedViewModel.noteMovedToTrashEvent.observe(viewLifecycleOwner) {
-            it?.getContentIfNotHandled()?.let {
-                Snackbar.make(binding.archiveCoordinator, it, Snackbar.LENGTH_SHORT)
+            it?.getContentIfNotHandled()?.let {msg ->
+                Snackbar.make(binding.archiveCoordinator, msg, Snackbar.LENGTH_SHORT)
                     .setAction(R.string.undo) {
                         archiveNoteViewModel.undoUnArchive(noteId)
                     }.show()
@@ -122,6 +122,7 @@ class ArchiveNoteFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        adapter = null
     }
 
 }

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,7 +14,6 @@ import com.mubarak.madexample.utils.NoteLayout
 import com.mubarak.madexample.databinding.FragmentSearchNoteBinding
 import com.mubarak.madexample.ui.note.NoteItemAdapter
 import com.mubarak.madexample.ui.note.HomeNoteViewModel
-import com.mubarak.madexample.utils.onUpButtonClick
 import com.mubarak.madexample.utils.showSoftKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,11 +24,8 @@ class SearchNoteFragment : Fragment() {
     private val binding: FragmentSearchNoteBinding get() = _binding!!
     private val searchNoteViewModel: SearchNoteViewModel by viewModels()
     private val homeNoteViewModel: HomeNoteViewModel by viewModels()
+    private  var adapter :NoteItemAdapter?= null
 
-
-    private val adapter by lazy {
-        NoteItemAdapter(noteItemClickListener =searchNoteViewModel)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +44,12 @@ class SearchNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.toolbarSearch.onUpButtonClick()
+        adapter = NoteItemAdapter(noteItemClickListener =searchNoteViewModel)
+
+        binding.toolbarSearch.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
         setUpRecyclerView()
 
         searchNoteViewModel.onNoteItemClick.observe(viewLifecycleOwner) { note ->
@@ -75,7 +75,7 @@ class SearchNoteFragment : Fragment() {
         })
 
         searchNoteViewModel.searchResults.observe(viewLifecycleOwner){
-            adapter.submitList(it)
+            adapter?.submitList(it)
         }
 
         // to focus the SearchView automatically when we enter searchNoteFragment
@@ -110,6 +110,7 @@ class SearchNoteFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        adapter = null
     }
 
 }

@@ -11,17 +11,15 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.mubarak.madexample.R
 import com.mubarak.madexample.data.sources.datastore.TodoPreferenceDataStore
 import com.mubarak.madexample.data.sources.local.model.Note
-import com.mubarak.madexample.utils.NoteLayout
 import com.mubarak.madexample.databinding.FragmentHomeNoteBinding
 import com.mubarak.madexample.ui.SharedViewModel
+import com.mubarak.madexample.utils.NoteLayout
 import com.mubarak.madexample.utils.openNavDrawer
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -38,7 +36,7 @@ class HomeNoteFragment : Fragment() {
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private var noteId: Long = -1
     private lateinit var draggedNote: Note
-    private val homeAdapter by lazy { NoteItemAdapter(homeViewModel) }
+    private var homeAdapter :NoteItemAdapter?= null
 
     override fun onCreateView(
 
@@ -60,6 +58,8 @@ class HomeNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        homeAdapter = NoteItemAdapter(homeViewModel)
+
         binding.fabCreateNote.setOnClickListener {
             navigateToAddEditFragment()
         }
@@ -69,7 +69,7 @@ class HomeNoteFragment : Fragment() {
                 lifecycle,
                 Lifecycle.State.STARTED,
             ).collect { note ->
-                homeAdapter.submitList(note)
+                homeAdapter?.submitList(note)
 
             }
         }
@@ -77,7 +77,7 @@ class HomeNoteFragment : Fragment() {
         binding.homeNoteList.adapter = homeAdapter
         binding.homeNoteList.setHasFixedSize(true)
 
-        homeAdapter.touchHelper.attachToRecyclerView(binding.homeNoteList)
+        homeAdapter?.touchHelper?.attachToRecyclerView(binding.homeNoteList)
 
         homeViewModel.onNoteItemClick.observe(viewLifecycleOwner) { note ->
 
@@ -100,8 +100,8 @@ class HomeNoteFragment : Fragment() {
         }
 
         sharedViewModel.snackBarEvent.observe(viewLifecycleOwner) {
-            it?.getContentIfNotHandled()?.let {
-                Snackbar.make(binding.homeCoordinator, it, Snackbar.LENGTH_SHORT)
+            it?.getContentIfNotHandled()?.let {msg ->
+                Snackbar.make(binding.homeCoordinator, msg, Snackbar.LENGTH_SHORT)
                     .setAnchorView(binding.fabCreateNote).show()
             }
         }
@@ -113,8 +113,8 @@ class HomeNoteFragment : Fragment() {
         }
 
         sharedViewModel.noteArchivedEvent.observe(viewLifecycleOwner) {
-            it?.getContentIfNotHandled()?.let {
-                Snackbar.make(binding.homeCoordinator, it, Snackbar.LENGTH_SHORT)
+            it?.getContentIfNotHandled()?.let {msg ->
+                Snackbar.make(binding.homeCoordinator, msg, Snackbar.LENGTH_SHORT)
                     .setAnchorView(binding.fabCreateNote).setAction(R.string.undo) {
                         homeViewModel.redoNoteToActive(noteId)
                     }.show()
@@ -190,6 +190,7 @@ class HomeNoteFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        homeAdapter = null
     }
 }
 
