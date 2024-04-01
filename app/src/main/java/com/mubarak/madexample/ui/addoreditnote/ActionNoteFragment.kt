@@ -6,9 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -22,7 +19,6 @@ import com.mubarak.madexample.databinding.FragmentActionNoteBinding
 import com.mubarak.madexample.ui.SharedViewModel
 import com.mubarak.madexample.utils.NoteStatus
 import com.mubarak.madexample.utils.hideSoftKeyboard
-import com.mubarak.madexample.utils.onUpButtonClick
 import com.mubarak.madexample.utils.showSoftKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
@@ -52,7 +48,6 @@ class ActionNoteFragment : Fragment() {
         )
         binding.actionViewModel = actionNoteViewModel
         binding.lifecycleOwner = this.viewLifecycleOwner
-
         return binding.root
     }
 
