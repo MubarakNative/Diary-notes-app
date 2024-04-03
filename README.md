@@ -2,7 +2,7 @@
 
 ### The goal of creating this project is to stay up to date with modern android development.
 
-![Screenshots](Screenshots/Screenshots.png)
+![Diary](Screenshots/Diary.png)
 
 This App will build on
 
@@ -34,6 +34,8 @@ This project aims to showcase the modern android architecture to build clean, ma
 
 Kotlin Coroutines & Flows for Reactive UI, and Asynchronous Programming.
 
+![Screenshots](Screenshots/Screenshots.png)
+
 **Differences**
 
 In this project you will find two more branches named `Improvement`, and a `features`
@@ -61,11 +63,11 @@ _And other Miscellaneous features..._
 
 This app is currently in development. New features and improvements might be added. Some important features you can expect include 🚧
 
-Reminder's with Notification.
+- [ ] Reminder's with Notification.
 
-Sorting and filtering the notes and some others.
+- [ ] Sorting and filtering the notes and some others.
 
-Probably i can switch views to compose.
+- [ ] Probably i can switch views to compose.
 
 ### Contribution 🤝
 
