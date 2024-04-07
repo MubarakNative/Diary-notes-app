@@ -14,9 +14,9 @@ import javax.inject.Inject
 
 class TodoPreferenceDataStore @Inject constructor(
     private val dataStore: DataStore<Preferences>
-) {
+):UserPreference{
 
-    val getNoteLayout: Flow<String> =
+    /*  val getNoteLayout: Flow<String> =
         dataStore.data.map {
             it[NOTE_LAYOUT_KEY] ?: NoteLayout.LIST.name // default is LIST
         }
@@ -28,5 +28,24 @@ class TodoPreferenceDataStore @Inject constructor(
 
     companion object {
         val NOTE_LAYOUT_KEY = stringPreferencesKey(NOTE_ITEM_LAYOUT_KEY)
+    }*/
+    override suspend fun setNoteLayout(noteLayout: String) {
+        dataStore.edit {
+            it[NOTE_LAYOUT_KEY] = noteLayout
+        }
     }
+
+    override val getNoteLayout: Flow<String>
+        get() =  dataStore.data.map {
+            it[NOTE_LAYOUT_KEY] ?: NoteLayout.LIST.name // default is LIST
+        }
+
+    companion object {
+        val NOTE_LAYOUT_KEY = stringPreferencesKey(NOTE_ITEM_LAYOUT_KEY)
+    }
+}
+
+interface UserPreference{
+   suspend fun setNoteLayout(noteLayout: String)
+    val getNoteLayout: Flow<String>
 }

@@ -5,6 +5,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
+import com.mubarak.madexample.data.sources.datastore.TodoPreferenceDataStore
+import com.mubarak.madexample.data.sources.datastore.UserPreference
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,5 +30,11 @@ object DataStoreModule {
             scope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
            produceFile = { context.preferencesDataStoreFile("USER_PREFERENCES") }
         )
+    }
+
+    @Singleton
+    @Provides
+    fun provideUserPreference(dataStore: DataStore<Preferences>):UserPreference{
+        return TodoPreferenceDataStore(dataStore)
     }
 }

@@ -8,6 +8,7 @@ import com.mubarak.madexample.R
 import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.data.repository.NoteRepository
 import com.mubarak.madexample.data.sources.datastore.TodoPreferenceDataStore
+import com.mubarak.madexample.data.sources.datastore.UserPreference
 import com.mubarak.madexample.utils.NoteLayout
 import com.mubarak.madexample.utils.Event
 import com.mubarak.madexample.utils.NoteStatus
@@ -23,8 +24,9 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeNoteViewModel @Inject constructor(
     private val noteRepository: NoteRepository,
-    private val todoPreferenceDataStore: TodoPreferenceDataStore
+    private val todoPreferenceDataStore: UserPreference
 ) : ViewModel(),NoteItemAdapter.NoteAdapterListener  {
+
 
     private val _onNoteSwipe = MutableLiveData<Event<Note>>()
     val onNoteSwipe: LiveData<Event<Note>> = _onNoteSwipe
