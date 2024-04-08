@@ -11,6 +11,7 @@ interface NoteRepository {
     suspend fun deleteNote(note: Note)
     suspend fun deleteNoteById(noteId:Long)
     suspend fun deleteAllNotes()
+    suspend fun deleteAllNotesInTrash()
     fun searchNote(searchQuery:String):Flow<List<Note>>
     fun getNoteStreamById(noteId:Long):Flow<Note>
     fun getNoteByStatus(noteStatus: NoteStatus):Flow<List<Note>>
