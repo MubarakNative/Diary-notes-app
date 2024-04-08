@@ -42,7 +42,7 @@ class DeletedNoteViewModel @Inject constructor(
 
     fun deleteAllNotes(){
         viewModelScope.launch {
-            noteRepository.deleteAllNotes()
+            noteRepository.deleteAllNotesInTrash()
         }
     }
 }

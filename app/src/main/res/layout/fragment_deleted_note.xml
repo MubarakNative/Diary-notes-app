@@ -3,37 +3,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+    </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/archiveCoordinator"
+        android:id="@+id/deletedNoteCoordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.archive.ArchiveNoteFragment">
+        android:fitsSystemWindows="true"
+        tools:context=".ui.deleted.DeletedNoteFragment">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/archiveAppBarLayout"
             app:liftOnScroll="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbarArchiveNote"
+                android:id="@+id/toolbarTrashNote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:title="@string/archive"
+                app:title="@string/trash"
+                app:menu="@menu/opt_delete_note_menu"
                 app:navigationIcon="@drawable/menu_hamburger_icon_24px" />
 
 
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/archiveNoteList"
+            android:id="@+id/deletedNoteList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:listitem="@layout/note_list_item" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/archivePlaceHolder"
+            android:id="@+id/deletedNotePlaceHolder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -43,7 +48,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/archive_icon24px"
+                android:src="@drawable/trash_icon24px"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/parent"
@@ -53,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="@string/no_notes_archived"
+                android:text="@string/no_note_in_trash"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"

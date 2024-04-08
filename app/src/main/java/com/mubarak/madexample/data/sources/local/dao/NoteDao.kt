@@ -30,6 +30,8 @@ interface NoteDao {
 
     @Query("DELETE FROM note_table")
     suspend fun deleteAllNotes()
+    @Query("DELETE FROM note_table WHERE note_status = :noteStatus")
+    suspend fun deleteAllNotesInTrash(noteStatus: NoteStatus = NoteStatus.TRASH)
 
     @Query(
         """
