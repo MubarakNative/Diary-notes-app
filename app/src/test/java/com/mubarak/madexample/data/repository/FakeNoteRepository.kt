@@ -38,6 +38,10 @@ class FakeNoteRepository : NoteRepository {
         noteList.clear()
     }
 
+    override suspend fun deleteAllNotesInTrash() {
+        noteList.clear()
+    }
+
     override fun searchNote(searchQuery: String): Flow<List<Note>> {
         return flow {
             val filter = noteList.filter { it.title == searchQuery || it.description == searchQuery }
