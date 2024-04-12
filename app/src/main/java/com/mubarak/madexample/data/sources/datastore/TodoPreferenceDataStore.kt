@@ -2,9 +2,7 @@ package com.mubarak.madexample.data.sources.datastore
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.mubarak.madexample.utils.Constants.NOTE_ITEM_LAYOUT_KEY
 import com.mubarak.madexample.utils.NoteLayout
@@ -14,21 +12,7 @@ import javax.inject.Inject
 
 class TodoPreferenceDataStore @Inject constructor(
     private val dataStore: DataStore<Preferences>
-):UserPreference{
-
-    /*  val getNoteLayout: Flow<String> =
-        dataStore.data.map {
-            it[NOTE_LAYOUT_KEY] ?: NoteLayout.LIST.name // default is LIST
-        }
-    suspend fun setNoteLayout(noteLayout: String) {
-        dataStore.edit {
-            it[NOTE_LAYOUT_KEY] = noteLayout
-        }
-    }
-
-    companion object {
-        val NOTE_LAYOUT_KEY = stringPreferencesKey(NOTE_ITEM_LAYOUT_KEY)
-    }*/
+) : UserPreference {
     override suspend fun setNoteLayout(noteLayout: String) {
         dataStore.edit {
             it[NOTE_LAYOUT_KEY] = noteLayout
@@ -36,7 +20,7 @@ class TodoPreferenceDataStore @Inject constructor(
     }
 
     override val getNoteLayout: Flow<String>
-        get() =  dataStore.data.map {
+        get() = dataStore.data.map {
             it[NOTE_LAYOUT_KEY] ?: NoteLayout.LIST.name // default is LIST
         }
 
@@ -45,7 +29,7 @@ class TodoPreferenceDataStore @Inject constructor(
     }
 }
 
-interface UserPreference{
-   suspend fun setNoteLayout(noteLayout: String)
+interface UserPreference {
+    suspend fun setNoteLayout(noteLayout: String)
     val getNoteLayout: Flow<String>
 }
