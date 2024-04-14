@@ -56,7 +56,7 @@ class FakeNoteRepository : NoteRepository {
     override fun getNoteByStatus(noteStatus: NoteStatus): Flow<List<Note>> {
         return  flow {
             val filter = noteList.filter { it.noteStatus == noteStatus}
-            emit(filter)
+            emit(emptyList())
         }
     }
 

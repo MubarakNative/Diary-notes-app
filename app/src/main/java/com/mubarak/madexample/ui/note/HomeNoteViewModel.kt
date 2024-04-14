@@ -3,6 +3,8 @@ package com.mubarak.madexample.ui.note
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.mubarak.madexample.R
 import com.mubarak.madexample.data.repository.NoteRepository
@@ -33,17 +35,13 @@ class HomeNoteViewModel @Inject constructor(
     private val _onNoteItemClick = MutableLiveData<Event<Note>>()
     val onNoteItemClick: LiveData<Event<Note>> = _onNoteItemClick
 
-    val getAllNote = noteRepository.getNoteByStatus(NoteStatus.ACTIVE)
+    val getAllNote = noteRepository.getNoteByStatus(NoteStatus.ACTIVE).asLiveData()
 
     private val _noteItemLayout: MutableLiveData<String> = MutableLiveData()
     val noteItemLayout: LiveData<String> = _noteItemLayout
 
     // This is for displaying placeholder in home fragment
-    val isEmpty: StateFlow<Boolean> = getAllNote.map { it.isEmpty() }.stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5_000),
-        true
-    )
+    val isEmpty: LiveData<Boolean> = getAllNote.map { it.isEmpty() }
 
     private val _noteStatusChangeEvent = MutableLiveData<Event<Int>>()
     val noteStatusChangeEvent: LiveData<Event<Int>> = _noteStatusChangeEvent

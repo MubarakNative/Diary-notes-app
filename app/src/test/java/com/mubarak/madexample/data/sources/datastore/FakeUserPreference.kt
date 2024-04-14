@@ -13,5 +13,5 @@ class FakeUserPreference : UserPreference {
     }
 
     override val getNoteLayout: Flow<String>
-        get() = flow { noteLayout }
+        get() = flow { emit(noteLayout) }
 }
