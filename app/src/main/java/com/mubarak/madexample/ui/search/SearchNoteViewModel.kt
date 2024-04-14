@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mubarak.madexample.data.repository.NoteRepository
+import com.mubarak.madexample.data.sources.NoteRepository
 import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.ui.note.NoteItemAdapter
 import com.mubarak.madexample.utils.Event

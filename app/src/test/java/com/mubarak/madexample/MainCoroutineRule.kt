@@ -25,18 +25,7 @@ import kotlinx.coroutines.test.setMain
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 
-/**
- * Sets the main coroutines dispatcher to a [TestDispatcher] for unit testing.
- *
- * Declare it as a JUnit Rule:
- *
- * ```
- * @get:Rule
- * val mainCoroutineRule = MainCoroutineRule()
- * ```
- *
- * Then, use `runTest` to execute your tests.
- */
+/** MainCoroutineRule is a JUnit rule it helps to execute task synchronously and immediately*/
 @ExperimentalCoroutinesApi
 class MainCoroutineRule(
     private val testDispatcher: TestDispatcher = UnconfinedTestDispatcher()

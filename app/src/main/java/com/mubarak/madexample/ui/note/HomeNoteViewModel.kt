@@ -7,18 +7,14 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.mubarak.madexample.R
-import com.mubarak.madexample.data.repository.NoteRepository
+import com.mubarak.madexample.data.sources.NoteRepository
 import com.mubarak.madexample.data.sources.datastore.UserPreference
 import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.utils.Event
 import com.mubarak.madexample.utils.NoteLayout
 import com.mubarak.madexample.utils.NoteStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
