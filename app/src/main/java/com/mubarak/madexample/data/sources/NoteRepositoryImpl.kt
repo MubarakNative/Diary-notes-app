@@ -1,7 +1,7 @@
-package com.mubarak.madexample.data.repository
+package com.mubarak.madexample.data.sources
 
-import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.data.sources.local.NoteDatabase
+import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.utils.NoteStatus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

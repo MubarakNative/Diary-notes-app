@@ -7,9 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -20,9 +17,9 @@ import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.databinding.FragmentHomeNoteBinding
 import com.mubarak.madexample.ui.SharedViewModel
 import com.mubarak.madexample.utils.NoteLayout
+import com.mubarak.madexample.utils.NoteStatus
 import com.mubarak.madexample.utils.openNavDrawer
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -64,15 +61,11 @@ class HomeNoteFragment : Fragment() {
             navigateToAddEditFragment()
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            homeViewModel.getAllNote.flowWithLifecycle(
-                lifecycle,
-                Lifecycle.State.STARTED,
-            ).collect { note ->
+            homeViewModel.getAllNote.observe(
+                viewLifecycleOwner
+            ) { note ->
                 homeAdapter?.submitList(note)
-
             }
-        }
 
         binding.homeNoteList.adapter = homeAdapter
         binding.homeNoteList.setHasFixedSize(true)
