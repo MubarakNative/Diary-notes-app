@@ -7,7 +7,6 @@ import com.mubarak.madexample.data.repository.FakeNoteRepository
 import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.utils.NoteStatus
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
@@ -37,9 +36,9 @@ class ActionNoteViewModelTest {
     @Test
     fun isNoteProperlyInsertedIntoRepository() = runTest {
         fakeNoteRepository.insertNote(note)
-        val note2 = fakeNoteRepository.getNoteById(note.id)
-        assertThat(note.title).isEqualTo(note2.title)
-        assertThat(note.description).isEqualTo(note2.description)
+        val noteId = fakeNoteRepository.getNoteById(note.id)
+        assertThat(note.title).isEqualTo(noteId.title)
+        assertThat(note.description).isEqualTo(noteId.description)
 
     }
 

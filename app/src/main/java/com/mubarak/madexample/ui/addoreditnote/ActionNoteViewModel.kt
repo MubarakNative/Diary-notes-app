@@ -114,6 +114,8 @@ class ActionNoteViewModel @Inject constructor(
 
         }
 
+        _backPressEvent.value = Event(Unit)
+
     }
 
     fun deleteNote() {

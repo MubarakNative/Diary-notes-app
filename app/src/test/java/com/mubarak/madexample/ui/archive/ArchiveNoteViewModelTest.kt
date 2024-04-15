@@ -24,8 +24,8 @@ class ArchiveNoteViewModelTest {
     @get:Rule
     var taskExecutorRule = InstantTaskExecutorRule()
 
-    val activeNote = Note(1, "Title", "Description", NoteStatus.ACTIVE)
-    val deletedNote = Note(1, "Title", "Description", NoteStatus.TRASH)
+    private val activeNote = Note(1, "Title", "Description", NoteStatus.ACTIVE)
+    private val deletedNote = Note(1, "Title", "Description", NoteStatus.TRASH)
 
     @Before
     fun setUp() {
@@ -40,15 +40,15 @@ class ArchiveNoteViewModelTest {
         fakeNoteRepository.insertNote(activeNote)
 
         archiveNoteViewModel.undoUnArchive(noteId = activeNote.id)
-        val actual = fakeNoteRepository.getNoteById(activeNote.id)
+        val expected = fakeNoteRepository.getNoteById(activeNote.id)
         val archiveActual = fakeNoteRepository.getNoteById(deletedNote.id)
-        val expectNote = Note(
+        val actual = Note(
             1,
             "Title",
             "Description",
             NoteStatus.ARCHIVE
         )
-        Truth.assertThat(expectNote).isEqualTo(actual)
-        Truth.assertThat(expectNote).isEqualTo(archiveActual)
+        Truth.assertThat(actual).isEqualTo(expected)
+        Truth.assertThat(actual).isEqualTo(archiveActual)
     }
 }

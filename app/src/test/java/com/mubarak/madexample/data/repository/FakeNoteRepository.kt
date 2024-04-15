@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.flow
 /** FakeNoteRepository for testing*/
 class FakeNoteRepository : NoteRepository {
 
-    private val noteList = mutableListOf<Note>()
+     val noteList = mutableListOf<Note>()
     override suspend fun insertNote(note: Note) {
         noteList.add(note)
     }
@@ -57,7 +57,7 @@ class FakeNoteRepository : NoteRepository {
     override fun getNoteByStatus(noteStatus: NoteStatus): Flow<List<Note>> {
         return  flow {
             val filter = noteList.filter { it.noteStatus == noteStatus}
-            emit(emptyList())
+            emit(filter)
         }
     }
 

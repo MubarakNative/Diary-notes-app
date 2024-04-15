@@ -9,15 +9,9 @@ import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.getOrAwaitValue
 import com.mubarak.madexample.utils.NoteLayout
 import com.mubarak.madexample.utils.NoteStatus
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -60,15 +54,15 @@ class HomeNoteViewModelTest {
         )
         fakeNoteRepository.insertNote(note)
 
-        homeNoteViewModel.redoNoteToActive(noteId = note.id) // it redo note to Active
-        val actual = fakeNoteRepository.getNoteById(note.id) // now it ACTIVE
-        val expectNote = Note(
+        homeNoteViewModel.redoNoteToActive(noteId = note.id)
+        val expected = fakeNoteRepository.getNoteById(note.id)
+        val actual = Note(
             1,
             "Title",
             "Description",
             NoteStatus.ACTIVE
         )
-        assertThat(expectNote).isEqualTo(actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -82,14 +76,14 @@ class HomeNoteViewModelTest {
         fakeNoteRepository.insertNote(note)
 
         homeNoteViewModel.redoNoteToActive(noteId = note.id) // it redo note to Active
-        val actual = fakeNoteRepository.getNoteById(note.id) // now it ACTIVE
-        val expectNote = Note(
+        val expected = fakeNoteRepository.getNoteById(note.id) // now it ACTIVE
+        val actual = Note(
             1,
             "Title",
             "Description",
             NoteStatus.ACTIVE
         )
-        assertThat(expectNote).isEqualTo(actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -102,15 +96,26 @@ class HomeNoteViewModelTest {
         )
         fakeNoteRepository.insertNote(note)
 
-        homeNoteViewModel.updateNoteStatus(noteId = note.id) // it redo note to ARCHIVE
-        val actual = fakeNoteRepository.getNoteById(note.id) // now it ARCHIVE
-        val expectNote = Note(
+        homeNoteViewModel.updateNoteStatus(noteId = note.id)
+        val expected = fakeNoteRepository.getNoteById(note.id)
+        val actual = Note(
             1,
             "Title",
             "Description",
             NoteStatus.ARCHIVE
         )
-        assertThat(expectNote).isEqualTo(actual)
+        assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
+    fun getAllActiveNotes() = runTest {
+
+        fakeNoteRepository.noteList.add(
+            Note(1,"Note Title","Note Description",NoteStatus.ACTIVE)
+        )
+        val noteList = homeNoteViewModel.getAllNote.getOrAwaitValue()
+        assertThat(noteList).hasSize(1)
+        assertThat(noteList[0].title).contains("Note Title")
     }
 
 }
