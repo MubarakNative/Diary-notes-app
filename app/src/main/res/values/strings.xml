@@ -9,7 +9,7 @@
     <string name="note_deleted">Note deleted</string>
     <string name="note_moved_trash">Note moved to trash</string>
     <string name="note_archived">Note archived</string>
-    <string name="note_un_archived">Note unarchived</string>
+    <string name="note_un_archived">Unarchived</string>
     <string name="no_note_text">No Notes Added</string>
     <string name="search">Search</string>
     <string name="filter">Filter</string>

@@ -37,7 +37,7 @@ class HomeNoteViewModelTest {
     var taskExecutorRule = InstantTaskExecutorRule()
 
     @Before
-    fun init() {
+    fun setUp() {
         fakeNoteRepository = FakeNoteRepository()
         userPreference = FakeUserPreference()
         homeNoteViewModel = HomeNoteViewModel(fakeNoteRepository, userPreference)
