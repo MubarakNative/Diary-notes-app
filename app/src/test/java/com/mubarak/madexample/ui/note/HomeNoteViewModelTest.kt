@@ -39,13 +39,13 @@ class HomeNoteViewModelTest {
     }
 
     @Test
-    fun listLayoutMode_ShouldReturn_GRID() = runTest {
+    fun noteItemLayout_ListLayout_ShouldReturnGridLayout() {
         val actual = homeNoteViewModel.noteItemLayout.getOrAwaitValue()
         assertThat(actual).isNotEqualTo(NoteLayout.GRID.name)
     }
 
     @Test
-    fun archiveNoteShouldChangeInto_Active() = runTest {
+    fun redoNoteToActive_NoteStatus_Archive_ShouldConvertArchiveToActive() = runTest {
         val note = Note(
             1,
             "Title",
@@ -66,7 +66,7 @@ class HomeNoteViewModelTest {
     }
 
     @Test
-    fun trashNoteShouldChangeInto_Active() = runTest {
+    fun redoNoteToActive_NoteStatus_Trash_ShouldConvertTrashToActive() = runTest {
         val note = Note(
             1,
             "Title",
@@ -87,7 +87,7 @@ class HomeNoteViewModelTest {
     }
 
     @Test
-    fun activeNoteShouldChangeIntoArchive() = runTest{
+    fun updateNoteStatus_NoteStatus_Active_ShouldConvertActiveToArchive() = runTest{
         val note = Note(
             1,
             "Title",
@@ -108,7 +108,7 @@ class HomeNoteViewModelTest {
     }
 
     @Test
-    fun getAllActiveNotes() = runTest {
+    fun getAllNotes_AddSingleNote_ShouldReturnSameNote() = runTest {
 
         fakeNoteRepository.noteList.add(
             Note(1,"Note Title","Note Description",NoteStatus.ACTIVE)

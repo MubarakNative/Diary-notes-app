@@ -24,7 +24,7 @@ class ActionNoteViewModelTest {
     @get:Rule
     var taskExecutorRule = InstantTaskExecutorRule()
 
-    val note = Note(1, "New note title", "New note description", NoteStatus.ACTIVE)
+    private val note = Note(1, "New note title", "New note description", NoteStatus.ACTIVE)
 
     @Before
     fun setUp() {
@@ -34,7 +34,7 @@ class ActionNoteViewModelTest {
     }
 
     @Test
-    fun isNoteProperlyInsertedIntoRepository() = runTest {
+    fun insertNote_ActiveNote_ShouldReturnSameNote() = runTest {
         fakeNoteRepository.insertNote(note)
         val noteId = fakeNoteRepository.getNoteById(note.id)
         assertThat(note.title).isEqualTo(noteId.title)

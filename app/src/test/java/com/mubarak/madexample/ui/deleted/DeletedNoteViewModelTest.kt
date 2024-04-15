@@ -36,12 +36,11 @@ class DeletedNoteViewModelTest {
     }
 
     @Test
-    fun noteStatusShouldChangeIntoTrash() = runTest {
+    fun undoUnRestore_NoteStatusActive_ShouldReturnNoteStatusTrash() = runTest {
         fakeNoteRepository.insertNote(activeNote)
 
         deletedNoteViewModel.undoUnRestore(noteId = activeNote.id)
         val expected = fakeNoteRepository.getNoteById(activeNote.id)
-        val archiveExpected = fakeNoteRepository.getNoteById(archivedNote.id)
         val actual = Note(
             1,
             "Title",
@@ -49,11 +48,25 @@ class DeletedNoteViewModelTest {
             NoteStatus.TRASH
         )
         assertThat(actual).isEqualTo(expected)
-        assertThat(actual).isEqualTo(archiveExpected)
     }
 
     @Test
-    fun getAllNotesByDeleted() = runTest {
+    fun undoUnRestore_NoteStatusArchive_ShouldReturnNoteStatusTrash()= runTest{
+        fakeNoteRepository.insertNote(archivedNote)
+
+        deletedNoteViewModel.undoUnRestore(noteId = archivedNote.id)
+        val expected = fakeNoteRepository.getNoteById(archivedNote.id)
+        val actual = Note(
+            1,
+            "Title",
+            "Description",
+            NoteStatus.TRASH
+        )
+        assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
+    fun getNoteByStatus_AddSingleTrashNote_ShouldReturnSameTrashNote() = runTest {
         fakeNoteRepository.noteList.add(
             Note(
                 1,
