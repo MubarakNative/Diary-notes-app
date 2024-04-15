@@ -1,5 +1,6 @@
 package com.mubarak.madexample.data.repository
 
+import com.google.common.annotations.VisibleForTesting
 import com.mubarak.madexample.data.sources.NoteRepository
 import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.utils.NoteStatus
@@ -45,8 +46,10 @@ class FakeNoteRepository : NoteRepository {
 
     override fun searchNote(searchQuery: String): Flow<List<Note>> {
         return flow {
+
             val filter = noteList.filter { it.title == searchQuery || it.description == searchQuery }
-            emit(filter)
+                emit(filter)
+
         }
     }
 
@@ -63,5 +66,14 @@ class FakeNoteRepository : NoteRepository {
 
     override suspend fun getNoteById(noteId: Long): Note {
         return noteList.find { it.id == noteId }!!
+    }
+
+    @VisibleForTesting
+    fun addNotes(
+        vararg note: Note
+    ){
+        for (notes in note){
+            noteList.add(notes)
+        }
     }
 }

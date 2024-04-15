@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchNoteViewModel @Inject constructor(
     private val noteRepository: NoteRepository
-) : ViewModel(), NoteItemAdapter.NoteItemClickListener  {
+) : ViewModel(), NoteItemAdapter.NoteItemClickListener {
 
     private val _onNoteItemClick = MutableLiveData<Event<Note>>()
     val onNoteItemClick: LiveData<Event<Note>> = _onNoteItemClick
@@ -31,18 +31,19 @@ class SearchNoteViewModel @Inject constructor(
     fun searchNote(searchQuery: String) {
         searchJob = viewModelScope.launch {
             delay(DEBOUNCE_DELAY)
-            noteRepository.searchNote(searchQuery).
-            catch {
+            noteRepository.searchNote(searchQuery).catch {
                 emit(emptyList())
-            }.collect{
+            }.collect {
                 _searchResults.value = it
             }
         }
 
     }
+
     companion object {
         private const val DEBOUNCE_DELAY = 120L
     }
+
     override fun onNoteItemClick(note: Note) {
         _onNoteItemClick.value = Event(note)
     }
