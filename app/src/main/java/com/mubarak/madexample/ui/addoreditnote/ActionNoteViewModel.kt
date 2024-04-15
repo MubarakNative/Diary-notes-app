@@ -20,7 +20,6 @@ class ActionNoteViewModel @Inject constructor(
     private val noteRepository: NoteRepository
 ) : ViewModel() {
 
-    // Two-way data-binding
     val title: MutableStateFlow<String> = MutableStateFlow("")
     val description: MutableStateFlow<String> = MutableStateFlow("")
 
@@ -95,27 +94,26 @@ class ActionNoteViewModel @Inject constructor(
 
         if (isNewNote) {
 
-            viewModelScope.launch {
-                if (currentTitle.isBlank() && currentDescription.isBlank()) {
-                    _snackBarEvent.value = Event(R.string.empty_note_message)
-                } else {
-                    val note = Note(id =0L, title = title.value, description = description.value,
-                        noteStatus = NoteStatus.ACTIVE)
-                    createNote(note)
-                }
-
+            if (currentTitle.isBlank() && currentDescription.isBlank()) {
+                _snackBarEvent.value = Event(R.string.empty_note_message)
+            } else {
+                val note = Note(
+                    id = 0L, title = title.value, description = description.value,
+                    noteStatus = NoteStatus.ACTIVE
+                )
+                createNote(note)
             }
+
         } else {
-            viewModelScope.launch {
-                if (currentTitle.isBlank() && currentDescription.isBlank()) {
-                    _snackBarEvent.value =
-                        Event(R.string.empty_note_message)
-                } else {
-                    updateNote()
-                }
+            if (currentTitle.isBlank() && currentDescription.isBlank()) {
+                _snackBarEvent.value =
+                    Event(R.string.empty_note_message)
+            } else {
+                updateNote()
             }
 
         }
+
         _backPressEvent.value = Event(Unit)
 
     }
@@ -166,6 +164,7 @@ class ActionNoteViewModel @Inject constructor(
             }
         }
     }
+
     fun deleteNotePermanently() {
         viewModelScope.launch {
             val note = noteRepository.getNoteById(noteId)
@@ -181,7 +180,12 @@ class ActionNoteViewModel @Inject constructor(
             viewModelScope.launch {
                 if (!isNewNote) {
                     val getNoteById = noteRepository.getNoteById(noteId)
-                    val note = Note(id = 0, getNoteById.title, getNoteById.description, getNoteById.noteStatus)
+                    val note = Note(
+                        id = 0,
+                        getNoteById.title,
+                        getNoteById.description,
+                        getNoteById.noteStatus
+                    )
                     noteRepository.insertNote(note)
                 }
             }
@@ -189,11 +193,11 @@ class ActionNoteViewModel @Inject constructor(
 
     }
 
-    private suspend fun createNote(note: Note) {
+    private fun createNote(note: Note) = viewModelScope.launch {
         noteRepository.insertNote(note)
     }
 
-    private suspend fun updateNote() { // update the existing note
+    private fun updateNote() = viewModelScope.launch { // update the existing note
 
         val note = noteRepository.getNoteById(noteId)
         val noteStatus = note.noteStatus

@@ -32,7 +32,7 @@
     <string name="card_container_transition">card_container_transition</string>
     <string name="trash">Trash</string>
     <string name="archive">Archive</string>
-    <string name="unarchive">Note unarchived</string>
+    <string name="unarchive">Unarchive</string>
     <string name="restore_note">Note restored</string>
     <string name="delete_forever">Delete forever</string>
     <string name="undo">Undo</string>

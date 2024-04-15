@@ -54,20 +54,11 @@ class DeletedNoteFragment : Fragment() {
             emptyTrashMenu.isVisible= !it
         }
 
+        // called when user restore the note in trash fragment
         sharedViewModel.noteUnRestoreEvent.observe(viewLifecycleOwner) {
             it?.getContentIfNotHandled()?.let { msg ->
                 Snackbar.make(binding.deletedNoteCoordinator, msg, Snackbar.LENGTH_SHORT)
                     .setGestureInsetBottomIgnored(true).setAction(R.string.undo) {
-                        deletedNoteViewModel.undoUnRestore(noteId)
-                    }.show()
-            }
-        }
-
-        sharedViewModel.noteArchivedEvent.observe(viewLifecycleOwner) {
-            it?.getContentIfNotHandled()?.let { msg ->
-
-                Snackbar.make(binding.deletedNoteCoordinator, msg, Snackbar.LENGTH_SHORT)
-                    .setAction(R.string.undo) {
                         deletedNoteViewModel.undoUnRestore(noteId)
                     }.show()
             }
