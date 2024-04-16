@@ -46,10 +46,8 @@ class FakeNoteRepository : NoteRepository {
 
     override fun searchNote(searchQuery: String): Flow<List<Note>> {
         return flow {
-
             val filter = noteList.filter { it.title == searchQuery || it.description == searchQuery }
                 emit(filter)
-
         }
     }
 

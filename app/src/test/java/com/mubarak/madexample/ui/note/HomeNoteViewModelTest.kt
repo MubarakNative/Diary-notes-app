@@ -10,12 +10,10 @@ import com.mubarak.madexample.getOrAwaitValue
 import com.mubarak.madexample.utils.NoteLayout
 import com.mubarak.madexample.utils.NoteStatus
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-
 
 class HomeNoteViewModelTest {
 
@@ -39,7 +37,7 @@ class HomeNoteViewModelTest {
     }
 
     @Test
-    fun noteItemLayout_ListLayout_ShouldReturnGridLayout() {
+    fun toggleNoteLayout_ListLayout_ShouldReturnGridLayout() {
         val actual = homeNoteViewModel.noteItemLayout.getOrAwaitValue()
         assertThat(actual).isNotEqualTo(NoteLayout.GRID.name)
     }
