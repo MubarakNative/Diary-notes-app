@@ -57,7 +57,7 @@ class ActionNoteViewModel @Inject constructor(
 
     private var status: NoteStatus = NoteStatus.ACTIVE
 
-    private var noteId: Long = -1L
+     var noteId: Long = -1L
 
     fun checkIsNewNoteOrExistingNote(noteId: Long) {
 
@@ -160,6 +160,8 @@ class ActionNoteViewModel @Inject constructor(
             NoteStatus.TRASH -> {
                 viewModelScope.launch {
                     _noteDeleteConfirmationEvent.value = Event(Unit)
+                    _noteIdEvent.value = Event(noteId)
+
                 }
             }
         }

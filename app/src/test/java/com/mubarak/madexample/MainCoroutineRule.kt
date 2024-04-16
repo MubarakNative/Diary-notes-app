@@ -25,7 +25,7 @@ import kotlinx.coroutines.test.setMain
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 
-/** MainCoroutineRule is a JUnit rule it helps to execute task synchronously and immediately*/
+/** MainCoroutineRule is a JUnit rule it helps to execute coroutine task synchronously and immediately*/
 @ExperimentalCoroutinesApi
 class MainCoroutineRule(
     private val testDispatcher: TestDispatcher = UnconfinedTestDispatcher()

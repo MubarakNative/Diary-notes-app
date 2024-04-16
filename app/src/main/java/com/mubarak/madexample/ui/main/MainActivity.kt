@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.settingNoteFragment || destination.id == R.id.actionNoteFragment) {
+            if (destination.id == R.id.settingNoteFragment || destination.id == R.id.actionNoteFragment || destination.id == R.id.searchNoteFragment) {
                 binding.mainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             } else {
                 binding.mainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
