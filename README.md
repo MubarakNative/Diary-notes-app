@@ -34,6 +34,10 @@ This project aims to showcase the modern android architecture to build clean, ma
 
 Kotlin Coroutines & Flows for Reactive UI, and Asynchronous Programming.
 
+
+### This Project also include unit testing, to ensure our code works properly as intended.
+
+
 ![Screenshots](Screenshots/Screenshots.png)
 
 **Differences**
