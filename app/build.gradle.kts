@@ -85,7 +85,7 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
 
     // Preference (Data Store)
-    implementation ("androidx.datastore:datastore-preferences:1.0.0")
+    implementation ("androidx.datastore:datastore-preferences:1.1.0")
 
     // Coroutines (Asynchronous Task)
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
