@@ -17,7 +17,6 @@ import com.mubarak.madexample.data.sources.local.model.Note
 import com.mubarak.madexample.databinding.FragmentHomeNoteBinding
 import com.mubarak.madexample.ui.SharedViewModel
 import com.mubarak.madexample.utils.NoteLayout
-import com.mubarak.madexample.utils.NoteStatus
 import com.mubarak.madexample.utils.openNavDrawer
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

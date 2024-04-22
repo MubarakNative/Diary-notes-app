@@ -6,14 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.mubarak.madexample.utils.NoteLayout
+import com.google.android.material.snackbar.Snackbar
+import com.mubarak.madexample.R
 import com.mubarak.madexample.databinding.FragmentSearchNoteBinding
-import com.mubarak.madexample.ui.note.NoteItemAdapter
+import com.mubarak.madexample.ui.SharedViewModel
+import com.mubarak.madexample.ui.archive.ArchiveNoteViewModel
+import com.mubarak.madexample.ui.deleted.DeletedNoteViewModel
 import com.mubarak.madexample.ui.note.HomeNoteViewModel
+import com.mubarak.madexample.ui.note.NoteItemAdapter
+import com.mubarak.madexample.utils.NoteLayout
 import com.mubarak.madexample.utils.showSoftKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,10 +27,18 @@ import dagger.hilt.android.AndroidEntryPoint
 class SearchNoteFragment : Fragment() {
 
     private var _binding: FragmentSearchNoteBinding? = null
+
+    // todo: This class doesn't follow SRP i fix that in future
     private val binding: FragmentSearchNoteBinding get() = _binding!!
     private val searchNoteViewModel: SearchNoteViewModel by viewModels()
     private val homeNoteViewModel: HomeNoteViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
+    private val archiveNoteViewModel: ArchiveNoteViewModel by viewModels()
+    private val deleteNoteViewModel: DeletedNoteViewModel by viewModels()
+
+
     private  var adapter :NoteItemAdapter?= null
+    private var noteId: Long = -1
 
 
     override fun onCreateView(
@@ -46,6 +60,12 @@ class SearchNoteFragment : Fragment() {
 
         adapter = NoteItemAdapter(noteItemClickListener =searchNoteViewModel)
 
+        sharedViewModel.noteIdEvent.observe(viewLifecycleOwner) {
+            it?.getContentIfNotHandled()?.let { noteId ->
+                this.noteId = noteId
+            }
+        }
+
         binding.toolbarSearch.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
@@ -57,6 +77,43 @@ class SearchNoteFragment : Fragment() {
                 val directions =
                     SearchNoteFragmentDirections.actionSearchNoteFragmentToActionNoteFragment(it.id)
                 findNavController().navigate(directions)
+            }
+        }
+
+        sharedViewModel.noteUnArchivedEvent.observe(viewLifecycleOwner) {
+            it?.getContentIfNotHandled()?.let {msg ->
+                Snackbar.make(binding.root, msg, Snackbar.LENGTH_SHORT)
+                    .setAction(R.string.undo) {
+                        archiveNoteViewModel.undoUnArchive(noteId)
+                    }.show()
+            }
+        }
+
+        // called when user restore the note in trash fragment
+        sharedViewModel.noteUnRestoreEvent.observe(viewLifecycleOwner) {
+            it?.getContentIfNotHandled()?.let { msg ->
+                Snackbar.make(binding.root, msg, Snackbar.LENGTH_SHORT)
+                    .setGestureInsetBottomIgnored(true).setAction(R.string.undo) {
+                        deleteNoteViewModel.undoUnRestore(noteId)
+                    }.show()
+            }
+        }
+
+        sharedViewModel.noteArchivedEvent.observe(viewLifecycleOwner) {
+            it?.getContentIfNotHandled()?.let {msg ->
+                Snackbar.make(binding.root, msg, Snackbar.LENGTH_SHORT).setAction(R.string.undo) {
+                        homeNoteViewModel.redoNoteToActive(noteId)
+                    }.show()
+            }
+        }
+
+        sharedViewModel.noteDeletedEvent.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { content ->
+                Snackbar.make(requireView(), content, Snackbar.LENGTH_SHORT).setAction(
+                    R.string.undo
+                ) {
+                    homeNoteViewModel.redoNoteToActive(noteId)
+            }.show()
             }
         }
 
