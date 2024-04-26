@@ -7,7 +7,7 @@
             android:title="@string/note"
             android:icon="@drawable/notes_icon" />
 
-        <item android:id="@+id/reminderNoteFragment"
+        <item android:id="@+id/remindersFragment"
             android:title="@string/reminders"
             android:icon="@drawable/alarm_icon_24px" />
 

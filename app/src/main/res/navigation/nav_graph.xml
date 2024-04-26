@@ -70,4 +70,8 @@
             android:id="@+id/action_deletedNoteFragment_to_actionNoteFragment"
             app:destination="@id/actionNoteFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/remindersFragment"
+        android:name="com.mubarak.madexample.ui.reminders.RemindersFragment"
+        android:label="RemindersFragment" />
 </navigation>
