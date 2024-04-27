@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.mubarak.madexample.databinding.FragmentRemindersBinding
+import com.mubarak.madexample.utils.openNavDrawer
 
 class RemindersFragment : Fragment() {
 
@@ -26,6 +27,9 @@ class RemindersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.toolBarReminders.setNavigationOnClickListener {
+            requireView().openNavDrawer(requireActivity())
+        }
     }
 
 
