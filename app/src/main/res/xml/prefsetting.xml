@@ -20,6 +20,15 @@
     </PreferenceCategory>
 
     <Preference
+        app:key="activity"
+        app:title="Open Source Project">
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://github.com/MubarakNative/Diary-notes-app"/>
+    </Preference>
+
+    <Preference
         app:key="license"
         app:title="Version"
         app:summary="1.0.0"/>
