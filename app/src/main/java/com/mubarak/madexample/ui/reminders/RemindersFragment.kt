@@ -31,6 +31,9 @@ class RemindersFragment : Fragment() {
             requireView().openNavDrawer(requireActivity())
         }
 
+        binding.fabCreateReminderNote.setOnClickListener {
+
+        }
 
     }
 
