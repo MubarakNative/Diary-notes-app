@@ -47,5 +47,11 @@
     <string name="reminders">Reminders</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_reminder">Add reminder</string>
+    <string name="select_date">Select Date</string>
+    <string name="pick_a_date">Pick a date</string>
+    <string name="select_time">Select Time</string>
+    <string name="pick_a_time">Pick a time</string>
+    <string name="set_reminder">Set reminder</string>
 
 </resources>
