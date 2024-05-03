@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.mubarak.madexample.R
 import com.mubarak.madexample.databinding.FragmentRemindersBinding
-import com.mubarak.madexample.ui.note.HomeNoteFragmentDirections
 import com.mubarak.madexample.utils.openNavDrawer
 
 class RemindersFragment : Fragment() {
@@ -36,16 +36,41 @@ class RemindersFragment : Fragment() {
 
         binding.fabCreateReminderNote.setOnClickListener {
             navigateToAddEditFragment()
+            openDialog()
         }
 
+    }
+
+
+    private fun openDialog() {
+        val builder = MaterialAlertDialogBuilder(requireContext())
+        val view = layoutInflater.inflate(R.layout.reminder_dialog, null)
+
+        builder.setTitle(R.string.set_reminder)
+        builder.setView(view).setPositiveButton(
+            R.string.ok
+        ) { dialog, _ ->
+            // TODO: Create a reminder
+        }.setNegativeButton(
+            R.string.cancel
+        ) { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.show()
 
     }
+
 
     private fun navigateToAddEditFragment() {
         val action = RemindersFragmentDirections.actionRemindersFragmentToActionNoteFragment(
             -1
         )
         findNavController().navigate(action)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }
