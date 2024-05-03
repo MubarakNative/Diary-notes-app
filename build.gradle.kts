@@ -10,7 +10,7 @@ buildscript {
 }
 
 plugins {
-    id("com.android.application") version "8.3.2" apply false
+    id("com.android.application") version "8.4.0" apply false
     id("org.jetbrains.kotlin.android") version "1.9.23" apply false
     id("com.google.devtools.ksp") version "1.9.23-1.0.19" // Ksp (Kotlin symbolic processor) for generating code from annotation for room and hilt,...
     id("com.google.dagger.hilt.android") version "2.50" apply false // Hilt

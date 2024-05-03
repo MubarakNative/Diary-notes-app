@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.mubarak.madexample.databinding.FragmentRemindersBinding
+import com.mubarak.madexample.ui.note.HomeNoteFragmentDirections
 import com.mubarak.madexample.utils.openNavDrawer
 
 class RemindersFragment : Fragment() {
@@ -32,9 +35,17 @@ class RemindersFragment : Fragment() {
         }
 
         binding.fabCreateReminderNote.setOnClickListener {
-
+            navigateToAddEditFragment()
         }
 
+
+    }
+
+    private fun navigateToAddEditFragment() {
+        val action = RemindersFragmentDirections.actionRemindersFragmentToActionNoteFragment(
+            -1
+        )
+        findNavController().navigate(action)
     }
 
 }
