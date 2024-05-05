@@ -94,6 +94,9 @@ dependencies {
     // Preference Setting Compat (Setting screen)
     implementation ("androidx.preference:preference-ktx:1.2.1")
 
+    // Android 12 Splash
+    implementation ("androidx.core:core-splashscreen:1.1.0-rc01")
+
     // LeakCanary
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.13")
 
