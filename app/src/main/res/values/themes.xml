@@ -3,9 +3,6 @@
 
     <style name="Base.AppTheme" parent="Theme.Material3.Light.NoActionBar">
 
-        <item name="windowSplashScreenBackground">@color/white</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/note_app_icon</item>
-
         <item name="colorSecondary">@color/md_theme_light_secondary</item>
         <item name="colorOnSecondary">@color/md_theme_light_onSecondary</item>
         <item name="colorSecondaryContainer">@color/md_theme_light_secondaryContainer</item>
