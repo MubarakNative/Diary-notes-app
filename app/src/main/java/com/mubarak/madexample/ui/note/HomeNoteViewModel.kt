@@ -69,7 +69,7 @@ class HomeNoteViewModel @Inject constructor(
     fun redoNoteToActive(noteId: Long) {
         viewModelScope.launch {
             val note = noteRepository.getNoteById(noteId)
-            val updateNote = Note(note.id, note.title, note.description, NoteStatus.ACTIVE)
+            val updateNote = Note(note.id, note.title, note.description, null, NoteStatus.ACTIVE)
             noteRepository.upsertNote(updateNote)
         }
     }
@@ -77,7 +77,7 @@ class HomeNoteViewModel @Inject constructor(
     fun updateNoteStatus(noteId: Long) {
         viewModelScope.launch {
             val note = noteRepository.getNoteById(noteId)
-            val updateNote = Note(note.id, note.title, note.description, NoteStatus.ARCHIVE)
+            val updateNote = Note(note.id, note.title, note.description, null, NoteStatus.ARCHIVE)
             noteRepository.upsertNote(updateNote)
             _noteStatusChangeEvent.value = Event(R.string.note_archived)
         }

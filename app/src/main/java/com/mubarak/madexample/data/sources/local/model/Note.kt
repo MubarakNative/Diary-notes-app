@@ -1,6 +1,7 @@
 package com.mubarak.madexample.data.sources.local.model
 
 import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.mubarak.madexample.utils.NoteStatus
@@ -17,6 +18,9 @@ data class Note(
 
     @ColumnInfo("Description")
     val description: String,
+
+    @Embedded
+    val reminder: Reminder?,
 
     @ColumnInfo("note_status")
     val noteStatus: NoteStatus
