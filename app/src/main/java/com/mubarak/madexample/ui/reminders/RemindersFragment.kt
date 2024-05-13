@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.mubarak.madexample.R
+import com.google.android.material.timepicker.MaterialTimePicker
 import com.mubarak.madexample.databinding.FragmentRemindersBinding
 import com.mubarak.madexample.utils.openNavDrawer
 
@@ -15,6 +15,8 @@ class RemindersFragment : Fragment() {
 
     private var _binding: FragmentRemindersBinding? = null
     private val binding: FragmentRemindersBinding get() = _binding!!
+    private val reminderViewModel: ReminderViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,25 +41,24 @@ class RemindersFragment : Fragment() {
             openDialog()
         }
 
+
     }
 
 
     private fun openDialog() {
-        val builder = MaterialAlertDialogBuilder(requireContext())
-        val view = layoutInflater.inflate(R.layout.reminder_dialog, null)
+        val timePicker = MaterialTimePicker.Builder()
+            .setTitleText("Pick a time to remind")
+            .setPositiveButtonText(getString(com.mubarak.madexample.R.string.ok))
+            .setNegativeButtonText(getString(com.mubarak.madexample.R.string.cancel))
 
-        builder.setTitle(R.string.set_reminder)
-        builder.setView(view).setPositiveButton(
-            R.string.ok
-        ) { dialog, _ ->
-            // TODO: Create a reminder
-        }.setNegativeButton(
-            R.string.cancel
-        ) { dialog, _ ->
-            dialog.dismiss()
+            .build()
+        timePicker.addOnPositiveButtonClickListener {
+
         }
-        builder.show()
+        timePicker.addOnNegativeButtonClickListener {
 
+        }
+        timePicker.show(childFragmentManager, "TimePicker")
     }
 
 

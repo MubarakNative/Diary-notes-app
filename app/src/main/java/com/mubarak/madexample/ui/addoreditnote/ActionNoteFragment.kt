@@ -17,6 +17,7 @@ import com.mubarak.madexample.R
 import com.mubarak.madexample.data.sources.datastore.TodoPreferenceDataStore
 import com.mubarak.madexample.databinding.FragmentActionNoteBinding
 import com.mubarak.madexample.ui.SharedViewModel
+import com.mubarak.madexample.ui.reminders.RemindersFragment
 import com.mubarak.madexample.utils.NoteStatus
 import com.mubarak.madexample.utils.hideSoftKeyboard
 import com.mubarak.madexample.utils.showSoftKeyboard

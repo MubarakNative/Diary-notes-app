@@ -26,7 +26,7 @@ class ArchiveNoteViewModel @Inject constructor(
     fun undoUnArchive(noteId: Long) {
         viewModelScope.launch{
             val note = noteRepository.getNoteById(noteId)
-            val updateNote = Note(note.id,note.title,note.description, NoteStatus.ARCHIVE)
+            val updateNote = Note(note.id,note.title,note.description, null, NoteStatus.ARCHIVE)
 
             noteRepository.upsertNote(updateNote)
         }
