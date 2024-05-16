@@ -37,7 +37,6 @@ class DeletedNoteViewModel @Inject constructor(
 
     override fun onNoteItemClick(note: Note) {
         _onNoteItemClick.value = Event(note)
-
     }
 
     fun deleteAllNotes(){

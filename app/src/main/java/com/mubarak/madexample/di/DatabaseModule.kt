@@ -1,6 +1,5 @@
 package com.mubarak.madexample.di
 
-
 import android.content.Context
 import androidx.room.Room
 import com.mubarak.madexample.data.sources.NoteRepository

@@ -66,7 +66,6 @@ class SharedViewModel @Inject constructor(
 
     fun onNoteUnRestore(){
         _noteUnRestoreEvent.value = Event(R.string.restore_note)
-
     }
 
 }
