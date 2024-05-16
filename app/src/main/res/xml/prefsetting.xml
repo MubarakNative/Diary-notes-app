@@ -14,12 +14,13 @@
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
-
+  
     <PreferenceCategory app:title="About">
 
         <Preference
-            app:key="activity"
-            app:title="Open Source Project">
+        app:key="activity"
+        app:title="Open Source Project"
+        android:icon="@drawable/code_icon24px">
 
             <intent
                 android:action="android.intent.action.VIEW"
@@ -32,6 +33,5 @@
             app:title="Version" />
 
     </PreferenceCategory>
-
 
 </PreferenceScreen>
