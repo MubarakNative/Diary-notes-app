@@ -32,6 +32,6 @@
     <Preference
         app:key="license"
         app:title="Version"
-        app:summary="1.0.0"/>
+        app:summary="1.0.5"/>
 
 </PreferenceScreen>
