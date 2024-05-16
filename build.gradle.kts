@@ -1,4 +1,4 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+/*// Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
         google()
@@ -14,4 +14,21 @@ plugins {
     id("org.jetbrains.kotlin.android") version "1.9.23" apply false
     id("com.google.devtools.ksp") version "1.9.23-1.0.19" // Ksp (Kotlin symbolic processor) for generating code from annotation for room and hilt,...
     id("com.google.dagger.hilt.android") version "2.50" apply false // Hilt
+}*/
+
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        google()
+    }
+    dependencies {
+        classpath(libs.androidx.navigation.safe.args.gradle.plugin)
+    }
+}
+
+plugins {
+    alias(libs.plugins.androidApplication) apply false
+    alias(libs.plugins.jetbrainsKotlinAndroid) apply false
+    alias(libs.plugins.kotlinSymbolProcessing)
+    alias(libs.plugins.daggerHilt) apply false
 }
