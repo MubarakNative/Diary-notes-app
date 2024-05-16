@@ -25,7 +25,7 @@ class DeletedNoteViewModel @Inject constructor(
     fun undoUnRestore(noteId: Long) {
         viewModelScope.launch {
             val note = noteRepository.getNoteById(noteId)
-            val updateNote = Note(note.id, note.title, note.description, NoteStatus.TRASH)
+            val updateNote = Note(note.id, note.title, note.description, null, NoteStatus.TRASH)
 
             noteRepository.upsertNote(updateNote)
         }

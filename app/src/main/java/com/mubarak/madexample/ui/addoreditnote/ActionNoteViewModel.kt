@@ -57,7 +57,7 @@ class ActionNoteViewModel @Inject constructor(
 
     private var status: NoteStatus = NoteStatus.ACTIVE
 
-     var noteId: Long = -1L
+    var noteId: Long = -1L
 
     fun checkIsNewNoteOrExistingNote(noteId: Long) {
 
@@ -99,7 +99,8 @@ class ActionNoteViewModel @Inject constructor(
             } else {
                 val note = Note(
                     id = 0L, title = title.value, description = description.value,
-                    noteStatus = NoteStatus.ACTIVE
+                    noteStatus = NoteStatus.ACTIVE,
+                    reminder = null
                 )
                 createNote(note)
             }
@@ -129,7 +130,7 @@ class ActionNoteViewModel @Inject constructor(
                     viewModelScope.launch {
                         noteRepository.upsertNote(
                             Note(
-                                noteId, title.value, description.value, NoteStatus.TRASH
+                                noteId, title.value, description.value, null, NoteStatus.TRASH,
                             )
                         )
                     }
@@ -148,6 +149,7 @@ class ActionNoteViewModel @Inject constructor(
                             noteStatus.id,
                             noteStatus.title,
                             noteStatus.description,
+                            null,
                             NoteStatus.TRASH
                         )
                     )
@@ -186,6 +188,7 @@ class ActionNoteViewModel @Inject constructor(
                         id = 0,
                         getNoteById.title,
                         getNoteById.description,
+                        null,
                         getNoteById.noteStatus
                     )
                     noteRepository.insertNote(note)
@@ -206,7 +209,7 @@ class ActionNoteViewModel @Inject constructor(
         status = noteStatus
         _noteStatus.value = Event(noteStatus)
         noteRepository.upsertNote(
-            Note(noteId, title.value, description.value, noteStatus)
+            Note(noteId, title.value, description.value, null, noteStatus)
         )
     }
 
@@ -222,7 +225,7 @@ class ActionNoteViewModel @Inject constructor(
                     viewModelScope.launch {
                         noteRepository.upsertNote(
                             Note(
-                                noteId, title.value, description.value, NoteStatus.ARCHIVE
+                                noteId, title.value, description.value, null, NoteStatus.ARCHIVE
                             )
                         )
                     }
@@ -241,6 +244,7 @@ class ActionNoteViewModel @Inject constructor(
                             noteStatus.id,
                             noteStatus.title,
                             noteStatus.description,
+                            null,
                             NoteStatus.ACTIVE
                         )
                     )
@@ -260,6 +264,7 @@ class ActionNoteViewModel @Inject constructor(
                             noteStatus.id,
                             noteStatus.title,
                             noteStatus.description,
+                            null,
                             NoteStatus.ACTIVE
                         )
                     )
