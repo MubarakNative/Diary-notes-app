@@ -21,9 +21,4 @@ data class Note(
     @ColumnInfo("note_status")
     val noteStatus: NoteStatus
 
-){
-
-    val isEmpty: Boolean
-    get() = title.isBlank() && description.isBlank()
-
-}
+)

@@ -30,7 +30,6 @@ class ActionNoteViewModelTest {
     fun setUp() {
         fakeNoteRepository = FakeNoteRepository()
         actionNoteViewModel = ActionNoteViewModel(fakeNoteRepository)
-
     }
 
     @Test
@@ -39,7 +38,6 @@ class ActionNoteViewModelTest {
         val noteId = fakeNoteRepository.getNoteById(note.id)
         assertThat(note.title).isEqualTo(noteId.title)
         assertThat(note.description).isEqualTo(noteId.description)
-
     }
 
 

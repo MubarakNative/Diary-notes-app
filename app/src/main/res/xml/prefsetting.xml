@@ -21,7 +21,8 @@
 
     <Preference
         app:key="activity"
-        app:title="Open Source Project">
+        app:title="Open Source Project"
+        android:icon="@drawable/code_icon24px">
 
         <intent
             android:action="android.intent.action.VIEW"

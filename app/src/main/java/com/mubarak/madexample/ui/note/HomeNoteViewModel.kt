@@ -42,7 +42,6 @@ class HomeNoteViewModel @Inject constructor(
     private val _noteStatusChangeEvent = MutableLiveData<Event<Int>>()
     val noteStatusChangeEvent: LiveData<Event<Int>> = _noteStatusChangeEvent
 
-
     init {
         viewModelScope.launch {
             _noteItemLayout.value = todoPreferenceDataStore.getNoteLayout.first()
