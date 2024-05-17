@@ -114,6 +114,7 @@ class ActionNoteViewModel @Inject constructor(
             }
 
         }
+        _noteIdEvent.value = Event(noteId)
 
         _backPressEvent.value = Event(Unit)
 

@@ -93,6 +93,18 @@
                     android:textDirection="anyRtl"
                     android:textSize="16sp" />
 
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/reminderChip"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="14 May 2024 12:23 PM"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignTop="@id/etAddDesc"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:layout_marginTop="23dp"/>
+
             </RelativeLayout>
 
 
