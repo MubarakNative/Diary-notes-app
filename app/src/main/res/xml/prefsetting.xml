@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <PreferenceCategory android:title="Theme">
+    <PreferenceCategory
+        android:title="Theme">
 
         <DropDownPreference
+            app:title="App Theme"
+            android:icon="@drawable/theme_icon24px"
+            android:key="theme"
             android:defaultValue="FOLLOW_SYSTEM"
             android:entries="@array/theme_entries"
             android:entryValues="@array/theme_values"
-            android:icon="@drawable/theme_icon24px"
-            android:key="theme"
-            app:title="App Theme"
-            app:useSimpleSummaryProvider="true" />
+            app:useSimpleSummaryProvider="true"
+            />
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="About">
+    <Preference
+        app:key="activity"
+        app:title="Open Source Project"
+        android:icon="@drawable/code_icon24px">
 
-        <Preference
-            app:key="activity"
-            app:title="Open Source Project">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://github.com/MubarakNative/Diary-notes-app"/>
+    </Preference>
 
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="https://github.com/MubarakNative/Diary-notes-app" />
-        </Preference>
-
-        <Preference
-            app:key="license"
-            app:summary="1.0.5"
-            app:title="Version" />
-
-    </PreferenceCategory>
-
+    <Preference
+        app:key="license"
+        app:title="Version"
+        app:summary="1.0.5"/>
 
 </PreferenceScreen>
