@@ -22,6 +22,7 @@
     <PreferenceCategory
         app:title="About">
 
+
         <Preference
             app:key="activity"
             app:title="Open Source Project"
