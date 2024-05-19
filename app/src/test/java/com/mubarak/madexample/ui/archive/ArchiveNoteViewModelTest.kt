@@ -26,8 +26,8 @@ class ArchiveNoteViewModelTest {
     @get:Rule
     var taskExecutorRule = InstantTaskExecutorRule()
 
-    private val activeNote = Note(1, "Title", "Description", NoteStatus.ACTIVE)
-    private val deletedNote = Note(1, "Title", "Description", NoteStatus.TRASH)
+    private val activeNote = Note(1, "Title", "Description", null,NoteStatus.ACTIVE)
+    private val deletedNote = Note(1, "Title", "Description", null,NoteStatus.TRASH)
 
     @Before
     fun setUp() {
@@ -46,6 +46,7 @@ class ArchiveNoteViewModelTest {
             1,
             "Title",
             "Description",
+            null,
             NoteStatus.ARCHIVE
         )
         assertThat(actual).isEqualTo(expected)
@@ -62,6 +63,7 @@ class ArchiveNoteViewModelTest {
             1,
             "Title",
             "Description",
+           null,
             NoteStatus.ARCHIVE
         )
         assertThat(actual).isEqualTo(expected)
@@ -74,6 +76,7 @@ class ArchiveNoteViewModelTest {
                 1,
                 "Archived Title",
                 "Archived Note Description",
+                null,
                 NoteStatus.ARCHIVE
             )
         )
