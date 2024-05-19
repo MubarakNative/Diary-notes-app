@@ -5,6 +5,7 @@ import com.google.common.truth.Truth.assertThat
 import com.mubarak.madexample.MainCoroutineRule
 import com.mubarak.madexample.data.repository.FakeNoteRepository
 import com.mubarak.madexample.data.sources.local.model.Note
+import com.mubarak.madexample.data.sources.local.model.Reminder
 import com.mubarak.madexample.utils.NoteStatus
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -24,7 +25,7 @@ class ActionNoteViewModelTest {
     @get:Rule
     var taskExecutorRule = InstantTaskExecutorRule()
 
-    private val note = Note(1, "New note title", "New note description", NoteStatus.ACTIVE)
+    private val note = Note(1, "New note title", "New note description", null,NoteStatus.ACTIVE)
 
     @Before
     fun setUp() {

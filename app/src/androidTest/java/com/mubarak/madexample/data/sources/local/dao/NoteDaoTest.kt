@@ -38,7 +38,7 @@ class NoteDaoTest {
 
     @Test
     fun insertNote_getNoteById_ExpectingSameNote() = runTest {
-        val note = Note(1, "Dao Test", "Testing Dao", NoteStatus.ACTIVE)
+        val note = Note(1, "Dao Test", "Testing Dao", null, NoteStatus.ACTIVE)
         noteDatabase.getDao.insertNote(note)
 
         val getNote = noteDatabase.getDao.getNoteById(note.id)
@@ -47,10 +47,10 @@ class NoteDaoTest {
 
     @Test
     fun updateNote_getNoteById_ExpectingDiffNoteAttribute() = runTest {
-        val note = Note(1, "Original Note Title", "Original Note Description", NoteStatus.ACTIVE)
+        val note = Note(1, "Original Note Title", "Original Note Description",null, NoteStatus.ACTIVE)
         noteDatabase.getDao.insertNote(note)
 
-        val updatedNote = Note(note.id, "Updated Title", "Updated Description", NoteStatus.ARCHIVE)
+        val updatedNote = Note(note.id, "Updated Title", "Updated Description",null,NoteStatus.ARCHIVE)
         noteDatabase.getDao.upsertNote(updatedNote)
         val getNote = noteDatabase.getDao.getNoteById(note.id)
         assertThat(getNote).isEqualTo(updatedNote)
@@ -60,9 +60,9 @@ class NoteDaoTest {
     @Test
     fun insertAllNotes_getAllNotes_ExpectingSameNote() = runTest {
         val noteList = listOf(
-            Note(1, "1st Note Title", "1st Note Description", NoteStatus.ACTIVE),
-            Note(2, "2st Note Title", "2st Note Description", NoteStatus.ARCHIVE),
-            Note(3, "3st Note Title", "3st Note Description", NoteStatus.TRASH),
+            Note(1, "1st Note Title", "1st Note Description", null,NoteStatus.ACTIVE),
+            Note(2, "2st Note Title", "2st Note Description", null,NoteStatus.ARCHIVE),
+            Note(3, "3st Note Title", "3st Note Description", null,NoteStatus.TRASH),
         )
         noteDatabase.getDao.insertAllNote(noteList)
         val getAllNotes = noteDatabase.getDao.getAllNotes().first()
@@ -72,7 +72,7 @@ class NoteDaoTest {
 
     @Test
     fun deleteNote_getAllNotes_EmptyListIsEmpty() = runTest {
-        val note = Note(1, "Title", "Description", NoteStatus.TRASH)
+        val note = Note(1, "Title", "Description",null,NoteStatus.TRASH)
         noteDatabase.getDao.insertNote(note)
         noteDatabase.getDao.deleteNote(note)
 
@@ -82,7 +82,7 @@ class NoteDaoTest {
 
     @Test
     fun deleteNoteById_getAllNotes_EmptyListIsEmpty() = runTest {
-        val note = Note(1, "Title", "Description", NoteStatus.ACTIVE)
+        val note = Note(1, "Title", "Description",null,NoteStatus.ACTIVE)
         noteDatabase.getDao.insertNote(note)
         noteDatabase.getDao.deleteNoteById(note.id)
 
@@ -94,9 +94,9 @@ class NoteDaoTest {
     fun deleteAllNote_getAllNotes_EmptyListIsEmpty() = runTest {
         noteDatabase.getDao.insertAllNote(
             listOf(
-                Note(1, "Title 1", "1 Description", NoteStatus.ACTIVE),
-                Note(2, "Title 2", "2 Description", NoteStatus.ARCHIVE),
-                Note(3, "Title 3", "3 Description", NoteStatus.TRASH),
+                Note(1, "Title 1", "1 Description",null,NoteStatus.ACTIVE),
+                Note(2, "Title 2", "2 Description", null,NoteStatus.ARCHIVE),
+                Note(3, "Title 3", "3 Description",null,NoteStatus.TRASH),
             )
         )
         noteDatabase.getDao.deleteAllNotes()
@@ -108,7 +108,7 @@ class NoteDaoTest {
     @Test
     fun deleteAllNotesInTrash_getNoteByStatusTrash_EmptyListIsEmpty() = runTest {
 
-        noteDatabase.getDao.insertNote(Note(1, "Title", "Description", NoteStatus.TRASH))
+        noteDatabase.getDao.insertNote(Note(1, "Title", "Description",null, NoteStatus.TRASH))
         noteDatabase.getDao.deleteAllNotesInTrash()
         val getNote = noteDatabase.getDao.getNoteByStatus(NoteStatus.TRASH).first()
         assertThat(getNote.isEmpty()).isEqualTo(true)
@@ -116,7 +116,7 @@ class NoteDaoTest {
 
     @Test
     fun getNoteStream_getNoteById_ExpectedNoteWithSameAttrsThatInserted() = runTest {
-        val note = Note(1, "Title", "Description", NoteStatus.TRASH)
+        val note = Note(1, "Title", "Description", null,NoteStatus.TRASH)
         noteDatabase.getDao.insertNote(note)
         val getNote = noteDatabase.getDao.getNoteStream(note.id).first()
         assertThat(getNote).isEqualTo(note)
@@ -125,9 +125,9 @@ class NoteDaoTest {
     @Test
     fun getSearchedNote_getAllNote_ExpectedAppropriateSearchedNote() = runTest {
         val noteList = listOf(
-            Note(1, "Test", "NoteDao Test", NoteStatus.ACTIVE),
-            Note(2, "Development", "This Project is under heavy development", NoteStatus.ARCHIVE),
-            Note(3, "Architecture", "Try new make a scalable architecture", NoteStatus.TRASH),
+            Note(1, "Test", "NoteDao Test", null,NoteStatus.ACTIVE),
+            Note(2, "Development", "This Project is under heavy development", null,NoteStatus.ARCHIVE),
+            Note(3, "Architecture", "Try new make a scalable architecture", null,NoteStatus.TRASH),
         )
         noteDatabase.getDao.insertAllNote(
             noteList

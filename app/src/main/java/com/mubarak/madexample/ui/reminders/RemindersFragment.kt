@@ -34,18 +34,10 @@ class RemindersFragment : Fragment() {
             requireView().openNavDrawer(requireActivity())
         }
 
-        binding.fabCreateReminderNote.setOnClickListener {
-            navigateToAddEditFragment()
-        }
+
 
 
     }
 
-    private fun navigateToAddEditFragment() {
-        val action = RemindersFragmentDirections.actionRemindersFragmentToActionNoteFragment(
-            -1
-        )
-        findNavController().navigate(action)
-    }
 
 }
