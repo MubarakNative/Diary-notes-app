@@ -48,6 +48,7 @@ class HomeNoteViewModelTest {
             1,
             "Title",
             "Description",
+            null,
             NoteStatus.ARCHIVE
         )
         fakeNoteRepository.insertNote(note)
@@ -58,6 +59,7 @@ class HomeNoteViewModelTest {
             1,
             "Title",
             "Description",
+            null,
             NoteStatus.ACTIVE
         )
         assertThat(actual).isEqualTo(expected)
@@ -69,6 +71,7 @@ class HomeNoteViewModelTest {
             1,
             "Title",
             "Description",
+            null,
             NoteStatus.TRASH
         )
         fakeNoteRepository.insertNote(note)
@@ -79,6 +82,7 @@ class HomeNoteViewModelTest {
             1,
             "Title",
             "Description",
+            null,
             NoteStatus.ACTIVE
         )
         assertThat(actual).isEqualTo(expected)
@@ -90,6 +94,7 @@ class HomeNoteViewModelTest {
             1,
             "Title",
             "Description",
+            null,
             NoteStatus.ACTIVE
         )
         fakeNoteRepository.insertNote(note)
@@ -100,6 +105,7 @@ class HomeNoteViewModelTest {
             1,
             "Title",
             "Description",
+            null,
             NoteStatus.ARCHIVE
         )
         assertThat(actual).isEqualTo(expected)
@@ -109,7 +115,7 @@ class HomeNoteViewModelTest {
     fun getAllNotes_AddSingleNote_ShouldReturnSameNote() = runTest {
 
         fakeNoteRepository.noteList.add(
-            Note(1,"Note Title","Note Description",NoteStatus.ACTIVE)
+            Note(1,"Note Title","Note Description",null,NoteStatus.ACTIVE)
         )
         val noteList = homeNoteViewModel.getAllNote.getOrAwaitValue()
         assertThat(noteList).hasSize(1)
