@@ -19,19 +19,25 @@
 
     </PreferenceCategory>
 
-    <Preference
-        app:key="activity"
-        app:title="Open Source Project"
-        android:icon="@drawable/code_icon24px">
+    <PreferenceCategory
+        app:title="About">
 
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:data="https://github.com/MubarakNative/Diary-notes-app"/>
-    </Preference>
+        <Preference
+            app:key="activity"
+            app:title="Open Source Project"
+            android:icon="@drawable/code_icon24px">
 
-    <Preference
-        app:key="license"
-        app:title="Version"
-        app:summary="1.0.5"/>
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/MubarakNative/Diary-notes-app"/>
+        </Preference>
+
+        <Preference
+            app:key="license"
+            app:title="Version"
+            app:summary="1.0.5"/>
+
+    </PreferenceCategory>
+
 
 </PreferenceScreen>

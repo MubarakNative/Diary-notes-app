@@ -71,7 +71,7 @@ This app is currently in development. New features and improvements might be add
 
 - [ ] Sorting and filtering the notes and some others.
 
-- [ ] Probably i can switch views to compose.
+- [ ] Probably i can switch views to compose (Migrating toward to compose).
 
 ### Contribution 🤝
 
