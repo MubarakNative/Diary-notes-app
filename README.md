@@ -71,10 +71,10 @@ This app is currently in development. New features and improvements might be add
 
 - [ ] Sorting and filtering the notes and some others.
 
-- [ ] Probably i can switch views to compose (Migrating toward to compose).
+- [x] Probably i can switch views to compose (Migrating toward to compose Visit: [Diary in Compose](https://github.com/MubarakNative/Diary-notes-app-compose)).
 
 ### Contribution 🤝
 
-If you would like to contribute to this project, you can do it. As I already mentioned, 
-this project primarily focuses on architecture use Layered Architecture and SOLID principles. 
+If you would like to contribute to this project, you can do it. As I already mentioned,
+this project primarily focuses on architecture use Layered Architecture and SOLID principles.
 All features and improvements should be committed to respective branches, not directly to the main.
